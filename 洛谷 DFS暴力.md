@@ -1,4 +1,6 @@
-# P1605迷宫
+# 关于二维的DFS
+
+## P1605迷宫
 
 [P1605 迷宫 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1605)
 
@@ -22,56 +24,96 @@ Ideas:
 ```java
 import java.util.Scanner;
 public class Main {
-	static int N,M,T,SX,SY,FX,FY;
-	static int[][] arr;
-	static int res = 0;
-	public static void main(String[] args) {
-	   Scanner s = new Scanner(System.in);
-	   N = s.nextInt();
-	   M = s.nextInt();
-	   T = s.nextInt();
-	   SX = s.nextInt();
-	   SY = s.nextInt();
-	   FX = s.nextInt();
-	   FY = s.nextInt();
-	   arr = new int[N+2][M+2];
-	   for (int i = 1; i <=T; i++) {
-		   int x = s.nextInt();
-		   int y = s.nextInt();
-		   arr[x][y]= 1; 
-	   }
-	   for (int i = 0; i <=N+1; i++) {
-		   arr[i][0] = 1;
-		   arr[i][M+1] = 1;
-	   }
-	   for (int i = 0; i <=M+1; i++) {
-		   arr[0][i] = 1;
-		   arr[N+1][i] = 1;
-	   }
-	   dfs(SX,SY);
-	   System.out.println(res);
-    }
-	
-	public static void dfs(int cx,int cy) {
-		if (arr[cx][cy]==1) {//当前位置是障碍直接回溯
+	static int N, M, T, SX, SY, FX, FY, a[][], res = 0;
+	static int[] dx = {1, -1, 0, 0};
+	static int[] dy = {0, 0, 1, -1};
+	public static void main(String[] args){
+		Scanner s = new Scanner(System.in);
+		N = s.nextInt();
+		M = s.nextInt();
+		T = s.nextInt();
+		a = new int[N+1][M+1];
+		SX = s.nextInt();
+		SY = s.nextInt();
+		FX = s.nextInt();
+		FY = s.nextInt();
+		for(int i = 0; i <= T-1; i++) {
+			int ox = s.nextInt();
+			int oy = s.nextInt();
+			a[ox][oy] = 1; 
+		}
+		dfs(SX, SY);
+		System.out.println(res);
+	}
+	private static void dfs(int x, int y) {
+		if (x < 1||x > N||y < 1||y > M||a[x][y] == 1) {//防止越界 遇到障碍返回
 			return;
 		}
-		if (cx==FX&&cy==FY) {
+		if (x == FX&&y == FY) {
 			res++;
 			return;
 		}
-			arr[cx][cy] = 1;
-			dfs(cx+1, cy);
-			dfs(cx-1, cy);
-			dfs(cx, cy+1);
-			dfs(cx, cy-1);
-			arr[cx][cy] = 0;		
-	}
+		a[x][y] = 1;//走过的地方标记为障碍，防止走回来
+		for(int i = 0; i<=3; i++) {//四个方向dfs
+			dfs(x + dx[i], y + dy[i]);
+		}
+		a[x][y] = 0;//记得恢复状态
+	}	
 }
 
 ```
 
+## P1596 Lake Counting S
 
+[P1596 [USACO10OCT\] Lake Counting S - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1596)
+
+由于近期的降雨，雨水汇集在农民约翰的田地不同的地方。我们用一个 $N\times M(1\leq N\leq 100, 1\leq M\leq 100)$ 的网格图表示。每个网格中有水（`W`） 或是旱地（`.`）。一个网格与其周围的八个网格相连，而一组相连的网格视为一个水坑。约翰想弄清楚他的田地已经形成了多少水坑。给出约翰田地的示意图，确定当中有多少水坑。
+
+> tags: DFS
+
+Ideas:
+
+> **DFS求连通块**；遍历区域，遇到`W`水坑数+1，从此处开始**八个方向**dfs，搜索出所有的连通域改为`.`，无需回溯（防止之后的遍历遇到该水坑的`W`）.
+
+```java
+import java.util.Scanner;
+public class Main {
+	static int N, M, res = 0;
+	static char[][] a;
+	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
+	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+	public static void main(String[] args){
+		Scanner s = new Scanner(System.in);
+		N = s.nextInt();
+		M = s.nextInt();
+		a = new char[N][M];
+		for(int i = 0; i <= N - 1; i ++) {
+			a[i] = s.next().toCharArray(); 
+		}
+		for(int i = 0; i<=N-1;i++) {
+			for(int j = 0; j<=M-1;j++) {
+				if (a[i][j] == 'W') {
+					res++;
+					dfs(i, j);
+				}
+			}
+		}
+		System.out.println(res);
+	}
+    
+	private static void dfs(int i, int j) {
+		if (i < 0 || i > N - 1 || j < 0 || j > M - 1||a[i][j] == '.') {//越界 遇到不是水坑
+			return;
+		}		
+		a[i][j] = '.'; 
+		for(int k = 0; k<=7; k++) {//八个方向
+			dfs(i + dx[k], j + dy[k]);
+		}
+	}	
+}
+```
+
+# 
 
 # P1036选数
 
@@ -187,66 +229,6 @@ public class Main {
 			sum-=i;
 			arr[count]=0;			
 		}
-	}
-	}
-```
-
-# P1596 Lake Counting S
-
-[P1596 [USACO10OCT\] Lake Counting S - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1596)
-
-由于近期的降雨，雨水汇集在农民约翰的田地不同的地方。我们用一个 $N\times M(1\leq N\leq 100, 1\leq M\leq 100)$ 的网格图表示。每个网格中有水（`W`） 或是旱地（`.`）。一个网格与其周围的八个网格相连，而一组相连的网格视为一个水坑。约翰想弄清楚他的田地已经形成了多少水坑。给出约翰田地的示意图，确定当中有多少水坑。
-
-> tags: DFS
-
-Ideas:
-
-> **DFS求连通块**；遍历区域，遇到`W`水坑数+1，从此处开始**八个方向**dfs，搜索出所有的连通域改为`.`，无需回溯（防止之后的遍历遇到该水坑的`W`.
-
-```java
-
-import java.util.Scanner;
-public class Main {
-	static int N,M;
-	static char[][] arr;
-	static int res = 0;
-	public static void main(String[] args) {
-       //读数据
-	   Scanner s = new Scanner(System.in);
-	   N = s.nextInt();
-	   M = s.nextInt();
-	   s.nextLine();
-	   arr = new char[N][M];
-	   for (int i = 0; i <=N-1; i++) {
-		arr[i]=s.next().toCharArray();
-	}
-	   //----
-	   for (int i = 0; i <=N-1; i++) {
-		   for (int j = 0; j <=M-1; j++) {
-			   if (arr[i][j]=='W') {
-				   res++;
-				   b(i,j);
-			}
-		}
-	}
-	   System.out.println(res);
-}
-	private static void b(int x, int y) {
-		if (x<0||x>N-1||y<0||y>M-1) {//限制边界
-			return;
-		}
-		if (arr[x][y]=='.') {
-			return;
-		}
-		arr[x][y]='.';
-		b(x+1, y);
-		b(x-1, y);
-		b(x, y+1);
-		b(x, y-1);
-		b(x+1, y+1);
-		b(x+1, y-1);
-		b(x-1, y+1);
-		b(x-1, y-1);	
 	}
 	}
 ```
@@ -608,6 +590,63 @@ public class Main {
 		st.nextToken();
 		return (int)st.nval;
 	}
+}
+```
+
+# P1101单词方阵
+
+给一 $n \times n$ 的字母方阵，内可能蕴含多个 `yizhong` 单词。单词在方阵中是沿着同一方向连续摆放的。摆放可沿着 $8$ 个方向的任一方向，同一单词摆放时不再改变方向，单词与单词之间可以交叉，因此有可能共用字母。输出时，将不是单词的字母用 `*` 代替，以突出显示单词。
+
+```java
+import java.util.Scanner;
+public class Main {
+	static String target = "yizhong";
+	static int n;
+	static String[] strs;
+	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
+	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+	static int[] xs = new int[7], ys = new int[7];//记录搜索路径
+	static char[][] res;//记录结果
+	public static void main(String[] args){
+		Scanner s = new Scanner(System.in);
+		n = s.nextInt();
+		res = new char[n][n];
+		strs = new String[n];
+		for(int i = 0; i <= n-1; i++) {
+			strs[i] = s.next(); 
+		}
+		
+		for (int i = 0; i <=n-1; i++) {
+			for(int j = 0;j <= n-1; j++) {
+					for(int k = 0; k<=7; k++) {//八个方向
+						dfs(i, j, dx[k], dy[k], 0);
+				}
+			}
+		}
+		for (int i = 0; i <=n-1; i++) {//输出答案
+			for(int j = 0; j<=n-1; j++) {
+				System.out.print(res[i][j]==0?'*':res[i][j]);
+			}
+			System.out.println();
+		}
+}
+	public static void dfs(int x, int y, int dx, int dy, int Idx) {
+		if (Idx==7) {//处理答案	
+			for (int k = 0; k <=6; k++) {
+				res[xs[k]][ys[k]] = target.charAt(k); 
+			}
+			return;
+		}
+		//越界 或 跟目标字符串不匹配了
+		if (x<0||x>n-1||y<0||y>n-1||strs[x].charAt(y)!=target.charAt(Idx)) {
+			return;
+		}
+		xs[Idx] = x;
+		ys[Idx] = y; 
+		dfs(x+dx, y+dy, dx, dy, Idx+1);
+		xs[Idx] = 0;
+		ys[Idx] = 0; 		
+	}	
 }
 ```
 
