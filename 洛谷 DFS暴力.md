@@ -113,9 +113,59 @@ public class Main {
 }
 ```
 
+## P1162 填涂颜色
+
+[P1162 填涂颜色 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1162)
+
+由数字 $0$ 组成的方阵中，有一任意形状的由数字 $1$ 构成的闭合圈。现要求把闭合圈内的所有空间都填写成 $2$。例如：$6\times 6$ 的方阵（$n=6$），涂色前和涂色后的方阵如下：
+
+如果从某个 $0$ 出发，只向上下左右 $4$ 个方向移动且仅经过其他 $0$ 的情况下，无法到达方阵的边界，就认为这个 $0$ **在闭合圈内**。闭合圈不一定是环形的，可以是任意形状，但保证**闭合圈内**的 $0$ 是连通的（两两之间可以相互到达）。
+
+> tag: DFS
+
+Ideas：
+
+> DFS求连通块；要操作闭合圆环内的区域，转换思路，操作圆环内区域的补集---圆环外的区域，没有接触边界的区域定义为圆环内的区域，则圆环外的区域一定是接触边界的，将边界初始化为圆环外的区域，那么所有圆环外的区域就变成了一个连通域，从区域的一角`dfs`则可以搜索出所有的圆环外的区域，无需回溯，全部使之变为2；输出时对2和0的元素操作即可。对于是1的元素直接输出，其他元素：`arr[i][j]`取负再+2即可将2变为0，0变为2。即得所求。
+
+```java
+import java.util.Scanner;
+public class Main {
+	static int N, a[][];
+	static int[] dx = {1, -1, 0, 0};
+	static int[] dy = {0, 0, 1, -1};
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		N = s.nextInt();
+		a = new int[N + 2][N + 2];
+		for(int i = 1; i <= N; i++) {
+			for(int j = 1; j <= N; j++) {
+				a[i][j] = s.nextInt();
+			}
+		}
+		//
+		dfs(0,0);   
+		for(int i = 1; i <= N; i++) {//输出答案
+			for(int j = 1; j <= N; j++) {
+				System.out.print((a[i][j] == 1? 1:-a[i][j]+2) + " ");
+			}
+			System.out.println();
+    }		
+	}
+	private static void dfs(int i, int j) {
+		if(i<0||i>N+1||j<0||j>N+1||a[i][j] != 0)return;	//防止越界 防止重复搜索
+		a[i][j] = 2;
+		for(int k = 0; k<=3; k++) {
+			dfs(i + dx[k], j + dy[k]);
+		}
+	}
+}
+```
+
 # 
 
-# P1036选数
+# 决策树
+
+## P1036选数
 
 [P1036 [NOIP2002 普及组] 选数 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1036)
 
@@ -130,50 +180,43 @@ Ideas:
 ```java
 import java.util.Scanner;
 public class Main {
-	static int N, K;
-	static int[] arr;
-	static int count=0;
-	static int res=0;
-	static int sum=0;
-    public static void main(String[] args) {
-    	Scanner s = new Scanner(System.in);
-    	N = s.nextInt();
-    	K = s.nextInt();
-    	arr = new int[N];
-    	for (int i = 0; i <=N-1; i++) {
-			arr[i]= s.nextInt(); 
+	static int N, K, a[], count = 0, sum = 0, res = 0;
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		N = s.nextInt();
+		K = s.nextInt();
+		a = new int[N];
+		for(int i = 0; i<=N-1; i++) {
+			a[i] = s.nextInt();
 		}
-    	back(N,K,0);
-    	System.out.println(res);    	
-    }
-    public static void back(int N, int K,int startIdx) {
-    	if (count==K) {
-			if (isPrime(sum)) {				
-				res++;
-			}
+		dfs(0);
+		System.out.print(res);
+	}
+	private static void dfs(int startIdx) {
+		if(count == K) {
+			if(isPrime(sum)) res++;
 			return;
-		}
-    	for (int i = startIdx; i <=N-(K-count); i++) {   		
-			sum+=arr[i];
-			count++;
-    		back(N, K, i+1);
-    		sum-=arr[i];
-			count--;
 		}	
-    }
-	private static boolean isPrime(int n) {//质数判断
-		if (n==1) return false;
-		if (n==2) return true;
-		for (int i = 2; i <=Math.sqrt(n); i++) {
-			if (n%i==0) return false;
+		for(int i = startIdx;i<=N-1;i++) {
+			count ++;
+			sum += a[i];
+			dfs(i+1);
+			sum -= a[i];
+			count --;
+		}
+	}
+	private static boolean isPrime(int n) {
+		if(n == 1) return false;
+		if(n == 2) return true;
+		for(int i = 2; i<=Math.sqrt(n); i++) {
+			if(n%i == 0)return false;
 		}
 		return true;
 	}
 }
-
 ```
 
-# P2404自然数的拆分问题
+## P2404自然数的拆分问题
 
 [P2404 自然数的拆分问题 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P2404)
 
@@ -193,7 +236,7 @@ Ideas:
 >
 > 在每一层选数时与`sum`相加大于$n$的数就不可能选之，所以选数范围有所优化：
 >
-> 第一层在$[1,n]$中选$t1$，第二层在$\mathbf{[t1,n-sum]}$中选……直到$t_1+t_2+...+t_m=n$.
+> 第一层在$[1,n]$中选$t1$，第二层在$\mathbf{[t_1,n-sum]}$中选……直到$t_1+t_2+...+t_m=n$.
 
 ![image-20240204012716956](C:\Users\LXH15\AppData\Roaming\Typora\typora-user-images\image-20240204012716956.png)
 
@@ -233,66 +276,40 @@ public class Main {
 	}
 ```
 
-# P1162 填涂颜色
-
-[P1162 填涂颜色 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1162)
-
-由数字 $0$ 组成的方阵中，有一任意形状的由数字 $1$ 构成的闭合圈。现要求把闭合圈内的所有空间都填写成 $2$。例如：$6\times 6$ 的方阵（$n=6$），涂色前和涂色后的方阵如下：
-
-如果从某个 $0$ 出发，只向上下左右 $4$ 个方向移动且仅经过其他 $0$ 的情况下，无法到达方阵的边界，就认为这个 $0$ **在闭合圈内**。闭合圈不一定是环形的，可以是任意形状，但保证**闭合圈内**的 $0$ 是连通的（两两之间可以相互到达）。
-
-> tag: DFS
-
-Ideas：
-
-> DFS求连通块；要操作闭合圆环内的区域，转换思路，操作圆环内区域的补集---圆环外的区域，没有接触边界的区域定义为圆环内的区域，则圆环外的区域一定是接触边界的，将边界初始化为圆环外的区域，那么所有圆环外的区域就变成了一个连通域，从区域的一角`dfs`则可以搜索出所有的圆环外的区域，无需回溯，全部使之变为2；输出时对2和0的元素操作即可。对于是1的元素直接输出，其他元素：`arr[i][j]`取负再+2即可将2变为0，0变为2。即得所求。
-
 ```java
-
 import java.util.Scanner;
 public class Main {
-	static int N;
-	static int[][] arr;
+	static int N, sum = 0, a[], count = 0;
 	public static void main(String[] args) {
-       //读数据
-	   Scanner s = new Scanner(System.in);
-	   N = s.nextInt();
-	   arr = new int[N+2][N+2];
-	   for (int i = 1; i <=N; i++) {
-		   for (int j = 1; j <=N; j++) {
-			   arr[i][j] = s.nextInt();  
-		}
+		Scanner s = new Scanner(System.in);
+		N = s.nextInt();
+		a = new int[N];
+		dfs(1);
 	}
-	   //----
-	   bfs(0,0);
-	   for (int i = 1; i <=N; i++) {
-		   for (int j = 1; j <=N; j++) {
-			   if (arr[i][j]!=1) {
-				   System.out.print((-arr[i][j]+2)+" ");
-			   }else {
-				   System.out.print(1+" ");
+
+	private static void dfs(int startIdx) {
+		if(sum==N&&count != 1) {
+			String res = "" + a[0];
+			for(int i = 1;i<=N-1&&a[i]!=0;i++) {
+				res+=("+"+a[i]);
 			}
-			}
-		   System.out.println();
-		}		   
-	}	  
-	private static void bfs(int x, int y) {
-		if (x<0||x>N+1||y<0||y>N+1) {//防止越界
+			System.out.println(res);
 			return;
 		}
-		if (arr[x][y]!=0) {
-			return;
+		for(int i = startIdx;i<=N-sum;i++) {
+			a[count] = i;
+			count ++;
+			sum += i;
+			dfs(i);
+			sum -= i;
+			count --;
+			a[count] = 0;			
 		}
-		arr[x][y]=2;
-		bfs(x+1, y);
-		bfs(x-1, y);
-		bfs(x, y+1);
-		bfs(x, y-1);
 	}
 }
 ```
 
-# P1219八皇后 Checker Challenge
+## P1219八皇后 Checker Challenge
 
 [P1219 [USACO1.5\] 八皇后 Checker Challenge - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1219)
 
@@ -336,11 +353,11 @@ public class Main {
 	   used = new int[N][N];
 	   p=new int[N];
 	   //	   
-	   bfs(0);
+	   dfs(0);
 	   System.out.println(res);
 	}	
 	//n记录当前摆放了几个棋子
-	private static void bfs(int n) {
+	private static void dfs(int n) {
 		if (n>N-1) {
 			if (res<=2) {//前三次
 				for (int i = 0; i <=N-1; i++) {
@@ -357,7 +374,7 @@ public class Main {
 			} 			
 				fillUsed(n,k,1);
 				p[n]=k+1;
-				bfs(n+1);
+				dfs(n+1);
 				p[n]=0; 
 				fillUsed(n,k,-1);			
 		}		
@@ -380,7 +397,7 @@ public class Main {
 }
 ```
 
-# P2036 PERKET
+## P2036 PERKET
 
 [P2036 [COCI2008-2009 #2\] PERKET - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P2036)
 
@@ -394,6 +411,8 @@ Perket 是一种流行的美食。为了做好 Perket，厨师必须谨慎选择
 
 Ideas:
 
+> 枚举所有食材组合
+>
 > 简单的DFS；所有食材当作一层，一次选取一个食材，记录目前选取的食材的酸度`sour`、苦度`bitter`, 记录最小值。
 
 ![image-20240204132617367](C:\Users\LXH15\AppData\Roaming\Typora\typora-user-images\image-20240204132617367.png)
@@ -401,36 +420,28 @@ Ideas:
 ```java
 import java.util.Scanner;
 public class Main {
-	static int N;
-	static int[] sour,bitter;
-	static int allSour=1,allBitter=0;
-	static int res = 100000000;
+	static int N, sour[], bit[], sumSour = 1, sumBit = 0, res = Integer.MAX_VALUE;
 	public static void main(String[] args) {
-       //读数据
-	   Scanner s = new Scanner(System.in);
-	   N = s.nextInt();
-	   sour = new int[N];
-	   bitter = new int[N];
-	   for (int i = 0; i <=N-1; i++) {
+		Scanner s = new Scanner(System.in);
+		N = s.nextInt();
+		sour = new int[N];
+		bit = new int[N];
+		for(int i = 0; i <= N-1; i++) {
 		sour[i] = s.nextInt();
-		bitter[i] = s.nextInt(); 
-	}
-	   //
-	   dfs(0);
-	   System.out.println(res);
-	}
-	public static void dfs(int startIdx) {
-		if (startIdx>N-1) {
-			return;
+		bit[i] = s.nextInt();
 		}
-		for (int i = startIdx; i <=N-1; i++) {
-			allSour*=sour[i];
-			allBitter+=bitter[i];
-			res = Math.min(res, Math.abs(allBitter-allSour));
+		dfs(0);
+		System.out.print(res);
+	}
+	private static void dfs(int idx) {
+		for(int i = idx; i <= N-1; i++) {
+			sumSour *= sour[i];
+			sumBit += bit[i];
+			res = Math.min(res, Math.abs(sumBit - sumSour));
 			dfs(i+1);
-			allSour/=sour[i];
-			allBitter-=bitter[i];
-		}
+			sumSour /= sour[i];
+			sumBit -= bit[i];
+		}		
 	}
 }
 ```
