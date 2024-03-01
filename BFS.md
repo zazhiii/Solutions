@@ -1,68 +1,68 @@
 # P1443 马的遍历
 
+https://www.luogu.com.cn/problem/P1443
+
 有一个 $n \times m$ 的棋盘，在某个点 $(x, y)$ 上有一个马，要求你计算出马到达棋盘上任意一个点最少要走几步。
 
 ```java
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
+import java.util.Queue;
+import java.util.LinkedList;
 public class Main {
-	//记录位置和所需步数
-	static Queue<Integer> xs = new LinkedList<Integer>();
-	static Queue<Integer> ys = new LinkedList<Integer>();
-	static Queue<Integer> steps = new LinkedList<Integer>();
-	static int n,m,X,Y;
-	static int[][] res;
-	static boolean[][] used;
-	//方向
-	static int[] dx = {-2,-2,-1,1,2,2,1,-1};
-	static int[] dy = {-1,1,2,2,1,-1,-2,-2};
-	public static void main(String[] args){
+	static int N, M, X, Y, res[][], used[][];//res存放结果，used标记去过的地方
+	static Queue<Integer> xs = new LinkedList<>(), ys = new LinkedList<>(), steps = new LinkedList<>();
+	static int[] dx = {-2, -2, -1, 1, 2, 2, 1, -1};
+	static int[] dy = {-1, 1, 2, 2, 1, -1, -2, -2};
+	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
-		n = s.nextInt();
-		m = s.nextInt();
-		X = s.nextInt();
-		Y = s.nextInt();
-		res = new int[n+1][m+1];
-		used = new boolean[n+1][m+1];
+		N = s.nextInt();
+		M = s.nextInt();
+		X = s.nextInt() - 1;
+		Y = s.nextInt() - 1;
+		used = new int[N][M];
+		res = new int[N][M];
 		xs.add(X);
 		ys.add(Y);
 		steps.add(0);
-		used[X][Y] = true;
+		used[X][Y] = 1;
 		bfs();
-		for (int i = 1; i<=n; i++) {
-			for(int j = 1;j<=m; j++) {
-				System.out.printf("%-5d",used[i][j]?res[i][j]:-1);
+		//输出答案
+		for(int i = 0; i <= N-1; i++) {
+			for(int j = 0;j <= M-1; j++) {
+				System.out.printf("%-5d", used[i][j] == 1?res[i][j]:-1);
 			}
 			System.out.println();
 		}
-}
-    public static void bfs() {
-        int x,y,step;
-        while(!steps.isEmpty()) {
-            x = xs.poll();
-            y = ys.poll();
-            step = steps.poll();
-            res[x][y] = step;
-            for(int i = 0;i<=7;i++) {
-                //每一个方向的新位置
-                int newX = x+dx[i];
-                int newY = y+dy[i];
-                //若可走
-                if (newX>=1&&newX<=n&&newY>=1&&newY<=m&&!used[newX][newY]) {
-                    used[newX][newY] = true; //标记此处走过
-                    xs.add(newX);
-                    ys.add(newY);
-                    steps.add(step+1);//从之前位置到新位置，多走1步
-                }
-
-            }
-        }
-    }	
+	}
+	private static void bfs() {
+		int x, y, step;
+		while(!steps.isEmpty()) {
+			x = xs.poll();
+			y = ys.poll();
+			step = steps.poll();
+			res[x][y] = step;	
+			for(int i = 0; i <= 7; i++) {
+				int nx = x + dx[i];
+				int ny = y + dy[i];
+				if(ok(nx,ny)) {//如果新位置合法
+					xs.add(nx);
+					ys.add(ny);
+					steps.add(step+1);
+					used[nx][ny] = 1;
+				}
+				
+			}
+		}	
+	}
+	private static boolean ok(int nx, int ny) {//判断新位置是否合法，不能越界，防止重复搜索
+		return nx >= 0 && nx < N && ny >= 0 && ny < M && used[nx][ny] == 0;
+	}
 }
 ```
 
 # P1135 奇怪的电梯
+
+https://www.luogu.com.cn/problem/P1135
 
 呵呵，有一天我做了一个梦，梦见了一种很奇怪的电梯。大楼的每一层楼都可以停电梯，而且第 $i$ 层楼（$1 \le i \le N$）上有一个数字 $K_i$（$0 \le K_i \le N$）。电梯只有四个按钮：开，关，上，下。上下的层数等于当前楼层上的那个数字。当然，如果不能满足要求，相应的按钮就会失灵。例如： $3, 3, 1, 2, 5$ 代表了 $K_i$（$K_1=3$，$K_2=3$，……），从 $1$ 楼开始。在 $1$ 楼，按“上”可以到 $4$ 楼，按“下”是不起作用的，因为没有 $-2$ 楼。那么，从 $A$ 楼到 $B$ 楼至少要按几次按钮呢？
 
@@ -71,8 +71,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 public class Main {
-	static Queue<Integer> steps = new LinkedList<Integer>();
-	static Queue<Integer> pos = new LinkedList<Integer>();
+	static Queue<Integer> steps = new LinkedList<Integer>();// 次数
+	static Queue<Integer> pos = new LinkedList<Integer>();// 楼层
 	static int N, A, B, res[], nums[];
 	static boolean[] used;
 	static int[] dh = {1,-1};//控制上下
