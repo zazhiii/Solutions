@@ -1,3 +1,270 @@
+# 组合问题
+
+## 77. 组合
+
+[77. 组合](https://leetcode.cn/problems/combinations/)
+
+给定两个整数 `n` 和 `k`，返回范围 `[1, n]` 中所有可能的 `k` 个数的组合。
+
+你可以按 **任何顺序** 返回答案。
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+
+    public List<List<Integer>> combine(int n, int k) {
+        dfs(1, k, n);
+        return res;
+
+    }
+
+    public void dfs(int startIdx, int k, int n) {
+        if (tmp.size() == k) {
+            res.add(new LinkedList(tmp));
+            return;
+        }
+        for (int i = startIdx; i <= n; i++) {
+            tmp.add(i);
+            dfs(i + 1, k, n);
+            tmp.removeLast();
+        }
+    }
+}
+```
+
+> 剪枝优化
+>
+> `i <= n - (k - tmp.size()) + 1`
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+
+    public List<List<Integer>> combine(int n, int k) {
+        dfs(1, k, n);
+        return res;
+
+    }
+
+    public void dfs(int startIdx, int k, int n) {
+        if (tmp.size() == k) {
+            res.add(new LinkedList(tmp));
+            return;
+        }
+        for (int i = startIdx; i <= n - (k - tmp.size()) + 1; i++) {
+            tmp.add(i);
+            dfs(i + 1, k, n);
+            tmp.removeLast();
+        }
+    }
+}
+```
+
+## 216. 组合总和 III
+
+[216. 组合总和 III](https://leetcode.cn/problems/combination-sum-iii/)
+
+找出所有相加之和为 `n` 的 `k` 个数的组合，且满足下列条件：
+
+- 只使用数字1到9
+- 每个数字 **最多使用一次** 
+
+返回 *所有可能的有效组合的列表* 。该列表不能包含相同的组合两次，组合可以以任何顺序返回
+
+> 可以减枝优化
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+    int sum = 0;
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        dfs(1, k, n);
+        return res;
+    }
+
+    public void dfs(int startIdx, int k, int n) {
+        if (tmp.size() > k || sum > n) { // 超过k个数，或者总和超过sum
+            return;
+        }
+        if (tmp.size() == k && sum == n) {
+            res.add(new LinkedList(tmp));
+            return;
+        }
+
+        for (int i = startIdx; i <= 9; i++) {
+            sum += i;
+            tmp.add(i);
+            dfs(i + 1, k, n);
+            tmp.removeLast();
+            sum -= i;
+        }
+    }
+}
+```
+
+## 39. 组合总和
+
+[39. 组合总和](https://leetcode.cn/problems/combination-sum/)
+
+给你一个 **无重复元素** 的整数数组 `candidates` 和一个目标整数 `target` ，找出 `candidates` 中可以使数字和为目标数 `target` 的 所有 **不同组合** ，并以列表形式返回。你可以按 **任意顺序** 返回这些组合。
+
+`candidates` 中的 **同一个** 数字可以 **无限制重复被选取** 。如果至少一个数字的被选数量不同，则两种组合是不同的。 
+
+对于给定的输入，保证和为 `target` 的不同组合数少于 `150` 个。
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+    int sum = 0;
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        dfs(0, candidates, target);
+        return res;
+
+    }
+
+    public void dfs(int startIdx, int[] a, int t) {
+        if (sum > t)
+            return;
+        if (sum == t) {
+            res.add(new LinkedList(tmp));
+            return;
+        }
+        for (int i = startIdx; i <= a.length - 1; i++) {
+            tmp.add(a[i]);
+            sum += a[i];
+            dfs(i, a, t);
+            tmp.removeLast();
+            sum -= a[i];
+        }
+    }
+}
+```
+
+## 40. 组合总和 II
+
+[40. 组合总和 II](https://leetcode.cn/problems/combination-sum-ii/)
+
+给定一个候选人编号的集合 `candidates` 和一个目标数 `target` ，找出 `candidates` 中所有可以使数字和为 `target` 的组合。
+
+`candidates` 中的每个数字在每个组合中只能使用 **一次** 。
+
+**注意：**解集不能包含重复的组合。
+
+> 用`used[]`数组去重
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+    boolean[] used;
+    int sum = 0;
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        used = new boolean[candidates.length];
+        Arrays.sort(candidates);
+        dfs(0, candidates, target);
+        return res;
+
+    }
+
+    public void dfs(int startIdx, int[] a, int t) {
+        if (sum > t)
+            return;
+        if (sum == t) {
+            res.add(new LinkedList(tmp));
+            return;
+        }
+        for (int i = startIdx; i <= a.length - 1; i++) {
+            if (i != 0 && a[i] == a[i - 1] && used[i - 1] == false)
+                continue;
+            tmp.add(a[i]);
+            used[i] = true;
+            sum += a[i];
+            dfs(i + 1, a, t);
+            tmp.removeLast();
+            used[i] = false;
+            sum -= a[i];
+        }
+    }
+}
+```
+
+## 78. 子集
+
+[78. 子集](https://leetcode.cn/problems/subsets/)
+
+给你一个整数数组 `nums` ，数组中的元素 **互不相同** 。返回该数组所有可能的子集（幂集）。
+
+解集 **不能** 包含重复的子集。你可以按 **任意顺序** 返回解集。
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+
+    public List<List<Integer>> subsets(int[] nums) {
+        dfs(0, nums);
+        return res;
+    }
+
+    public void dfs(int startIdx, int[] a) {
+        res.add(new LinkedList(tmp));
+        for (int i = startIdx; i <= a.length - 1; i++) {
+            tmp.add(a[i]);
+            dfs(i + 1, a);
+            tmp.removeLast();
+        }
+    }
+}
+```
+
+## 90. 子集 II
+
+[90. 子集 II](https://leetcode.cn/problems/subsets-ii/)
+
+给你一个整数数组 `nums` ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。
+
+解集 **不能** 包含重复的子集。返回的解集中，子集可以按 **任意顺序** 排列。
+
+> 用`used[]`数组去重
+
+```java
+class Solution {
+    List<List<Integer>> res = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+    boolean[] used;
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        used = new boolean[nums.length];
+        Arrays.sort(nums);
+        dfs(0, nums);
+        return res;
+    }
+
+    public void dfs(int startIdx, int[] a) {
+        res.add(new LinkedList(tmp));
+        for (int i = startIdx; i <= a.length - 1; i++) {
+            if (i != 0 && a[i] == a[i - 1] && used[i - 1] == false)
+                continue;
+            tmp.add(a[i]);
+            used[i] = true;
+            dfs(i + 1, a);
+            used[i] = false;
+            tmp.removeLast();
+        }
+    }
+
+}
+```
+
+
+
 # 关于二维的DFS
 
 ## P1605迷宫
