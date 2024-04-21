@@ -269,7 +269,7 @@ class Solution {
 
 ## P1605迷宫
 
-[P1605 迷宫 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1605)
+https://www.luogu.com.cn/problem/P1605
 
 给定一个 $N \times M$ 方格的迷宫，迷宫里有 $T$ 处障碍，障碍处不可通过。
 
@@ -313,17 +313,13 @@ public class Main {
 		System.out.println(res);
 	}
 	private static void dfs(int x, int y) {
-		if (x < 1||x > N||y < 1||y > M||a[x][y] == 1) {//防止越界 遇到障碍返回
-			return;
-		}
+		if (x < 1||x > N||y < 1||y > M||a[x][y] == 1) return;//防止越界 遇到障碍返回
 		if (x == FX&&y == FY) {
 			res++;
 			return;
 		}
 		a[x][y] = 1;//走过的地方标记为障碍，防止走回来
-		for(int i = 0; i<=3; i++) {//四个方向dfs
-			dfs(x + dx[i], y + dy[i]);
-		}
+		for(int i = 0; i<=3; i++) dfs(x + dx[i], y + dy[i]);//四个方向dfs
 		a[x][y] = 0;//记得恢复状态
 	}	
 }
@@ -336,8 +332,6 @@ public class Main {
 
 由于近期的降雨，雨水汇集在农民约翰的田地不同的地方。我们用一个 $N\times M(1\leq N\leq 100, 1\leq M\leq 100)$ 的网格图表示。每个网格中有水（`W`） 或是旱地（`.`）。一个网格与其周围的八个网格相连，而一组相连的网格视为一个水坑。约翰想弄清楚他的田地已经形成了多少水坑。给出约翰田地的示意图，确定当中有多少水坑。
 
-> tags: DFS
-
 Ideas:
 
 > **DFS求连通块**；遍历区域，遇到`W`水坑数+1，从此处开始**八个方向**dfs，搜索出所有的连通域改为`.`，无需回溯（防止之后的遍历遇到该水坑的`W`）.
@@ -345,38 +339,34 @@ Ideas:
 ```java
 import java.util.Scanner;
 public class Main {
-	static int N, M, res = 0;
-	static char[][] a;
+	static int N, M, res=0;
 	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
 	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-	public static void main(String[] args){
-		Scanner s = new Scanner(System.in);
-		N = s.nextInt();
-		M = s.nextInt();
-		a = new char[N][M];
-		for(int i = 0; i <= N - 1; i ++) {
-			a[i] = s.next().toCharArray(); 
-		}
-		for(int i = 0; i<=N-1;i++) {
-			for(int j = 0; j<=M-1;j++) {
-				if (a[i][j] == 'W') {
-					res++;
-					dfs(i, j);
-				}
-			}
-		}
-		System.out.println(res);
+	static char a[][];
+	public static void main(String[] args) {
+	   Scanner s = new Scanner(System.in);
+	   N = s.nextInt();
+	   M = s.nextInt();
+	   a = new char[N+2][M+2];
+	   for(int i = 1; i<=N; i++) {
+		   String str = s.next();
+		   for(int j = 1; j<=M; j++)a[i][j] = str.charAt(j-1);
+	   }
+	   for(int i = 1; i<=N; i++) {
+		   for(int j = 1; j<=M; j++) {
+			   if(a[i][j] == 'W') {
+				   res++;
+				   dfs(i, j);
+			   }
+		   }
+	   }
+	   System.out.print(res);
 	}
-    
 	private static void dfs(int i, int j) {
-		if (i < 0 || i > N - 1 || j < 0 || j > M - 1||a[i][j] == '.') {//越界 遇到不是水坑
-			return;
-		}		
-		a[i][j] = '.'; 
-		for(int k = 0; k<=7; k++) {//八个方向
-			dfs(i + dx[k], j + dy[k]);
-		}
-	}	
+		if(a[i][j]!='W')return;
+		a[i][j] = '.';
+		for(int k = 0; k<=7; k++) dfs(i+dx[k], j+dy[k]);
+	}
 }
 ```
 
@@ -387,8 +377,6 @@ public class Main {
 由数字 $0$ 组成的方阵中，有一任意形状的由数字 $1$ 构成的闭合圈。现要求把闭合圈内的所有空间都填写成 $2$。例如：$6\times 6$ 的方阵（$n=6$），涂色前和涂色后的方阵如下：
 
 如果从某个 $0$ 出发，只向上下左右 $4$ 个方向移动且仅经过其他 $0$ 的情况下，无法到达方阵的边界，就认为这个 $0$ **在闭合圈内**。闭合圈不一定是环形的，可以是任意形状，但保证**闭合圈内**的 $0$ 是连通的（两两之间可以相互到达）。
-
-> tag: DFS
 
 Ideas：
 
@@ -428,7 +416,64 @@ public class Main {
 }
 ```
 
-# 
+## P1101单词方阵
+
+给一 $n \times n$ 的字母方阵，内可能蕴含多个 `yizhong` 单词。单词在方阵中是沿着同一方向连续摆放的。摆放可沿着 $8$ 个方向的任一方向，同一单词摆放时不再改变方向，单词与单词之间可以交叉，因此有可能共用字母。输出时，将不是单词的字母用 `*` 代替，以突出显示单词。
+
+```java
+import java.util.Scanner;
+public class Main {
+	static String target = "yizhong";
+	static int n;
+	static String[] strs;
+	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
+	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+	static int[] xs = new int[7], ys = new int[7];//记录搜索路径
+	static char[][] res;//记录结果
+	public static void main(String[] args){
+		Scanner s = new Scanner(System.in);
+		n = s.nextInt();
+		res = new char[n][n];
+		strs = new String[n];
+		for(int i = 0; i <= n-1; i++) {
+			strs[i] = s.next(); 
+		}
+		
+		for (int i = 0; i <=n-1; i++) {
+			for(int j = 0;j <= n-1; j++) {
+					for(int k = 0; k<=7; k++) {//八个方向
+						dfs(i, j, dx[k], dy[k], 0);
+				}
+			}
+		}
+		for (int i = 0; i <=n-1; i++) {//输出答案
+			for(int j = 0; j<=n-1; j++) {
+				System.out.print(res[i][j]==0?'*':res[i][j]);
+			}
+			System.out.println();
+		}
+}
+	public static void dfs(int x, int y, int dx, int dy, int Idx) {
+		if (Idx==7) {//处理答案	
+			for (int k = 0; k <=6; k++) {
+				res[xs[k]][ys[k]] = target.charAt(k); 
+			}
+			return;
+		}
+		//越界 或 跟目标字符串不匹配了
+		if (x<0||x>n-1||y<0||y>n-1||strs[x].charAt(y)!=target.charAt(Idx)) {
+			return;
+		}
+		xs[Idx] = x;
+		ys[Idx] = y; 
+		dfs(x+dx, y+dy, dx, dy, Idx+1);
+		xs[Idx] = 0;
+		ys[Idx] = 0; 		
+	}	
+}
+```
+
+
 
 # 决策树
 
@@ -505,7 +550,7 @@ Ideas:
 >
 > 第一层在$[1,n]$中选$t1$，第二层在$\mathbf{[t_1,n-sum]}$中选……直到$t_1+t_2+...+t_m=n$.
 
-![image-20240204012716956](C:\Users\LXH15\AppData\Roaming\Typora\typora-user-images\image-20240204012716956.png)
+![image-20240204012716956](images\image-P2404.png)
 
 ```java
 import java.util.Scanner;
@@ -604,17 +649,13 @@ Ideas:
 >
 > 用`used`数组标记哪些地方不能放棋子，（标记此处`used[i][j]+1`, 撤销标记则`used[i][j]-1`，这样不会将其他棋子得标记撤销,用`boolean`出现了这样的问题！）
 
-![image-20240204114906712](C:\Users\LXH15\AppData\Roaming\Typora\typora-user-images\image-20240204114906712.png)
+![image-20240204114906712](images\image-P1219.png)
 
 ```java
 import java.util.Scanner;
 public class Main {
-	static int N;
-	static int res = 0;
-	static int[][] used;//标记位置是否能使用
-	static int[] p;//结果数组
+	static int N, res, used[][], p[];
 	public static void main(String[] args) {
-       //读数据
 	   Scanner s = new Scanner(System.in);
 	   N = s.nextInt();
 	   used = new int[N][N];
@@ -623,22 +664,18 @@ public class Main {
 	   dfs(0);
 	   System.out.println(res);
 	}	
-	//n记录当前摆放了几个棋子
+	//n记录当前摆第几个棋子
 	private static void dfs(int n) {
 		if (n>N-1) {
-			if (res<=2) {//前三次
-				for (int i = 0; i <=N-1; i++) {
-					System.out.print(p[i]+" ");
-				}
+      res++;
+			if (res<=3) {//前三次
+				for (int i = 0; i <=N-1; i++)System.out.print(p[i]+" ");
 				System.out.println();
 			}
-			res++;
 			return;
 		}
 		for (int k = 0; k <=N-1; k++) {//每一行选位置摆放棋子
-			if (used[n][k]!=0) {
-				continue;
-			} 			
+			if (used[n][k]!=0)continue;		
 				fillUsed(n,k,1);
 				p[n]=k+1;
 				dfs(n+1);
@@ -647,19 +684,12 @@ public class Main {
 		}		
 	}
 	private static void fillUsed(int i, int j, int b) {//标记行列对角线
-		for (int k = i; k <=N-1; k++) {
-			used[k][j]+=b;
-		}
-		int x = i;
-		int y = j;
-		while(y<=N-1&&x<=N-1) {
-			used[x++][y++]+=b;
-		}
+		for (int k = i; k <=N-1; k++)used[k][j]+=b;
+		int x = i，y = j;
+		while(y<=N-1&&x<=N-1)used[x++][y++]+=b;
 		x = i;
 		y = j;
-		while(y>=0&&x<=N-1){
-			used[x++][y--]+=b;
-		}		
+		while(y>=0&&x<=N-1)used[x++][y--]+=b;	
 	}
 }
 ```
@@ -682,7 +712,7 @@ Ideas:
 >
 > 简单的DFS；所有食材当作一层，一次选取一个食材，记录目前选取的食材的酸度`sour`、苦度`bitter`, 记录最小值。
 
-![image-20240204132617367](C:\Users\LXH15\AppData\Roaming\Typora\typora-user-images\image-20240204132617367.png)
+![image-20240204132617367](images\image-P2036.png)
 
 ```java
 import java.util.Scanner;
@@ -811,13 +841,7 @@ Ideas:
 > tips: 有个数据点要用快速读写
 
 ```java
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StreamTokenizer;
+import java.io.*;
 public class Main {
 	static int N,M;
 	static int[] init,used,arr;
@@ -868,63 +892,6 @@ public class Main {
 		st.nextToken();
 		return (int)st.nval;
 	}
-}
-```
-
-# P1101单词方阵
-
-给一 $n \times n$ 的字母方阵，内可能蕴含多个 `yizhong` 单词。单词在方阵中是沿着同一方向连续摆放的。摆放可沿着 $8$ 个方向的任一方向，同一单词摆放时不再改变方向，单词与单词之间可以交叉，因此有可能共用字母。输出时，将不是单词的字母用 `*` 代替，以突出显示单词。
-
-```java
-import java.util.Scanner;
-public class Main {
-	static String target = "yizhong";
-	static int n;
-	static String[] strs;
-	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
-	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-	static int[] xs = new int[7], ys = new int[7];//记录搜索路径
-	static char[][] res;//记录结果
-	public static void main(String[] args){
-		Scanner s = new Scanner(System.in);
-		n = s.nextInt();
-		res = new char[n][n];
-		strs = new String[n];
-		for(int i = 0; i <= n-1; i++) {
-			strs[i] = s.next(); 
-		}
-		
-		for (int i = 0; i <=n-1; i++) {
-			for(int j = 0;j <= n-1; j++) {
-					for(int k = 0; k<=7; k++) {//八个方向
-						dfs(i, j, dx[k], dy[k], 0);
-				}
-			}
-		}
-		for (int i = 0; i <=n-1; i++) {//输出答案
-			for(int j = 0; j<=n-1; j++) {
-				System.out.print(res[i][j]==0?'*':res[i][j]);
-			}
-			System.out.println();
-		}
-}
-	public static void dfs(int x, int y, int dx, int dy, int Idx) {
-		if (Idx==7) {//处理答案	
-			for (int k = 0; k <=6; k++) {
-				res[xs[k]][ys[k]] = target.charAt(k); 
-			}
-			return;
-		}
-		//越界 或 跟目标字符串不匹配了
-		if (x<0||x>n-1||y<0||y>n-1||strs[x].charAt(y)!=target.charAt(Idx)) {
-			return;
-		}
-		xs[Idx] = x;
-		ys[Idx] = y; 
-		dfs(x+dx, y+dy, dx, dy, Idx+1);
-		xs[Idx] = 0;
-		ys[Idx] = 0; 		
-	}	
 }
 ```
 

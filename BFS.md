@@ -5,9 +5,7 @@ https://www.luogu.com.cn/problem/P1443
 有一个 $n \times m$ 的棋盘，在某个点 $(x, y)$ 上有一个马，要求你计算出马到达棋盘上任意一个点最少要走几步。
 
 ```java
-import java.util.Scanner;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
 public class Main {
 	static int N, M, X, Y, res[][], used[][];//res存放结果，used标记去过的地方
 	static Queue<Integer> xs = new LinkedList<>(), ys = new LinkedList<>(), steps = new LinkedList<>();
