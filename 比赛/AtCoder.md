@@ -46,3 +46,20 @@ public class Main {
 }
 ```
 
+
+
+https://atcoder.jp/contests/abc350/tasks/abc350_d
+
+
+
+
+
+# Beginner Contest 351
+
+**c. Merge the balls**
+
+https://atcoder.jp/contests/abc351/tasks/abc351_c
+
+**D. Grid and Magnet**
+
+https://atcoder.jp/contests/abc351/tasks/abc351_d

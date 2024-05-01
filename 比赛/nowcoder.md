@@ -158,3 +158,67 @@ public class Main {
 
 
 
+
+
+链接：https://ac.nowcoder.com/acm/contest/81126/E
+一枚煤炭可以在熔炉内燃烧 $y$ 秒融化至多 $x$ 单位的铁矿石。
+
+而一枚暗物质可以在熔炉内燃烧$y/2$ 秒融化至多 $2x$ 单位的铁矿石。
+
+同一时刻，熔炉只能燃烧一枚燃料。燃料均不可重复利用。燃料燃烧完之前，你不可以获取熔炉中的矿物。
+
+你有一个神奇的魔法，可以将一枚煤炭升级成暗物质，这个魔法至多只能使用**一次**。
+
+现在你有 $1$ 个熔炉，$n$ 枚煤炭和 $m$ 单位铁矿石，问烧炼 $m$ 单位铁矿石**至少**需要多长时间
+
+>    1.    $dp[i][j][0/1]$：考虑前$i$个煤炭烧$j$个矿石最少需要的时间，$0/1$代表到目前为止是否使用魔法
+>
+>    2.    初始化：对于$0$颗煤炭烧所有正数数的矿石需要无穷时间，$0$颗矿石则需要$0$的时间；
+>
+>          $dp[0][j][0/1] = INF(j>=1)、dp[i][0][0/1] = 0$
+>
+>    3.    对于当前元素，考虑选/不选。 若选且未使用魔法则在加使用魔法的情况。
+>
+>          $dp[i][j][0] = min(dp[i-1][j][0], dp[i][max(0,j-x[i])][0]+y[i])$
+>
+>          ​	对于上式右侧两项：第一项为不选，第二项为选
+>
+>          $dp[i][j][1] = min(dp[i-1][j][1],dp[i-1][max(0,j-x[i])][1]+y[i]),dp[i-1][max(0,j-2x[i])][0]+y[i]/2)])$
+>
+>          ​	对于上式右侧三项：第一项表示不选，第二项表示选且没用魔法，第三项表示选且用魔法
+>
+>    4.    结果取$dp[n][m][1]、dp[n][m][0]$较小值
+
+```java
+import java.util.*;
+public class Main {
+    static Scanner s = new Scanner(System.in);
+    static long INF = (long)2e18;
+    static int n, m, x[], y[];
+    static long dp[][][];
+    public static void main(String[] args) {
+        n = s.nextInt();
+        m = s.nextInt();
+        x = new int[n+1];
+        y = new int[n+1];
+        for(int i = 1; i<=n; i++) {
+            x[i] = s.nextInt();
+            y[i] = s.nextInt();
+        }
+        dp = new long[n+1][m+1][2];
+        for(int j = 1;j<=m;j++) {
+            dp[0][j][0] = INF;
+            dp[0][j][1] = INF;
+        }        
+        for(int i = 1; i<=n;i++) {
+            for(int j = 0; j<=m;j++) {
+                dp[i][j][0] = Math.min(dp[i-1][Math.max(0, j-x[i])][0]+y[i], dp[i-1][j][0]);
+                dp[i][j][1] = Math.min(dp[i-1][Math.max(0, j-2*x[i])][0]+y[i]/2, dp[i-1][Math.max(0, j-x[i])][1]+y[i]);
+                dp[i][j][1] = Math.min(dp[i][j][1], dp[i-1][j][1]);
+            }
+        }
+        System.out.print(Math.min(dp[n][m][1], dp[n][m][0]));
+    }
+}
+```
+
