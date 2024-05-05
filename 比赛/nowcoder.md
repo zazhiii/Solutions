@@ -1,3 +1,58 @@
+# 牛客小白月赛91
+
+链接：https://ac.nowcoder.com/acm/contest/78807/D
+
+有一个长度为$n$ 的数字字符串$S$，该字符串仅包含[0,9][0,9][0,9]的数字
+从中挑选出若干个字符，然后按照其相对顺序重新拼接而成一个数字，使其是一个**无前导**$0$**的偶数**。
+
+ 例如：当$n=3,S=100$。 其包含的偶数数字有$0,0,10,10,100$。而$00$是不符合条件的，因为其含有前导0。
+
+ 由于字符串实在是太长了，他一个人数不过来，请您帮他计算一下该字符串中含有的偶数方案总数， 结果对$10^9+7$取模。
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+	static Read r = new Read();
+	static Scanner s = new Scanner(System.in);
+	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	static int n, maxn = 200000, mod = (int)1e9+7;
+	static char[] str;
+	public static void main(String[] args) throws IOException {
+		n = s.nextInt();
+		str = s.next().toCharArray();
+//		int[] dp = new int[maxn+1];
+		long res = 0, cnt = 0;
+		for(int i = 0;i<=n-1;i++) {
+			int x = str[i]-'0';
+			if(x==0) {
+				res = (res + cnt +1)%mod;
+				cnt=(cnt*2)%mod;
+			}else if(x%2==0) {
+				res = (res + cnt +1)%mod;
+				cnt=(cnt*2+1)%mod;
+			}else {
+				cnt=(cnt*2+1)%mod;
+			}
+		}
+		
+		
+		System.out.print(res);
+	}
+}
+
+
+class Read{
+	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+	public int nextInt() throws IOException {
+		st.nextToken();
+		return (int)st.nval;
+	}
+}
+```
+
+
+
 # 牛客小白月赛92
 
 **B采矿时间到！**
@@ -218,6 +273,121 @@ public class Main {
             }
         }
         System.out.print(Math.min(dp[n][m][1], dp[n][m][0]));
+    }
+}
+```
+
+
+
+# 牛客周赛 Round 41
+
+**B.小红的排列构造**
+
+https://ac.nowcoder.com/acm/contest/80742/B
+
+定义两个数组$a$和$b$的汉明距离为：有多少个下标$i$满足$a_i≠b_i$。例如，$[2,3,1]$和$[1,3,1]$的汉明距离是$1$。
+ 现在小红拿到了一个长度为$n$的排列$p$，她希望你构造一个长度为$n$的排列$q$，满足$p$和$q$的汉明距离恰好等于$k$。
+
+ 排列指长度为$n$的数组，其中$1$到$n$每个元素恰好出现了一次
+
+> 若$k > n $ 或者$k=1$，显然无解。
+>
+> 因为每个元素都只出现一次，交换两个无汉明距离的元素必定产生增加汉明距离， 交换一个有汉明距离的元素和一个无汉明距离的元素必定增加一个汉明距离。
+>
+> 遍历序列，设第$i$个数为$a_i$，不断让$a_i$和$a_{i+1}$交换，交换$k-1$次即可。
+>
+> ——第一次交换产生 2 个距离，后面每一次产生 1 个距离。
+
+```java
+import java.util.*;
+public class Main {
+    static Scanner s = new Scanner(System.in);
+    static int n, k, a[];
+    public static void main(String[] args){
+    	n = s.nextInt();
+    	k = s.nextInt();
+    	a = new int[n];
+    	if(k > n || k == 1) {
+    		System.out.print(-1);
+    		return;
+    	}
+    	for(int i = 0; i<n; i++) a[i] = s.nextInt();
+    	for(int i = 0; i<=k - 2; i++) {
+    		int t = a[i];
+    		a[i] = a[i + 1];
+    		a[i + 1] = t;
+    	}
+    	for(int i = 0; i<n; i++) System.out.print(a[i] + " ");
+    }
+}
+```
+
+
+
+
+
+**C. 小红的循环移位**
+
+https://ac.nowcoder.com/acm/contest/80742/C
+
+小红拿到了一个数字串，她每次操作可以使得其向左循环移动一位。
+ 将串 $s=s_0s_1...s_{n−1}$​ 向左循环移动一位，将得到串$s_1...s_{n−1}s_0$
+ 小红想知道，使得该数字串变成4的倍数，需要最少操作多少次？（可以包含前导零）
+
+> 枚举一下 4 的倍数：4  8  **12  16  20  24  28  32  36  40 44 ......**
+>
+> 发现规律：若数字位数大于1位，若个位数字为 2/6且高一位为奇数，则为4的倍数；若个位数字为4/8/0且高一位为偶数，则为4的倍数。
+>
+> 有了该规律就可以遍历一遍的情况下找出最小操作次数。
+>
+> 1. 特判一下一位数
+> 2. 先判断 0 次操作是否可行。
+> 3. 再判断$1 \sim n-1$次操作，设$a_i$为从左往右第$i$位数字，若$a_i$与$a_{i - 1}$满足规律，则需要操作$i$次
+> 4. 若都不行则输出$ - 1$
+>
+> 时间复杂度：$O(n)$
+
+```java
+import java.util.*;
+public class Main {
+    static Scanner s = new Scanner(System.in);
+    public static void main(String[] args){
+    	String num = s.next();
+    	int n = num.length();   	
+    	//特判 一位数
+    	if(n == 1) {
+    		int x = num.charAt(0) - '0';
+    		if(x == 4 || x == 8) {
+    			System.out.print(0);return;
+    		}else {
+    			System.out.print(-1);return;
+    		}
+    	}
+    	// 0 次操作
+    	int a = num.charAt(n - 2) - '0';
+		int b = num.charAt(n - 1) - '0';
+		if(isVlid(a, b)) {System.out.print(0);return;}
+		// 1 ~ n - 1次操作
+    	for(int i = 0; i<=n - 2; ++ i) {
+     		a = num.charAt(i - 1 < 0 ? n - 1 : 0) - '0';//
+    		b = num.charAt(i) - '0';
+    		if(isVlid(a, b)) {
+    			System.out.print(i + 1);return;
+    		}
+    	}
+    	System.out.print(-1);
+    }
+    public static boolean isVlid(int a, int b) {
+    	if(a % 2 == 0) {
+			if(b == 4 || b == 8 || b == 0) {
+				return true;
+			}
+		}else {
+			if(b == 2 || b == 6) {
+				return true;
+			}
+		}
+    	return false;
     }
 }
 ```
