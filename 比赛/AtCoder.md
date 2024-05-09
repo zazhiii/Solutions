@@ -156,6 +156,8 @@ https://atcoder.jp/contests/abc351/tasks/abc351_d
 
 # Beginner Contest 352
 
+**D - Permutation Subsequence**
+
 给你一个 $(1, 2, \dots, N)$ 的排列组合 $P = (P_1, P_2, \dots, P_N)$ 
 
 如果一个索引序列 $(i_1, i_2, \dots, i_K)$ 同时满足以下两个条件，那么这个索引序列被称为**好索引序列**：
@@ -170,5 +172,53 @@ https://atcoder.jp/contests/abc351/tasks/abc351_d
 
 > $P_i:$$10\ 1\ 6\ 8\ 7\ 2\ 5\ 9\ 3\ 4$			--->     $P_i:1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10$			--->      5 6 7 8 9	--->  $8 - 3 = 5$
 >
-> $i:\ \ 1\ \ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10 	$		            	$i : 2\ 6\ 9\ 10\ 7\ 3\ 5\ 4\ 8\ 1$						7 3 5 4 8
+> $i:\ \ 1\ \ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10 	$		            	$i : 2\ 6\ 9\ 10\ 7\ 3\ 5\ 4\ 8\ 1$				    7 3 5 4 8
+>
+> 区间内最大值最小值用**单调队列维护**
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner s = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static Read r = new Read();
+    static int n, k, a[], q[], min[], max[];
+    public static void main(String[] args) throws IOException {
+    	n = r.nextInt();
+    	k = r.nextInt();
+    	a = new int[n + 1];
+    	q = new int[n + 1];
+    	min = new int[n + 1];
+    	max = new int[n + 1];
+    	for(int i = 1; i<=n; i++) a[r.nextInt()] = i;
+    	int hh = 0, tt = -1;
+    	for(int i = 1; i<=n; i++) {
+    		if(hh <= tt && q[hh] < i - k + 1) hh ++;
+    		while(hh <= tt && a[q[tt]] >= a[i]) tt --;
+    		q[ ++ tt] = i;
+    		if(i >= k) min[i] = a[q[hh]];
+    	}
+    	hh = 0; tt = -1;
+    	for(int i = 1; i<=n; i++) {
+    		if(hh <= tt && q[hh] < i - k + 1) hh ++;
+    		while(hh <= tt && a[q[tt]] <= a[i]) tt --;
+    		q[ ++ tt] = i;
+    		if(i >= k) max[i] = a[q[hh]];
+    	}
+    	int res = (int)1e6;
+    	for(int i = k; i<=n; i++) res = Math.min(res, max[i] - min[i]);
+    	pw.print(res);
+	    pw.flush();
+    }
+}
+
+class Read{
+	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+	public int nextInt() throws IOException {
+		st.nextToken();
+		return (int)st.nval;
+	}
+}
+```
 
