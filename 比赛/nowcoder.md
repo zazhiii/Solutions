@@ -400,3 +400,43 @@ https://ac.nowcoder.com/acm/contest/80742/D
  例如，"rreedd"是好串，因为包含了8个"red"子序列。而"redred"则不是好串。
 
  现在小红拿到了一个字符串，她有多次询问，每次询问一个区间，你需要回答将该区间对应的子串修改为好串的最小修改次数（每次修改可以修改任意一个字符）
+
+```java
+import java.util.*;
+public class Main{
+    static int move[][][][]={{{{0,0},{0,0},{0,0}}},{{{0,0},{0,0},{0,1}},{{0,0},{0,1},{1,1}},{{0,1},{1,1},{1,1}}},{{{0,1},{1,2},{2,2}},{{0,1},{1,1},{1,2}},{{0,0},{0,1},{1,2}}}};
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        Map<Character,Integer> map=new HashMap<>();
+        map.put('r',0);
+        map.put('e',1);
+        map.put('d',2);
+        int n=sc.nextInt(),q=sc.nextInt(),pre[][]=new int[n+1][3];
+        String s=sc.next();
+        for(int i=1;i<=n;i++){
+            pre[i]=pre[i-1].clone();
+            pre[i][map.get(s.charAt(i-1))]++;
+        }
+        for(int i=0;i<q;i++){
+            int l=sc.nextInt(),r=sc.nextInt();
+            System.out.println(find(pre,l,r));
+        }
+    }
+    static int find(int pre[][],int l,int r){
+        if(r-l<2){
+            return 0;
+        }
+        l--;
+        int ans=(int)1e9,d=(r-l)/3;
+        for(int m[][]:move[(r-l)%3]){
+            int sum=0;
+            for(int i=0;i<3;i++){
+                sum+=d+m[i][1]-m[i][0]-(pre[l+d*(i+1)+m[i][1]][i]-pre[l+d*i+m[i][0]][i]);
+            }
+            ans=Math.min(ans,sum);
+        }
+        return ans;
+    }
+}
+```
+
