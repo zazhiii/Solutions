@@ -156,12 +156,9 @@ https://atcoder.jp/contests/abc351/tasks/abc351_d
 
 # Beginner Contest 352
 
-<<<<<<< HEAD
-
-### **D - Permutation Subsequence**
+**D - Permutation Subsequence**
 
 https://atcoder.jp/contests/abc352/tasks/abc352_d
->>>>>>> 6f81400762d0cb1b250258a3e3325788aa3399d2
 
 给你一个 $(1, 2, \dots, N)$ 的排列组合 $P = (P_1, P_2, \dots, P_N)$ 
 
