@@ -2,6 +2,8 @@
 
 **C - Sort**
 
+https://atcoder.jp/contests/abc350/tasks/abc350_c
+
 给你一个 $(1,2,\ldots,N)$ 的排列组合 $A=(A_1, ..., A_n)$ 。  
 请在 $0$ 和 $N-1$ 之间(包括首尾两次)进行以下运算，将 $A$ 转化为 $(1,2,\ldots,N)$ ：
 
@@ -56,7 +58,7 @@ $N$个用户，有 $M$ 对好友关系，其中 $i$ /th对由用户 $A_i$ 和 $B
 
 - 操作：选择三个用户 X、Y 和 Z，使得 X 和 Y 是好友，Y 和 Z 是好友，但 X 和 Z 不是好友。让 X 和 Z 成为好友。
 
-> 并查集
+> **并查集**
 
 > 最后所有用户会形成若干个完全图，若每个集合人数为$num$，则每个集合最终好友对数为$num*(num-1)/2$，求和所有集合的好友对数，减去原来的好友对数，即答案。
 >
@@ -148,15 +150,18 @@ public class Main {
 }
 ```
 
-
-
-**D. Grid and Magnet**
+### **D. Grid and Magnet**
 
 https://atcoder.jp/contests/abc351/tasks/abc351_d
 
 # Beginner Contest 352
 
-**D - Permutation Subsequence**
+<<<<<<< HEAD
+
+### **D - Permutation Subsequence**
+
+https://atcoder.jp/contests/abc352/tasks/abc352_d
+>>>>>>> 6f81400762d0cb1b250258a3e3325788aa3399d2
 
 给你一个 $(1, 2, \dots, N)$ 的排列组合 $P = (P_1, P_2, \dots, P_N)$ 
 
