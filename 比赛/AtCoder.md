@@ -170,6 +170,8 @@ https://atcoder.jp/contests/abc352/tasks/abc352_d
 
 求所有好的索引序列中 $i_K - i_1$ 的最小值。可以证明，在此问题的约束条件下，至少存在一个好的索引序列。
 
+> 单调队列
+
 > 记录每个数的位置，按数大小排序，遍历，计算长度为$k$的连续序列中位置的最大值与最小值的差，记录最小值
 
 > $P_i:$$10\ 1\ 6\ 8\ 7\ 2\ 5\ 9\ 3\ 4$			--->     $P_i:1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10$			--->      5 6 7 8 9	--->  $8 - 3 = 5$
@@ -224,3 +226,14 @@ class Read{
 }
 ```
 
+# Beginner Contest 353
+
+#### **C - Sigma Problem**
+
+[C - Sigma Problem (atcoder.jp)](https://atcoder.jp/contests/abc353/tasks/abc353_c)
+
+对于正整数 $x$ 和 $y$ ，定义 $f(x, y)$ 为 $(x + y)$ 除以 $10^8$ 的余数。
+
+给你一个长度为 $N$ 的正整数序列  $A = (A_1, \ldots, A_N)$ 。求下面表达式的值：
+
+$\displaystyle \sum_{i=1}^{N-1}\sum_{j=i+1}^N f(A_i,A_j)$ .
