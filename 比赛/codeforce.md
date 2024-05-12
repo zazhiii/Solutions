@@ -60,6 +60,34 @@ public class Main {
 > 1. 有0连1的 ans = cnt - 1
 > 2. 没有0连1的 ans = cnt
 
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+	static Scanner sc = new Scanner(System.in);
+	static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+
+	static int T;
+	public static void main(String[] args) throws IOException{
+		T = sc.nextInt();
+		while( T --> 0 ) {
+			char[] s = sc.next().toCharArray();
+			boolean f = false;
+			int cnt = 0;
+			for(int i = 0; i<s.length - 1; i++) {
+				if(s[i] != s[i + 1]) cnt ++;
+				if(s[i] == '0' && s[i + 1] == '1') f = true;
+			}
+			pw.println(f ? cnt:cnt + 1);
+		}
+		pw.flush();
+	}
+}
+
+```
+
+
+
 **E. Find the Car**
 
 [Problem - E - Codeforces](https://codeforces.com/contest/1971/problem/E)
@@ -73,6 +101,64 @@ public class Main {
 在任意两个相邻的标志牌之间，汽车以**恒速**行驶。帖木儿有 $$q$$$ 个查询：每个查询都是一个整数 $$$d$$$ ，帖木儿希望你输出汽车到达点 $$$d$$ 需要多少分钟，**四舍五入为最接近的整数**。
 
 > 二分查找刚好小于等于$d$的位置$a_i$，加上该位置的时间$b_i$，再计算该位置到$d$的时间加上($\frac{d - a_i}{\frac{a_{i+1}-a_i}{b_{i+1}-b_i}}$)
+
+```java
+package algorithm;
+
+import java.io.*;
+import java.util.*;
+public class Main {
+	static Scanner sc = new Scanner(System.in);
+	static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+	static Read rd = new Read();
+	static int T, n, k, q, a[], b[], d;
+	static double eps = 0.000000000000000000000000000000000000000000000000000;
+	public static void main(String[] args) throws IOException{
+		T = rd.nextInt();
+		while( T --> 0 ) {
+			n = rd.nextInt();
+			k = rd.nextInt();
+			q = rd.nextInt();
+			a = new int[k + 1];
+			b = new int[k + 1];
+			for(int i = 1; i<=k; i++) a[i] = rd.nextInt();
+			for(int j = 1; j<=k; j++) b[j] = rd.nextInt();
+			
+			while(q --> 0) {
+				long ans = 0;
+				d = rd.nextInt();
+				int l = 0, r = k, i = 0;
+				while(l <= r) {
+					int m = (l + r) >>> 1;
+					if(a[m] <= d) {
+						i = m;
+						l = m + 1;
+					}else {
+						r = m - 1;
+					}
+				}
+				ans = b[i];
+				if(i != k) {
+                    //坑死了。。
+					pw.print((ans + 1l * (d - a[i] ) * (b[i + 1] - b[i]) / (a[i + 1] - a[i]) )+ " ");
+				}else {
+					pw.print(ans + " ");
+				}
+				
+			}
+			pw.println();
+		}
+		pw.flush();
+	}
+}
+class Read{
+	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+	public int nextInt() throws IOException{
+		st.nextToken();
+		return (int)st.nval;
+	}
+}
+```
 
 
 
