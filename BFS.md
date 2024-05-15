@@ -111,3 +111,176 @@ public class Main {
 }
 ```
 
+# P2895Meteor Shower S
+
+https://www.luogu.com.cn/problem/P2895
+
+如果将牧场放入一个直角坐标系中，贝茜现在的位置是原点，并且，贝茜不能踏上一块被流星砸过的土地。
+
+根据预报，一共有 $M$ 颗流星 $(1\leq M\leq 50,000)$ 会坠落在农场上，其中第 $i$ 颗流星会在时刻 $T_i$（$0 \leq T _ i \leq 1000$）砸在坐标为 $(X_i,Y_i)(0\leq X_i\leq 300$，$0\leq Y_i\leq 300)$ 的格子里。流星的力量会将它所在的格子，以及周围 $4$ 个相邻的格子都化为焦土，当然贝茜也无法再在这些格子上行走。
+
+贝茜在时刻 $0$ 开始行动，她只能在会在横纵坐标 $X,Y\ge 0$ 的区域中，平行于坐标轴行动，每 $1$ 个时刻中，她能移动到相邻的（一般是 $4$ 个）格子中的任意一个，当然目标格子要没有被烧焦才行。如果一个格子在时刻 $t$ 被流星撞击或烧焦，那么贝茜只能在 $t$ 之前的时刻在这个格子里出现。 贝茜一开始在 $(0,0)$。
+
+请你计算一下，贝茜最少需要多少时间才能到达一个安全的格子。如果不可能到达输出 $−1$。
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+	static Scanner sc = new Scanner(System.in);
+	static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+	static Queue<Integer> xs = new LinkedList<>();
+	static Queue<Integer> ys = new LinkedList<>();
+	static Queue<Integer> ts = new LinkedList<>();
+	static int[] dx4 = {-1, 0, 1, 0, 0}, dy4 = {0, 1, 0, -1, 0};
+	static int n, a[][], ans, N = 310;
+	static boolean vis[][];
+ 	public static void main(String[] args) throws IOException{
+		n = sc.nextInt();
+		a = new int[N][N];
+		vis = new boolean[N][N];
+		for(int i = 0; i<N;i++) 
+			for(int j = 0; j<N; j++)
+				a[i][j] = 1010;
+ 		while(n --> 0) {
+ 			int x = sc.nextInt();
+ 			int y = sc.nextInt();
+ 			int t = sc.nextInt();
+ 			for(int i = 0; i<5; i++) {
+ 				int xx = x + dx4[i];
+ 				int yy = y + dy4[i];
+ 				if(xx >= 0 && yy >= 0) {
+ 					a[xx][yy] = Math.min(a[xx][yy], t);
+ 				}
+ 			}
+ 		}
+ 		xs.add(0);
+ 		ys.add(0);
+ 		ts.add(0);
+ 		vis[0][0] = true;
+ 		ans = -1;
+ 		bfs();
+ 		pw.print(ans);
+		pw.flush();		
+	}
+	private static void bfs() {
+		int x, y, t;
+		while(!ts.isEmpty()) {
+			x = xs.poll();
+			y = ys.poll();
+			t = ts.poll();
+			for(int i = 0; i < 4; i++) {
+				int xx = x + dx4[i];
+				int yy = y + dy4[i];
+				if(xx >=0 && yy >=0 && a[xx][yy] > t + 1 && !vis[xx][yy]) {//不能搜走过的地方
+					if(a[xx][yy] == 1010) {
+						ans = t + 1;
+						return;
+					}
+					vis[xx][yy] = true;
+					xs.add(xx);
+					ys.add(yy);
+					ts.add(t + 1);
+				}
+				
+			}
+		}
+		
+	}
+}
+```
+
+# P1825 Corn Maze S
+
+https://www.luogu.com.cn/problem/P1825
+
+奶牛们去一个 $N\times M$ 玉米迷宫，$2 \leq N \leq 300,2 \leq M \leq300$。
+
+迷宫里有一些传送装置，可以将奶牛从一点到另一点进行瞬间转移。这些装置可以双向使用。
+
+如果一头奶牛处在这个装置的起点或者终点，这头奶牛就必须使用这个装置，奶牛在传送过后不会立刻进行第二次传送，即不会卡在传送装置的起点和终点之间来回传送。
+
+玉米迷宫除了唯一的一个出口都被玉米包围。
+
+迷宫中的每个元素都由以下项目中的一项组成：
+
+1. 玉米，`#` 表示，这些格子是不可以通过的。
+1. 草地，`.` 表示，可以简单的通过。
+1. 传送装置，每一对大写字母 $\tt{A}$ 到 $\tt{Z}$ 表示。
+1. 出口，`=` 表示。
+1. 起点， `@` 表示
+
+奶牛能在一格草地上可能存在的四个相邻的格子移动，花费 $1$ 个单位时间。从装置的一个结点到另一个结点不花时间。
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+	static Scanner sc = new Scanner(System.in);
+	static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+	static int n, m, ans = -1, sx = 0, sy = 0, fx = 0, fy = 0, tp[][];
+	static char a[][];
+	static Queue<int[]> q = new LinkedList<>();
+	static int dx[] = {-1, 0, 1, 0}, dy[] = {0, 1, 0, -1};
+ 	public static void main(String[] args) throws IOException{
+ 		n = sc.nextInt();
+ 		m = sc.nextInt();
+ 		a = new char[n][m];
+ 		tp = new int[30][4];
+
+ 		for(int i = 0; i < n; i++) {
+ 			a[i] = sc.next().toCharArray();
+ 			for(int j = 0; j < m; j++) {
+ 				if(a[i][j] == '@') {sx = i; sy = j;}
+ 				else if(a[i][j] == '=') {fx = i; fy = j;}
+ 				else if(a[i][j] >= 'A' && a[i][j] <= 'Z') {
+ 					int p = a[i][j] - 'A';
+ 					if(tp[p][0] == 0) {//这也没bug？
+ 						tp[p][0] = i;tp[p][1] = j;
+ 					}else {
+ 						tp[p][2] = i;tp[p][3] = j;
+ 					}
+ 				}
+ 				
+ 			}
+    }
+ 		q.add(new int[]{sx, sy, 0});//从起点开始搜索
+ 		a[sx][sy] = '#';
+ 		bfs();
+ 		pw.print(ans);
+		pw.flush();		
+	}
+	private static void bfs() {
+		int x, y, step;
+		while(!q.isEmpty()) {
+			int[] pos = q.poll();
+			x = pos[0];
+			y = pos[1];
+			step = pos[2];
+			if(x == fx && y == fy) {
+				ans = step;
+				return;
+			}
+			for(int i = 0; i < 4; i++) {
+				int nx = x + dx[i];
+				int ny = y + dy[i];
+				if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] != '#') {
+					//如果是传送门对门入队
+					if(a[nx][ny] >= 'A' && a[nx][ny] <= 'Z') {
+						int p = a[nx][ny] - 'A';
+						if(tp[p][0] == nx && tp[p][1] == ny) {
+							q.add(new int[] {tp[p][2], tp[p][3], step + 1});
+						}else {
+							q.add(new int[] {tp[p][0], tp[p][1], step + 1});
+						}
+					}else {
+						a[nx][ny] = '#';
+						q.add(new int[] {nx, ny, step + 1});
+					}
+				}
+			}
+		}
+	}		
+}
+```
+
