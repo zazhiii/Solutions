@@ -170,7 +170,7 @@ https://atcoder.jp/contests/abc352/tasks/abc352_d
 
 求所有好的索引序列中 $i_K - i_1$ 的最小值。可以证明，在此问题的约束条件下，至少存在一个好的索引序列。
 
-> 单调队列
+> **单调队列**、**区间最大值**
 
 > 记录每个数的位置，按数大小排序，遍历，计算长度为$k$的连续序列中位置的最大值与最小值的差，记录最小值
 
@@ -343,3 +343,68 @@ public class Main {
 ### **E - Yet Another Sigma Problem**
 
 [E - Yet Another Sigma Problem](https://atcoder.jp/contests/abc353/tasks/abc353_e)
+
+# Beginner Contest 354
+
+[C - AtCoder Magics](https://atcoder.jp/contests/abc354/tasks/abc354_c)
+
+高桥有纸牌游戏 "AtCoder Magics "中的 $N$ 张纸牌。其中的 $i$ 张卡将被称为 $i$ 张卡。每张卡都有两个参数：强度和成本。卡片 $i$ 的强度为 $A_i$ ，成本为 $C_i$ 。
+
+他不喜欢弱牌，所以他会弃掉它们。具体来说，他会重复下面的操作，直到无法再进行为止：
+
+- 选择两张牌 $x$ 和 $y$ ，即 $A_x > A_y$ 和 $C_x < C_y$ 。弃牌 $y$ 。
+
+可以证明，当无法再进行操作时，剩下的牌的集合是唯一确定的。请找出这组牌。
+
+>排序
+
+>**注意看题！！！/(ㄒoㄒ)/~~**
+>
+>- $A_1,A_2,…,A_N$ are all distinct.
+>- $𝐶_1,𝐶_2,…,𝐶_𝑁$are all distinct.
+>
+>每个卡牌按照$C_i$排序。对于第$i$张卡只需要比较$A_i$和$max(A_j),j\in[0,i-1]$即可直到是否应该被删除（因为已知$C_i>C_j$)。标记应该被删除的卡，在按照序号排序回来，输出答案。
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+	static Scanner sc = new Scanner(System.in);
+	static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+	static int n;
+	static boolean st[];
+	static class Card{
+		int a, c, idx;
+		boolean k;
+	}
+	static Card cards[];
+	public static void main(String[] args) throws IOException{
+		n = sc.nextInt();
+		cards = new Card[n];
+		st = new boolean[n];
+		for(int i = 0; i < n; i ++) {
+			Card card = new Card();
+			card.a = sc.nextInt();
+			card.c = sc.nextInt();
+			card.idx = i + 1; 
+			cards[i] = card;
+		}
+		Arrays.sort(cards, (c1, c2) -> c1.c - c2.c);
+		int maxa = 0, ans = n;
+		for(int i = 0; i < n; i++) {
+			if(cards[i].a < maxa) {
+				cards[i].k = true;
+				ans --;
+			}else {
+				maxa = cards[i].a;
+			}
+		}
+		pw.println(ans);
+		Arrays.sort(cards, (c1, c2) -> c1.idx - c2.idx);
+		for(int i = 0; i < n; i++) 
+			if(!cards[i].k) pw.print((i + 1) + " ");
+		pw.flush();
+	}
+}
+```
+
