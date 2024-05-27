@@ -408,3 +408,38 @@ public class Main {
 }
 ```
 
+# Beginner Contest 355
+
+**D - Intersecting Intervals**
+
+给你 $N$ 个实数区间。 $i$ $(1 \leq i \leq N)$ 区间为 $[l_i, r_i]$ 。求 $i$ -th 和 $j$ -th区间相交的 $(i, j),(1 \leq i < j \leq N)$ 对的个数。
+
+> **当直接求不好求时，求对立情况来容斥出待求情况**
+
+> 用不相交的区间对数容斥相交的区间
+>
+> $l_i$标记0，$r_i$标记1。按照左端点排序
+>
+> 遇到每一个左端点，若前面有$x$个结束了的区间则不相交对数$+x$
+
+```java
+    static int n;
+    static List<int[]> p = new LinkedList<>();
+    private static <T> void solve() throws IOException {
+        n = rd.nextInt();
+        for(int i = 1; i <= n; i ++){
+            p.add(new int[]{rd.nextInt(), 0});
+            p.add(new int[]{rd.nextInt(), 1});
+        }
+        //按照端点排序 注意处理开始点和结束点重合的情况
+        Collections.sort(p, (p1, p2) -> p1[0] == p2[0] ? p1[1] - p2[1] : p1[0] - p2[0]);
+        long ans = n*(n - 1l)/2;
+        int ended = 0;
+        for(int[] p : p){
+            if(p[1] == 1) ended ++;
+            else ans -= ended;
+        }
+        pw.println(ans);
+    }
+```
+
