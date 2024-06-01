@@ -279,7 +279,9 @@ https://www.luogu.com.cn/problem/P1605
 
 给定起点坐标和终点坐标，每个方格最多经过一次，问有多少种从起点坐标到终点坐标的方案。
 
-> tags: DFS、回溯
+$1≤𝑁,𝑀≤5$
+
+> tags: DFS
 
 Ideas:
 
@@ -291,90 +293,159 @@ Ideas:
 > 2. 在搜索函数里判断x，y的范围
 
 ```java
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 public class Main {
-	static int N, M, T, SX, SY, FX, FY, a[][], res = 0;
-	static int[] dx = {1, -1, 0, 0};
-	static int[] dy = {0, 0, 1, -1};
-	public static void main(String[] args){
-		Scanner s = new Scanner(System.in);
-		N = s.nextInt();
-		M = s.nextInt();
-		T = s.nextInt();
-		a = new int[N+1][M+1];
-		SX = s.nextInt();
-		SY = s.nextInt();
-		FX = s.nextInt();
-		FY = s.nextInt();
-		for(int i = 0; i <= T-1; i++) {
-			int ox = s.nextInt();
-			int oy = s.nextInt();
-			a[ox][oy] = 1; 
-		}
-		dfs(SX, SY);
-		System.out.println(res);
-	}
-	private static void dfs(int x, int y) {
-		if (x < 1||x > N||y < 1||y > M||a[x][y] == 1) return;//防止越界 遇到障碍返回
-		if (x == FX&&y == FY) {
-			res++;
-			return;
-		}
-		a[x][y] = 1;//走过的地方标记为障碍，防止走回来
-		for(int i = 0; i<=3; i++) dfs(x + dx[i], y + dy[i]);//四个方向dfs
-		a[x][y] = 0;//记得恢复状态
-	}	
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int N, M, T, sx, sy, fx, fy;
+    static boolean vis[][];    
+    public static void main(String[] args) throws Exception {
+        N = sc.nextInt();
+        M = sc.nextInt();
+        T = sc.nextInt();
+        sx = sc.nextInt();
+        sy = sc.nextInt();
+        fx = sc.nextInt();
+        fy = sc.nextInt();
+        vis = new boolean[N  + 1][M + 1];
+        while(T --> 0){
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            vis[x][y] = true;
+        }
+        dfs(sx, sy);
+        pw.println(ans);
+        pw.flush();
+    }
+    static int ans = 0;
+    static int dx[] = {1, -1, 0, 0}, dy[] = {0, 0, 1, -1};
+    private static void dfs(int x, int y) {
+        if(x == fx && y == fy){
+            ans ++;
+            return;
+        }
+        vis[x][y] = true; // 标记当前位置
+        for(int i = 0; i < 4; i ++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if(nx >= 1 && nx <= N && ny >= 1 && ny <= M && !vis[nx][ny]){//符合条件再dfs
+                dfs(nx, ny);
+            }
+        }
+        vis[x][y] = false;// 取消标记
+    }
 }
-
 ```
 
 ## P1596 Lake Counting S
 
-[P1596 [USACO10OCT\] Lake Counting S - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1596)
+https://www.luogu.com.cn/problem/P1596
 
 由于近期的降雨，雨水汇集在农民约翰的田地不同的地方。我们用一个 $N\times M(1\leq N\leq 100, 1\leq M\leq 100)$ 的网格图表示。每个网格中有水（`W`） 或是旱地（`.`）。一个网格与其周围的八个网格相连，而一组相连的网格视为一个水坑。约翰想弄清楚他的田地已经形成了多少水坑。给出约翰田地的示意图，确定当中有多少水坑。
 
 Ideas:
 
-> **DFS求连通块**；遍历区域，遇到`W`水坑数+1，从此处开始**八个方向**dfs，搜索出所有的连通域改为`.`，无需回溯（防止之后的遍历遇到该水坑的`W`）.
+> **DFS求连通块个数**；遍历区域，遇到`W`水坑数+1，从此处开始**八个方向**dfs，搜索出所有的连通域改为`.`，无需回溯（防止之后的遍历遇到该水坑的`W`）.
 
 ```java
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 public class Main {
-	static int N, M, res=0;
-	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
-	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-	static char a[][];
-	public static void main(String[] args) {
-	   Scanner s = new Scanner(System.in);
-	   N = s.nextInt();
-	   M = s.nextInt();
-	   a = new char[N+2][M+2];
-	   for(int i = 1; i<=N; i++) {
-		   String str = s.next();
-		   for(int j = 1; j<=M; j++)a[i][j] = str.charAt(j-1);
-	   }
-	   for(int i = 1; i<=N; i++) {
-		   for(int j = 1; j<=M; j++) {
-			   if(a[i][j] == 'W') {
-				   res++;
-				   dfs(i, j);
-			   }
-		   }
-	   }
-	   System.out.print(res);
-	}
-	private static void dfs(int i, int j) {
-		if(a[i][j]!='W')return;
-		a[i][j] = '.';
-		for(int k = 0; k<=7; k++) dfs(i+dx[k], j+dy[k]);
-	}
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m, ans = 0;
+    static char[][] a;
+    static boolean vis[][];   
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        a = new char[n][m];
+        vis = new boolean[n][m];
+        for(int i = 0; i < n; i ++) a[i] = sc.next().toCharArray();
+        for(int i = 0; i < n; i ++){
+            for(int j = 0; j < m; j ++){
+                if(a[i][j] == 'W'){
+                    ans ++;
+                    dfs(i, j);
+                }
+            }
+        }
+        pw.println(ans);
+        pw.flush();
+    }
+    static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0}, dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+    private static void dfs(int x, int y) {
+        a[x][y] = '.';
+        for(int i = 0 ; i < 8; i ++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] == 'W'){
+                dfs(nx, ny);
+            }
+        }
+    }
+}
+
+```
+
+> BFS做法
+>
+> **注意：**对于一个'W'点入队则将其改为'.' 而非出队才标记。这样防止入队之后还没来得及出队标记又被搜索到入队（爆内存）
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m, ans = 0;
+    static char[][] a;
+    static boolean vis[][];   
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        a = new char[n][m];
+        vis = new boolean[n][m];
+        for(int i = 0; i < n; i ++) a[i] = sc.next().toCharArray();
+        for(int i = 0; i < n; i ++){
+            for(int j = 0; j < m; j ++){
+                if(a[i][j] == 'W'){
+                    ans ++;
+                    bfs(i, j);
+                }
+            }
+        }
+        pw.println(ans);
+        pw.flush();
+    }
+    static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0}, dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+    private static void bfs(int x0, int y0) {
+        Queue<int[]> que = new LinkedList<>();
+        que.add(new int[]{x0, y0});
+        int pos[], x, y;
+        while(!que.isEmpty()){
+            pos = que.poll();
+            x = pos[0];
+            y = pos[1];
+            for(int i = 0; i < 8; i ++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] == 'W'){
+                    que.add(new int[]{nx, ny});
+                    a[nx][ny] = '.'; // 在入队则标记
+                }
+            }
+        }
+    }
 }
 ```
 
+
+
 ## P1162 填涂颜色
 
-[P1162 填涂颜色 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1162)
+https://www.luogu.com.cn/problem/P1162
 
 由数字 $0$ 组成的方阵中，有一任意形状的由数字 $1$ 构成的闭合圈。现要求把闭合圈内的所有空间都填写成 $2$。例如：$6\times 6$ 的方阵（$n=6$），涂色前和涂色后的方阵如下：
 
