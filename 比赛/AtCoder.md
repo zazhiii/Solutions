@@ -412,8 +412,14 @@ public class Main {
 
 **D - Intersecting Intervals**
 
+https://atcoder.jp/contests/abc355/tasks/abc355_d
+
 给你 $N$ 个实数区间。 $i$ $(1 \leq i \leq N)$ 区间为 $[l_i, r_i]$ 。求 $i$ -th 和 $j$ -th区间相交的 $(i, j),(1 \leq i < j \leq N)$ 对的个数。
 
+>    排序 + 二分｜排序 + 扫描
+
+> 法一：
+>
 > **当直接求不好求时，求对立情况来容斥出待求情况**
 
 > 用不相交的区间对数容斥相交的区间
@@ -421,6 +427,8 @@ public class Main {
 > $l_i$标记0，$r_i$标记1。按照左端点排序
 >
 > 遇到每一个左端点，若前面有$x$个结束了的区间则不相交对数$+x$
+>
+> $O(n)$
 
 ```java
     static int n;
@@ -441,5 +449,107 @@ public class Main {
         }
         pw.println(ans);
     }
+```
+
+>    法二：二分
+>
+>    按左端点排序，枚举每一个线段$i$的右端点，二分找出最大且小于等于该右端点的左端点所在的线段$j$（即与该线段相交的最右侧的那一根线段），$ans = ans + j - i$。
+>
+>    $O(n \log n)$
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, a[][];
+    public static void main(String[] args) {
+        n = sc.nextInt();
+        a = new int[n][2];
+        for(int i = 0; i < n; i ++){
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+            a[i] = new int[]{l, r};
+        }
+        Arrays.sort(a, (a1, a2) -> a1[0] - a2[0]);
+        //枚举每一个右端点i，查找最大且<=该右端点的线段j ans += j - i
+        long ans = 0;
+        for(int i = 0; i < n; i ++){
+            int cr = a[i][1];
+            int l = i, r = n - 1, j = l;
+            while(l <= r){
+                int m = (r + l) >>> 1;
+                if(a[m][0] <= cr){
+                    j = m;
+                    l = m + 1;
+                }else{
+                    r = m - 1;
+                }
+            }
+            ans += j - i;
+        }
+        pw.println(ans);
+        pw.flush();
+    }
+}
+```
+
+
+
+# Beginner Contest 356
+
+[C - Keys](https://atcoder.jp/contests/abc356/tasks/abc356_c)
+
+>    DFS
+
+>    $1\leq N \leq15$，考虑枚举所有钥匙的真假组合情况，再判断每一种情况是否满足所有测试，满足则答案数+1
+>
+>    $O(M\times2^N)$
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m, k, a[][], num[], ans, key[];
+    static char r[];
+    public static void main(String[] args) {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        k = sc.nextInt();
+        a = new int[m][n];
+        r = new char[m];
+        num = new int[m];
+        key = new int[n + 1];
+        for(int i = 0; i < m; i ++){
+            num[i] = sc.nextInt();
+            for(int j = 0; j < num[i]; j ++) a[i][j] = sc.nextInt();
+            r[i] = sc.next().charAt(0);
+        }
+        dfs(1);
+        pw.println(ans);
+        pw.flush();
+    }
+    private static void dfs(int cnt) {
+        if(cnt == n + 1){
+            for(int i = 0; i < m; i ++){
+                int tk = 0;
+                for(int j = 0; j < num[i]; j ++){
+                    if(key[a[i][j]] == 1) tk ++;
+                }
+                if(tk >= k && r[i] == 'x') return;
+                if(tk < k && r[i] == 'o') return;
+            }
+            ans ++;
+            return;
+        }
+        for(int i = 0; i <= 1; i ++){
+            key[cnt] = i;
+            dfs(cnt + 1);
+        }
+    }
+}
 ```
 

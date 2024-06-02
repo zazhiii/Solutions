@@ -27,7 +27,7 @@ class Solution {
 	}
 ```
 
-[100274. 从魔法师身上吸取的最大能量](https://leetcode.cn/problems/taking-maximum-energy-from-the-mystic-dungeon/)
+B[100274. 从魔法师身上吸取的最大能量](https://leetcode.cn/problems/taking-maximum-energy-from-the-mystic-dungeon/)
 
 在神秘的地牢中，`n` 个魔法师站成一排。每个魔法师都拥有一个属性，这个属性可以给你提供能量。有些魔法师可能会给你负能量，即从你身上吸取能量。
 
@@ -62,7 +62,7 @@ class Solution {
 	}
 ```
 
-[100281. 矩阵中的最大得分](https://leetcode.cn/problems/maximum-difference-score-in-a-grid/)
+C[100281. 矩阵中的最大得分](https://leetcode.cn/problems/maximum-difference-score-in-a-grid/)
 
 给你一个由 **正整数** 组成、大小为 `m x n` 的矩阵 `grid`。你可以从矩阵中的任一单元格移动到另一个位于正下方或正右侧的任意单元格（不必相邻）。从值为 `c1` 的单元格移动到值为 `c2` 的单元格的得分为 `c2 - c1` 。
 
@@ -120,7 +120,7 @@ class Solution {
 
 # 第 398 场周赛
 
-[100308. 特殊数组 II](https://leetcode.cn/contest/weekly-contest-398/problems/special-array-ii/)
+B. [100308. 特殊数组 II](https://leetcode.cn/contest/weekly-contest-398/problems/special-array-ii/)
 
 如果数组的每一对相邻元素都是两个奇偶性不同的数字，则该数组被认为是一个 **特殊数组** 。
 
@@ -152,6 +152,133 @@ class Solution {
             if(st[r] - st[l] > 0) ans[i] = true;
         }
         for(int i = 0; i < m; i++) ans[i] = !ans[i];
+        return ans;
+    }
+}
+```
+
+# 第 399 场周赛
+
+C. [3164. 优质数对的总数 II](https://leetcode.cn/problems/find-the-number-of-good-pairs-ii/)
+
+给你两个整数数组 `nums1` 和 `nums2`，长度分别为 `n` 和 `m`。同时给你一个**正整数** `k`。
+
+如果 `nums1[i]` 可以被 `nums2[j] * k` 整除，则称数对 `(i, j)` 为 **优质数对**（`0 <= i <= n - 1`, `0 <= j <= m - 1`）。
+
+返回 **优质数对** 的总数。
+
+>    **若$a\%b=0$则$b$一定是$a$的一个因子。**
+>
+>    枚举$nums_1$中所有数的因子以及每个因子的数量（即有多少个$nums[i]$包含这个因子）。
+>
+>    枚举$nums_2[i]\times k$判断是否在上述因子集合中，若在答案数累加上因子数
+>
+>    $O(n\times \sqrt{10^6} + m)$
+
+```java
+class Solution {
+    public long numberOfPairs(int[] nums1, int[] nums2, int k) {
+        int n = nums1.length;
+        int m = nums2.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < n; i ++){
+            if(nums1[i] % k != 0) continue;
+            for(int j = 1; j <= nums1[i] / j; j ++){
+                if(nums1[i] % j == 0){
+                    map.put(j, map.getOrDefault(j, 0) + 1);
+                    if(j < nums1[i] / j) {
+                        map.put(nums1[i] / j, map.getOrDefault(nums1[i] / j, 0) + 1);
+                    }
+                }
+            }
+        }
+        long ans = 0;
+        for(int x : nums2){
+           ans += map.getOrDefault(x * k, 0);
+        }
+        return ans;
+    }
+}
+```
+
+
+
+# 第 400 场周赛
+
+B	[100311. 无需开会的工作日](https://leetcode.cn/problems/count-days-without-meetings/)
+
+给你一个正整数 `days`，表示员工可工作的总天数（从第 1 天开始）。另给你一个二维数组 `meetings`，长度为 `n`，其中 `meetings[i] = [start_i, end_i]` 表示第 `i` 次会议的开始和结束天数（包含首尾）。
+
+返回员工可工作且没有安排会议的天数
+
+>    **区间合并**
+>
+>    按照左端点排序，遍历每个区间，分类讨论一下下一个区间和当前区间的关系，答案加上超出的部分。
+>
+>    $O(m\log m + m) $
+
+```java
+class Solution {
+    public int countDays(int days, int[][] meetings) {
+        int n = meetings.length;
+        Arrays.sort(meetings, (m1, m2) -> m1[0] - m2[0]);
+        int ans = days;
+        int r = 0;
+        for(int i = 0; i < n; i ++){
+            if(meetings[i][0] > r){
+                ans -= meetings[i][1] - meetings[i][0] + 1;
+                r = meetings[i][1];
+            }else if(meetings[i][1] > r){
+                ans -= meetings[i][1] - r;
+                r = meetings[i][1];
+            }
+        }
+        return ans;
+    }
+}
+```
+
+C	[100322. 删除星号以后字典序最小的字符串](https://leetcode.cn/problems/lexicographically-minimum-string-after-removing-stars/)
+
+给你一个字符串 `s` 。它可能包含任意数量的 `'*'` 字符。你的任务是删除所有的 `'*'` 字符。
+
+当字符串还存在至少一个 `'*'` 字符时，你可以执行以下操作：
+
+-    删除最左边的 `'*'` 字符，同时删除该星号字符左边一个字典序 **最小** 的字符。如果有多个字典序最小的字符，你可以删除它们中的任意一个。
+
+请你返回删除所有 `'*'` 字符以后，剩余字符连接而成的 字典序最小 的字符串。
+
+>    显然删除靠后的最小字幕最优。
+>
+>    遍历，用26个栈存储每种字母的下标，遇到*则弹出字典序最小的字母对应的非空栈的栈顶元素（即最靠后的），弹出后用一个数组标记位置，计算答案时忽略该位置。
+
+```java
+class Solution {
+    public String clearStars(String s) {
+        char c[] = s.toCharArray();
+        int n = s.length();
+        boolean[] k = new boolean[n];
+        List<Integer>[] words = new LinkedList[26];
+        for(int i = 0; i < 26; i ++){
+            words[i] = new LinkedList<>();
+        }
+        for(int i = 0; i < n; i ++){
+            if(c[i] != '*'){
+                words[c[i] - 'a'].add(i);
+            }else{
+                for(int j = 0; j < 26; j ++){
+                    if(!words[j].isEmpty()){
+                        k[words[j].get(words[j].size() - 1)] = true;
+                        words[j].remove(words[j].size() - 1);
+                        break;
+                    }
+                }
+            }
+        }
+        String ans = "";
+        for(int i = 0; i < n; i ++){
+            if(c[i] != '*' && !k[i]) ans += c[i];
+        }
         return ans;
     }
 }
