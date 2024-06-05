@@ -150,9 +150,95 @@ public class Main {
 }
 ```
 
-### **D. Grid and Magnet**
+**D. Grid and Magnet**
 
 https://atcoder.jp/contests/abc351/tasks/abc351_d
+
+有一个用字符类型表示的 $H$ 行 $W$ 列的地图 $S$，如果 $S_{i,j}$ 是字符 `.` 则代表这一格是空地，如果是 `#` 则代表这一格上有一个磁铁。现有一个小人从一个格子上出发，每次可以到达与之相邻（上、下、左、右）的四个格子，但如果有一个磁铁与之相邻（上下左右的四个格子中至少有一个磁铁）他就不能动了。求小人从某一格出发，经过任意多次运动，可以到达的格子的最大数量。
+
+>    BFS
+
+>    1.    磁铁点
+>    2.    磁铁旁的点
+>    3.    非磁铁旁的点
+>
+>    从3点开始搜索，2点正常加入答案，但是**不继续向四周搜索**，**搜索一次后清除2点的标记**（其他地方可能还要计算该点为答案）
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m;
+    static char a[][];
+    static boolean vis[][];
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        a = new char[n][m];
+        vis = new boolean[n][m];
+        for(int i = 0; i < n; i ++){
+            a[i] = sc.next().toCharArray();
+        }
+        for(int i = 0; i < n; i ++){
+            for(int j = 0; j < m; j ++){
+                if(!vis[i][j] && a[i][j] == '.' && !stop(i, j)){
+                    cnt = 0;
+                    bfs(i, j);
+                    ans = Math.max(ans, cnt);
+                    while(!que2.isEmpty()){//清除磁铁旁标记，其他联通块可能搜到
+                        int pos[] = que2.poll();
+                        vis[pos[0]][pos[1]] = false;
+                    }
+                }
+            }
+        }
+        pw.println(ans);
+        pw.flush();
+    }
+    static int cnt, ans = 1;
+    static Queue<int[]> que2 = new LinkedList<>();
+    static int[] dx = {1, -1, 0, 0}, dy = {0, 0, 1, -1};
+    private static void bfs(int x0, int y0) {
+        Queue<int[]> que = new LinkedList<>();
+        que.add(new int[]{x0, y0});
+        vis[x0][y0] = true;
+        cnt ++;
+        while(!que.isEmpty()){
+            int x, y, pos[];
+            pos = que.poll();
+            x = pos[0];
+            y = pos[1];
+            if(stop(x, y)) {
+                que2.add(new int[]{x, y});
+                continue;
+            }
+                for(int i = 0; i < 4; i ++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] == '.' && !vis[nx][ny]){
+                    que.add(new int[]{nx, ny});
+                    vis[nx][ny] = true;
+                    cnt ++;
+                }
+            }
+        }
+    }
+    private static boolean stop(int x, int y) {
+        for(int i = 0; i < 4; i ++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[x + dx[i]][y + dy[i]] == '#'){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
+
 
 # Beginner Contest 352
 
