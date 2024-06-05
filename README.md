@@ -1,18 +1,15 @@
 # 个人题解
-## 练习
-1. 洛谷
-2. leetcode
-3. 牛客
-## 比赛
-1. 牛客
-2. leetcode
-3. AtCoder
-4. codeforce
+## Practice or Contest
+1. [洛谷](https://www.luogu.com.cn)
+2. [leetcode](https://leetcode.cn)
+3. [牛客](https://ac.nowcoder.com/)
+3. [AtCoder](https://atcoder.jp/)
+4. [codeforce](https://codeforces.com/)
 ## 知识点
 ### 基础算法
 1. 二分查找
 2. 前缀和与差分
-
+3. 双指针
 ### 数学
 1. 质数
 2. 约数
