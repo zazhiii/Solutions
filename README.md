@@ -1,4 +1,4 @@
-# 个人题解
+# My Solutions
 ## Practice or Contest
 1. [洛谷](https://www.luogu.com.cn)
 2. [leetcode](https://leetcode.cn)
