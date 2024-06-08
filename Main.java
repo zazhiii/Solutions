@@ -20,22 +20,22 @@ class Read{
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StreamTokenizer st = new StreamTokenizer(br);
     Scanner sc = new Scanner(br);
-    public String next() throws IOException {
-        return sc.next();
-    }
     public int nextInt() throws IOException {
         st.nextToken();
         return (int)st.nval;
     }
-    public int nextLong() throws IOException {
+    public long nextLong() throws IOException {
         st.nextToken();
-        return (int)st.nval;
+        return (long)st.nval;
     }
     public double nextDouble()throws Exception{
 		st.nextToken();
-		return (long)st.nval;
+		return (double)st.nval;
 	}
     public String nextLine() throws IOException{
         return br.readLine();
+    }
+    public String next() throws IOException {
+        return sc.next();
     }
 }
