@@ -150,9 +150,85 @@ public class Main {
 }
 ```
 
-### **D. Grid and Magnet**
-
 https://atcoder.jp/contests/abc351/tasks/abc351_d
+
+> BFS求联通块
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m;
+    static char a[][];
+    static boolean vis[][];
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        a = new char[n][m];
+        vis = new boolean[n][m];
+        for(int i = 0; i < n; i ++){
+            a[i] = sc.next().toCharArray();
+        }
+        for(int i = 0; i < n; i ++){
+            for(int j = 0; j < m; j ++){
+                if(!vis[i][j] && a[i][j] == '.' && !stop(i, j)){
+                    cnt = 0;
+                    bfs(i, j);
+                    ans = Math.max(ans, cnt);
+                    while(!que2.isEmpty()){//清除磁铁旁标记，其他联通块可能搜到
+                        int pos[] = que2.poll();
+                        vis[pos[0]][pos[1]] = false;
+                    }
+                }
+            }
+        }
+        pw.println(ans);
+        pw.flush();
+    }
+    static int cnt, ans = 1;
+    static Queue<int[]> que2 = new LinkedList<>();
+    static int[] dx = {1, -1, 0, 0}, dy = {0, 0, 1, -1};
+    private static void bfs(int x0, int y0) {
+        Queue<int[]> que = new LinkedList<>();
+        que.add(new int[]{x0, y0});
+        vis[x0][y0] = true;
+        cnt ++;
+        while(!que.isEmpty()){
+            int x, y, pos[];
+            pos = que.poll();
+            x = pos[0];
+            y = pos[1];
+            if(stop(x, y)) {
+                que2.add(new int[]{x, y});
+                continue;
+            }
+                for(int i = 0; i < 4; i ++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] == '.' && !vis[nx][ny]){
+                    que.add(new int[]{nx, ny});
+                    vis[nx][ny] = true;
+                    cnt ++;
+                }
+            }
+        }
+    }
+    private static boolean stop(int x, int y) {
+        for(int i = 0; i < 4; i ++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[x + dx[i]][y + dy[i]] == '#'){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
+
 
 # Beginner Contest 352
 
@@ -342,7 +418,7 @@ public class Main {
 
 ### **E - Yet Another Sigma Problem**
 
-[E - Yet Another Sigma Problem](https://atcoder.jp/contests/abc353/tasks/abc353_e)
+[E - Yet Another Sigma Problem](https://atcoder.jp/contests/abc353/tasks/abc353_e) **字典树**
 
 # Beginner Contest 354
 
@@ -549,6 +625,58 @@ public class Main {
             key[cnt] = i;
             dfs(cnt + 1);
         }
+    }
+}
+```
+
+# Beginner Contest 357
+
+D	https://atcoder.jp/contests/abc357/tasks/abc357_d
+
+对于正整数 $N$ ，设 $V_N$ 是由 $N$ 恰好连接 $N$ 次所组成的整数。  
+更确切地说，将 $N$ 视为一个字符串，将其连接 $N$ 份，并将结果视为一个整数，得到 $V_N$ 。  
+例如， $V_3=333$ 和 $V_{10}=10101010101010101010$ 。
+
+求 $V_N$ 除以 $998244353$ 的余数。
+
+> **快速幂、逆元**
+
+> 拼成：$NN...NNN$，$N$个$N$。
+>
+> 设$N$长度：$len$
+>
+> 从右往左第$k$个$N$的权值为$10^{(k -1)\times len}$
+>
+> 原式化为：$N\times (10^{(N-1)\times len}+10^{(N-2)\times len} +...+10^0)$
+>
+> 括号内为等比数列，用求和公式求和即可。$\frac{a_1(1-q^n)}{1-q}$
+>
+> $\frac{a}{b}$对$P$求模，$P$为质数，则：$\frac{a}{b} \mod P = a\times b^{p-2}\mod P$
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static long N, mod = 998244353;
+    public static void main(String[] args) throws IOException {
+        N = sc.nextLong();
+        int len = (N + "").length();
+        long q = qpow(10, len);
+        long ans = N % mod * ((qpow(q, N) - 1) % mod * qpow(q - 1, mod - 2) % mod) % mod;
+        pw.println(ans % mod);
+        pw.flush();
+    }
+    public static long qpow(long a, long n){
+        a %= mod;
+        long ans = 1;
+        while(n > 0){
+            if((n & 1) == 1) ans = ans * a % mod;
+            a = a * a % mod;
+            n >>= 1;
+        }
+        return ans;
     }
 }
 ```
