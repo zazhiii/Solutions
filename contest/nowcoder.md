@@ -601,3 +601,99 @@ public class Main {
 
 >    
 
+# 牛客小白月赛95
+
+# 牛客周赛 Round 46
+
+[C-爱音开灯](https://ac.nowcoder.com/acm/contest/84444/C)
+
+有无穷个灯排成一排，编号为从 1 开始，初始时所有灯都是关闭的。改变第 i 个灯的开闭状态会同时改变所有编号为 iii 倍数的灯的开闭状态。
+ Anon会从 1 到 n ，依次改变每一个灯的开闭状态，她想知道第 x 个灯最终的状态是什么？如果灯是关闭的，输出 "OFF" ，否则输出 "ON" 。
+
+> 约数
+
+> 枚举$x$的因数，判断有多少次在$n$以内即该点被操作多少次
+>
+> $O(\sqrt n)$
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static long n, x;
+    public static void main(String[] args) throws Exception {
+        int cnt = 0;
+        n = sc.nextLong();
+        x = sc.nextLong();
+        for(int i = 1; i < x / i; i ++){
+            if(x % i == 0){
+                if(i <= n) cnt ++;
+                if(x / i <= n) cnt ++;
+            }
+        }
+        //这里不要算两次了
+        if(x % Math.sqrt(x) == 0 && Math.sqrt(x) <= n) cnt ++;
+        pw.println(cnt % 2 == 0 ? "OFF" : "ON");
+        pw.flush();
+        pw.close(); 
+    }
+}
+```
+
+[D-小灯做题](https://ac.nowcoder.com/acm/contest/84444/D)
+
+> 分类讨论
+>
+> 先过滤0步的情况
+>
+> a	b	c
+>
+> a	b	1|a	b	0
+>
+> a	0	1
+>
+> 2	0	1
+
+```ava
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int T, a, b, c, k;
+    public static void main(String[] args) throws Exception {
+        T = sc.nextInt();
+        while(T --> 0){
+            a = sc.nextInt();
+            b = sc.nextInt();
+            c = sc.nextInt();
+            k = sc.nextInt();
+            Set<Integer> s = new HashSet<>();
+            s.add(a);s.add(b);s.add(c);
+            int ans = -1;
+            if(s.contains(k)) ans = 0;
+            else if(k == 0) ans = 1;
+            else if(k == 1){
+                if(s.contains(0)) ans = 1;
+                else ans = 2;
+            }
+            else if(k == 2){
+                if(s.contains(0) && s.contains(1)){
+                    ans = 1;
+                }else if(!s.contains(0) && !s.contains(1)){
+                    ans = 3;
+                }else{
+                    ans = 2;
+                }
+            }
+            pw.println(ans);            
+        }
+        pw.flush();
+        pw.close(); 
+    }
+}
+ 
+```
+
