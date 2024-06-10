@@ -656,7 +656,7 @@ public class Main {
 >
 > 2	0	1
 
-```ava
+```java
 import java.io.*;
 import java.util.*;
 public class Main {
@@ -695,5 +695,59 @@ public class Main {
     }
 }
  
+```
+
+[E-立希喂猫](https://ac.nowcoder.com/acm/contest/84444/E)
+
+Taki买了 n 种猫粮，第 i 种猫粮的营养值为 $a_i$ 、数量为 $b_i$ 。
+ 猫猫的饭量是无穷的，每一天她可以吃任意数量的猫粮，但是同一种猫粮她一天只会吃一次。
+ Taki想知道在 k 天内，猫猫可以获得的最大营养值之和是多少
+
+> **前缀和、二分、贪心**
+
+> 对于每一天把还剩有的猫粮全部吃一遍，对于第$k$天，数量小于等于$k$的将被全部吃完，大于$k$的将被吃$k$次。
+>
+> 将猫粮按数量排序，二分查找出分界点，用两个前缀和计算两部分营养即可。
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n;
+    static long a[][], s1[], s2[], q, k;
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        a = new long[n + 1][2];
+        s1 = new long[n + 1];
+        s2 = new long[n + 1];
+        for(int i = 1; i <= n; i ++) a[i][0] = sc.nextInt();
+        for(int i = 1; i <= n; i ++) a[i][1] = sc.nextInt();
+        Arrays.sort(a, (o1, o2) -> (int)(o1[1] - o2[1]));
+        for(int i = 1; i <= n; i ++){
+            s1[i] = s1[i - 1] + a[i][0] * a[i][1];
+            s2[i] = s2[i - 1] + a[i][0];
+        }
+        q = sc.nextInt();
+        while(q --> 0){
+            k = sc.nextInt();
+            int l = 0, r = n, idx = l;
+            while(l <= r){
+                int m = (l + r) >> 1;
+                if(a[m][1] <= k){
+                    idx = m;
+                    l = m + 1;
+                }else{
+                    r = m - 1;
+                }
+            }
+            pw.println( s1[idx] + k * (s2[n] - s2[idx]) );
+        }
+
+        pw.flush();
+        pw.close(); 
+    }
+}
 ```
 
