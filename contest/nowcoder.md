@@ -603,7 +603,7 @@ public class Main {
 
 # 牛客小白月赛95
 
-# 牛客周赛 Round 46
+# ✅牛客周赛 Round 46
 
 [C-爱音开灯](https://ac.nowcoder.com/acm/contest/84444/C)
 
@@ -646,11 +646,13 @@ public class Main {
 
 > 分类讨论
 >
+> $mex(x,y) \in \{0, 1, 2\}$
+>
 > 先过滤0步的情况
 >
 > a	b	c
 >
-> a	b	1|a	b	0
+> **a	b	1|a	b	0**	
 >
 > a	0	1
 >
@@ -747,6 +749,67 @@ public class Main {
 
         pw.flush();
         pw.close(); 
+    }
+}
+```
+
+[F-祥子拆团](https://ac.nowcoder.com/acm/contest/84444/F)             
+
+有两个数字 $x,y$ ，有多少种方式可以将 $x$ 拆成 $y$ 个正整数的乘积。
+ 例如 $x=6,y=2$ 时，有$6 \times 1=6,3 \times 2=6,2 \times 3=6,1 \times 6=6$ 这 4 种方法。
+ 由于这个答案可能很大，因此你需要输出答案对 $10^9 + 7$ 取模后的结果。
+
+> **组合数学、快速幂、逆元**
+
+> 考虑将$x$分解质因数，对于**每种**质因数（设这种质因数有$d$个）相当于放入$y$个盒子中且允许有空盒子，对应**插板法的第二类问题**，答案为$C_{d+y-1}^{y-1}=C_{d+y-1}^{d}$，由于$d$的值很小不会超过30，所以用循环计算组合数。
+>
+> $\frac{(d+y-1)\times(d+y-2)\times...\times y}{d\times(d-1)\times...\times1}$，$d$从$d$到$1$。
+>
+> 每种质因数放入盒子相当于一个步骤，根据乘法原理，需要将每种质因数的答案相乘。
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int N = 100010, T, a, b, mod = (int)1e9 + 7;
+    public static void main(String[] args) throws Exception {
+        T = sc.nextInt();
+        while(T --> 0){
+            a = sc.nextInt();
+            b = sc.nextInt();
+            long ans = 1;
+            for(int i = 2; i <= a / i; i ++){
+                if(a % i == 0){
+                    int s = 0;
+                    while(a % i == 0){
+                        s ++;
+                        a /= i;
+                    }
+                    //s个相同质因子放入b个盒子 => c(s + b - 1, s)
+                    for(int k = s; k >= 1; k --){
+                        ans = ans * (b - 1 + k) % mod;
+                        ans = ans * qpow(k, mod - 2) % mod;
+                    }
+                }
+            }
+            if(a > 1)  ans = ans * b % mod;
+            pw.println(ans);
+        }
+        pw.flush();
+        pw.close(); 
+    }
+    private static long qpow(long a, long n) {
+        a %= mod;
+        long ans = 1;
+        while(n > 0){
+            if((n & 1) == 1) ans = ans * a % mod;
+            a = a * a % mod;
+            n >>>= 1;
+        }
+        return ans;
     }
 }
 ```
