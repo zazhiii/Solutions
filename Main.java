@@ -2,18 +2,21 @@
 import java.io.*;
 import java.util.*;
 public class Main {
+    //
+    static public void solve() throws IOException{
+
+    }
+    
     static Read rd = new Read();
     static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-    static long inf = (long)2e9, INF = (long)2e18;
+    static int inf = (int)2e9;
+    static long INF = (long)2e18;
     public static void main(String[] args) throws IOException {
         int T = 1;
         // T = rd.nextInt();
         while(T --> 0) solve();
         pw.flush();
         pw.close();
-    }
-    static public void solve() throws IOException{//
-         
     }
 }
 class Read{
