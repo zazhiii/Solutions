@@ -577,54 +577,65 @@ public class Main {
 
 [C - Keys](https://atcoder.jp/contests/abc356/tasks/abc356_c)
 
->    DFS
+你有 $N$ 个编号为 $1, 2, \dots, N$ 的密钥。  其中一些是真钥匙，其他的是假钥匙。
+
+有一扇门，门 X，你可以插入任意数量的钥匙。只有插入至少 $K$ 把真钥匙，X 门才会打开。
+
+你已经对这些钥匙进行了 $M$ 次测试。 $i$ 次测试过程如下：
+
+- 您将 $C_i$ 把 $A _{i,1}, A_{i,2}, \dots, A_{i,C_i}$ 把钥匙插入了 X 号门。
+- 测试结果用一个英文字母 $R_i$ 表示。
+    - $R_i =o$  表示在 $i$ \-th 测试中门 X 打开了。
+    - $R_i=x$ 表示在 $i$ 次测试中，门X没有打开。
+
+有 $2^N$ 种可能的钥匙组合，其中哪些是真钥匙，哪些是假钥匙。在这些组合中，找出与任何测试结果都不矛盾的组合数。  
+给定的测试结果有可能是错误的，没有任何组合满足条件。在这种情况下，报告 $0$ 。
+
+>    **二进制枚举**
 
 >    $1\leq N \leq15$，考虑枚举所有钥匙的真假组合情况，再判断每一种情况是否满足所有测试，满足则答案数+1
 >
->    $O(M\times2^N)$
+>    $O(max(C_i)\times M\times2^N)$
 
 ```java
 import java.io.*;
 import java.util.*;
+
 public class Main {
     static Scanner sc = new Scanner(System.in);
     static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-    static int n, m, k, a[][], num[], ans, key[];
+    static int n, m, k, c[], a[][];
     static char r[];
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         n = sc.nextInt();
         m = sc.nextInt();
         k = sc.nextInt();
-        a = new int[m][n];
+        c = new int[m];
         r = new char[m];
-        num = new int[m];
-        key = new int[n + 1];
+        a = new int[m][15];
         for(int i = 0; i < m; i ++){
-            num[i] = sc.nextInt();
-            for(int j = 0; j < num[i]; j ++) a[i][j] = sc.nextInt();
+            c[i] = sc.nextInt();
+            for(int j = 0; j < c[i]; j ++) a[i][j] = sc.nextInt();
             r[i] = sc.next().charAt(0);
         }
-        dfs(1);
+        int ans = 0;
+        for(int i = 0; i < 1 << n; i ++){
+            if(ok(i)) ans ++;
+        }
         pw.println(ans);
-        pw.flush();
+        pw.flush();pw.close(); 
     }
-    private static void dfs(int cnt) {
-        if(cnt == n + 1){
-            for(int i = 0; i < m; i ++){
-                int tk = 0;
-                for(int j = 0; j < num[i]; j ++){
-                    if(key[a[i][j]] == 1) tk ++;
-                }
-                if(tk >= k && r[i] == 'x') return;
-                if(tk < k && r[i] == 'o') return;
+    private static boolean ok(int i) {
+        for(int j = 0; j < m; j ++){
+            int t = 0;
+            for(int k = 0; k < c[j]; k ++){
+                //这里取位数要注意
+                if( (i >> (a[j][k] - 1) & 1) == 1 ) t ++;
             }
-            ans ++;
-            return;
+            if(t >= k && r[j] == 'x') return false;
+            if(t < k && r[j] == 'o') return false;
         }
-        for(int i = 0; i <= 1; i ++){
-            key[cnt] = i;
-            dfs(cnt + 1);
-        }
+        return true;
     }
 }
 ```
@@ -677,6 +688,146 @@ public class Main {
             n >>= 1;
         }
         return ans;
+    }
+}
+```
+
+# Beginner Contest 358
+
+[B - Ticket Counter](https://atcoder.jp/contests/abc358/tasks/abc358_b)
+
+游客排队逐个购票。每人购票需要 $A$ 秒。一旦排在队伍前面的人完成购票，下一个人（如果有的话）就会立即开始他们的购票过程。
+
+目前，售票点没有人排队， $N$ 人会陆续前来购票。具体来说， $i$ th 人将在 $T_i$ 秒后到达售票点。如果已经有人排队，他们会排在队伍的最后；如果没有，他们会立即开始购票。这里， $T_1 \lt T_2 \lt \dots \lt T_N$ .
+
+对于每个 $i\ (1 \leq i \leq N)$ ，确定从现在起 $i$ /th 的人将在多少秒后完成购票。
+
+> 分类讨论
+
+> 若$i$-th来时$i-1$-th已买完，则当前买完时间为来的时间+A
+>
+> 若$i$-th来时$i-1$-th没买完，则前面买完的时间 + A
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, A;
+    static long t[];
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        A = sc.nextInt();
+        t = new long[n + 1];
+        for(int i = 1; i <= n; i ++){
+            int x = sc.nextInt();
+            if(x >= t[i - 1]) t[i] = x + A;
+            else t[i] = t[i - 1] + A;
+            pw.println(t[i]);
+        }
+        pw.flush();pw.close(); 
+    }
+}
+```
+
+[C - Popcorn](https://atcoder.jp/contests/abc358/tasks/abc358_c)
+
+在 AtCoder 乐园里，有 $N$ 个爆米花摊位，编号从 $1$ 到 $N$ 。它们有 $M$ 种不同口味的爆米花，标号为 $1, 2, \dots, M$ ，但并不是每个摊位都出售所有口味的爆米花。
+
+高桥获得了关于每个摊位都出售哪些口味爆米花的信息。这些信息由长度为 $M$ 的 $N$ 字符串 $S_1, S_2, \dots, S_N$ 表示。如果 $S_i$ 的 $j$ -th 字符是 "o"，则表示 $i$ 摊位销售的爆米花口味为 $j$ 。如果是 "x"，则表示 $i$ 摊位不出售 $j$ 口味的爆米花。每个摊位至少出售一种口味的爆米花，每种口味的爆米花至少在一个摊位上出售。
+
+高桥想尝遍所有口味的爆米花，但又不想走动太多。求高桥至少要去多少个摊位才能买到所有口味的爆米花？
+
+> **二进制枚举**
+
+> 用二进制代表商店的售卖情况和选择商店的情况，见代码
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m, a[];
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        a = new int[n];//二进制记录每个单位的售卖情况，例如：11100
+        for(int i = 0; i < n; i ++){
+            String s = sc.next();
+            for(int j = 0; j < m; j ++){
+                if(s.charAt(j) == 'o'){
+                    a[i] |= 1 << j;//一个摊位中的某一种爆米花
+                }
+            }
+        }
+        int ans = 1 << n;
+        //然后枚举店铺先与不选的情况，即二进制枚举用[0, 2^n - 1]表示
+        for(int i = 0; i < 1 << n; i ++){
+            int t = 0;//统计已经买到的爆米花
+            for(int j = 0; j < n; j ++){//判断每一位是否为 1
+                if((i >> j & 1) == 1){//若i的第j位为1，即要选择第j个店铺
+                    t |= a[j];
+                }
+            }
+            if(Integer.bitCount(t) == m){
+                ans = Math.min(ans, Integer.bitCount(i));
+            }
+        }
+        pw.println(ans);
+        pw.flush();pw.close(); 
+    }
+}
+```
+
+[D - Souvenir](https://atcoder.jp/contests/abc358/tasks/abc358_d)
+
+有 $N$ 盒子。编号为 $1$ 至 $N$ ，盒子 $i$ 的价格为 $A_i$ 日元，里面有 $A_i$ 块糖果。
+
+从 $N$ 个盒子中买 $M$ 个，然后给 $M$ 个叫 $1, 2, \ldots, M$ 的人每人一盒。
+
+满足以下条件：
+
+- 对于每个 $i = 1, 2, \ldots, M$ 人， $i$ 都会得到一个至少装有 $B_i$ 块糖果的盒子。
+
+请注意，不允许给一个人多个盒子，也不允许给多个人同一个盒子。
+
+求是否可能买到满足条件的 $M$ 盒，如果可能，求高桥需要支付的最小总金额。
+
+> **双指针**
+
+> 类似判断子序列
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m, a[], b[];
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        a = new int[n];
+        b = new int[m];
+        for(int i = 0; i < n; i ++) a[i] = sc.nextInt();
+        for(int i = 0; i < m; i ++) b[i] = sc.nextInt();
+        Arrays.sort(a);
+        Arrays.sort(b);
+        int i = 0, j = 0;
+        long ans = 0;
+        while(i < n && j < m){
+            if(b[j] <= a[i]) {
+                j ++;
+                ans += a[i];
+            }
+            i ++;
+        }
+        pw.println(j == m ? ans : -1);
+        pw.flush();pw.close(); 
     }
 }
 ```
