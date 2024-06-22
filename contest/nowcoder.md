@@ -404,6 +404,8 @@ https://ac.nowcoder.com/acm/contest/80742/D
 > 用三个前缀和记录记录每个字母的出现情况，在比较时用前缀和计算。
 >
 > 对于好串的形式，应当让三个字母数量尽可能接近。当长度不是三的倍数时应当讨论三种情况。
+>
+> $O(n + m)$
 
 ![image-20240622112539834](images/image-20240622112539834.png)
 
@@ -946,6 +948,72 @@ public class Main {
         pw.close(); 
     }
 
+}
+```
+
+[D-最小连通代价](https://ac.nowcoder.com/acm/contest/84528/D)
+
+有 n 个结点，第 i 个结点的权值为 $A_i$。 初始时都为孤立的点，互不连通。
+
+ 现在需要加若干条无向边，使得所有点构成一张无向连通图。
+
+ 我们定义在两个结点之间加边的代价为：如果两个点的权值都是偶数或者都是奇数，代价为 a。否则为 b。
+
+ 算出所有点构成一张无向连通图的最小代价之和。
+
+> 分类讨论
+
+>  讨论odd和even的个数，a和b的正负。讨论情况比较多。  
+>
+> **又犯了每组数据的变量不重新初始化的错误。。。😓**    
+>
+> $O(Tn)$     
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int T, n;
+    static long  a, b;
+    public static void main(String[] args) throws Exception {
+        T = sc.nextInt();
+        while(T --> 0){
+            n = sc.nextInt();
+            a = sc.nextLong();
+            b = sc.nextLong();
+            long o = 0, e = 0;
+            for(int i = 0; i < n; i ++){
+                int x = sc.nextInt();
+                if(x % 2 == 0) e ++;
+                else o ++;
+            }
+            long ans = 0;
+            if(a < 0 && b < 0){
+                ans += a * (e - 1) * e / 2;
+                ans += a * (o - 1) * o / 2;
+                ans += b * e * o;
+            }else if(a < 0 && b >= 0){
+                ans += a * (e - 1) * e / 2;
+                ans += a * (o - 1) * o / 2;
+                if(e > 0 && o > 0) ans += b;
+            }else if(a >= 0 && b < 0){
+                //may only odd or even
+                if(e == 0 || o == 0){
+                    ans = (n - 1) * a;
+                }else{
+                    ans = b * e * o;
+                }
+            }else{
+                if(e == 0 || o == 0) ans = a * (n - 1);
+                else ans = a < b ? (n - 2) * a + b : (n - 1) * b; 
+            }
+            pw.println(ans);
+        }
+        pw.flush();pw.close(); 
+    }
 }
 ```
 
