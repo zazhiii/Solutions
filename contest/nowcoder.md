@@ -392,7 +392,7 @@ public class Main {
 }
 ```
 
-### D. 小红的好串
+D. 小红的好串
 
 https://ac.nowcoder.com/acm/contest/80742/D
 
@@ -401,43 +401,72 @@ https://ac.nowcoder.com/acm/contest/80742/D
 
  现在小红拿到了一个字符串，她有多次询问，每次询问一个区间，你需要回答将该区间对应的子串修改为好串的最小修改次数（每次修改可以修改任意一个字符）
 
+> 用三个前缀和记录记录每个字母的出现情况，在比较时用前缀和计算。
+>
+> 对于好串的形式，应当让三个字母数量尽可能接近。当长度不是三的倍数时应当讨论三种情况。
+
+![image-20240622112539834](images/image-20240622112539834.png)
+
 ```java
+import java.io.*;
 import java.util.*;
-public class Main{
-    static int move[][][][]={{{{0,0},{0,0},{0,0}}},{{{0,0},{0,0},{0,1}},{{0,0},{0,1},{1,1}},{{0,1},{1,1},{1,1}}},{{{0,1},{1,2},{2,2}},{{0,1},{1,1},{1,2}},{{0,0},{0,1},{1,2}}}};
-    public static void main(String args[]){
-        Scanner sc=new Scanner(System.in);
-        Map<Character,Integer> map=new HashMap<>();
-        map.put('r',0);
-        map.put('e',1);
-        map.put('d',2);
-        int n=sc.nextInt(),q=sc.nextInt(),pre[][]=new int[n+1][3];
-        String s=sc.next();
-        for(int i=1;i<=n;i++){
-            pre[i]=pre[i-1].clone();
-            pre[i][map.get(s.charAt(i-1))]++;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, m, l , r, s[][];
+    static char[] c;  
+    public static void main(String[] args) throws Exception {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        c = sc.next().toCharArray();
+        s = new int[n + 1][3];
+        for(int i = 1; i <= n; i ++){
+            s[i][getc(c[i - 1])] ++;
+            for(int j = 0; j < 3; j ++) s[i][j] += s[i - 1][j];
         }
-        for(int i=0;i<q;i++){
-            int l=sc.nextInt(),r=sc.nextInt();
-            System.out.println(find(pre,l,r));
-        }
-    }
-    static int find(int pre[][],int l,int r){
-        if(r-l<2){
-            return 0;
-        }
-        l--;
-        int ans=(int)1e9,d=(r-l)/3;
-        for(int m[][]:move[(r-l)%3]){
-            int sum=0;
-            for(int i=0;i<3;i++){
-                sum+=d+m[i][1]-m[i][0]-(pre[l+d*(i+1)+m[i][1]][i]-pre[l+d*i+m[i][0]][i]);
+        while(m --> 0){
+            l = sc.nextInt();
+            r = sc.nextInt();
+            int d = r - l + 1;
+            if(d <= 2) {
+                pw.println(0);
+                continue;
             }
-            ans=Math.min(ans,sum);
+            int ans = (int) 1e9;
+            int len = d / 3;
+            if(d % 3 == 0){
+                int k1 = l + len - 1, k2 = l + 2 * len - 1;
+                ans = d - get(k1, k2); 
+            }else if(d % 3 == 1){
+                int k1 = l + len - 1, k2 = l + 2 * len - 1;
+                ans = d - get(k1, k2);
+                k2 ++;
+                ans = Math.min(ans, d - get(k1, k2));
+                k1 ++;
+                ans = Math.min(ans, d - get(k1, k2));
+            }else{
+                int k1 = l + len, k2 = k1 + len + 1;
+                ans = d - get(k1, k2);
+                k2 --;
+                ans = Math.min(ans, d - get(k1, k2));
+                k1 --;
+                ans = Math.min(ans, d - get(k1, k2));
+            }
+            pw.println(ans);
         }
-        return ans;
+        pw.flush();pw.close(); 
+    }
+    public static int get(int k1, int k2){
+        return s[k1][0] - s[l - 1][0] + s[k2][1] - s[k1][1] + s[r][2] - s[k2][2];
+    }
+    public static int getc(char c){
+        if(c == 'r') return 0;
+        if(c == 'e') return 1;
+        return 2;
     }
 }
+
 ```
 
 # 牛客小白月赛93
