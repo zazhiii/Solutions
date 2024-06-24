@@ -286,7 +286,7 @@ class Solution {
 
 # 第 401 场周赛
 
-### D	[100320. 执行操作可获得的最大总奖励 II](https://leetcode.cn/problems/maximum-total-reward-using-operations-ii/)
+### T3	[100320. 执行操作可获得的最大总奖励 II](https://leetcode.cn/problems/maximum-total-reward-using-operations-ii/)
 
 给你一个整数数组 `rewardValues`，长度为 `n`，代表奖励的值。
 
@@ -296,3 +296,214 @@ class Solution {
 - 如果 `rewardValues[i]` **大于** 你当前的总奖励 `x`，则将 `rewardValues[i]` 加到 `x` 上（即 `x = x + rewardValues[i]`），并 **标记** 下标 `i`。
 
 以整数形式返回执行最优操作能够获得的 **最大** 总奖励。
+
+### T4	[100320. 执行操作可获得的最大总奖励 II](https://leetcode.cn/problems/maximum-total-reward-using-operations-ii/)
+
+给你一个整数数组 `rewardValues`，长度为 `n`，代表奖励的值。
+
+最初，你的总奖励 `x` 为 0，所有下标都是 **未标记** 的。你可以执行以下操作 **任意次** ：
+
+- 从区间 `[0, n - 1]` 中选择一个 **未标记** 的下标 `i`。
+- 如果 `rewardValues[i]` **大于** 你当前的总奖励 `x`，则将 `rewardValues[i]` 加到 `x` 上（即 `x = x + rewardValues[i]`），并 **标记** 下标 `i`。
+
+以整数形式返回执行最优操作能够获得的 **最大** 总奖励。
+
+# 第 402 场周赛
+
+[3185. 构成整天的下标对数目 II](https://leetcode.cn/problems/count-pairs-that-form-a-complete-day-ii/)
+
+给你一个整数数组 `hours`，表示以 **小时** 为单位的时间，返回一个整数，表示满足 `i < j` 且 `hours[i] + hours[j]` 构成 **整天** 的下标对 `i`, `j` 的数目。
+
+**整天** 定义为时间持续时间是 24 小时的 **整数倍** 。
+
+例如，1 天是 24 小时，2 天是 48 小时，3 天是 72 小时，以此类推。
+
+> 类似两数之和的哈希表做法。
+>
+> 另外若$(a+b) \mod 24 = 0 $且$a、b$不是24的倍数的话、$a\mod 24+b\mod 24=24$。
+>
+> 先将所有元素$\mod 24$
+>
+> 单独统计24的倍数`cnt`。再统计$a+b=24$的对数（两数之和）
+>
+> 其中哈希表可以用一个长度$24$的数组优化。
+
+```java
+class Solution {
+    public long countCompleteDayPairs(int[] a) {
+        long ans = 0, n = a.length, cnt = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < n; i ++) {
+            a[i] %= 24;
+            if(a[i] == 0) cnt ++;
+            else{
+                ans += map.getOrDefault(24 - a[i], 0);
+                map.put(a[i], map.getOrDefault(a[i], 0) + 1);
+            }
+        }
+        ans += (cnt - 1) * cnt / 2;
+        return ans;
+    }
+}
+```
+
+[3186. 施咒的最大总伤害](https://leetcode.cn/problems/maximum-total-damage-with-spell-casting/)
+
+给你一个数组 `power` ，其中每个元素表示一个咒语的伤害值，可能会有多个咒语有相同的伤害值。
+
+已知魔法师使用伤害值为 `power[i]` 的咒语时，他们就 **不能** 使用伤害为 `power[i] - 2` ，`power[i] - 1` ，`power[i] + 1` 或者 `power[i] + 2` 的咒语。
+
+每个咒语最多只能被使用 **一次** 。
+
+请你返回这个魔法师可以达到的伤害值之和的 **最大值** 
+
+> 状态机dp
+
+> 法一：双指针、哈希表、dp
+>
+> 将咒语大小和数量存入哈希表，将键取出排序。
+>
+> $dp[i]$：表示在$0\sim i$个数中能取到的最大值。
+>
+> $dp[i] =max(dp[i-1],dp[j]+a[i]*(number\ of\ a[i])$，其中$j$表示小于$a[i]-2$的最大数的下标。
+>
+> 对于$i$增加$j$单调不减，所以用一个指针寻找$j$
+>
+> 排序 ： $O(n\log n)$ 双指针：$O(n)$
+
+```java
+class Solution {
+    public long maximumTotalDamage(int[] p) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int x : p) map.put(x, map.getOrDefault(x, 0) + 1);
+        int n = map.size();
+        int a[] = new int[n], k = 0;
+        for(int x : map.keySet()) a[k ++] = x;
+        Arrays.sort(a);
+        long dp[] = new long[n + 1];
+        for(int i = 0, j = 0; i < n; i ++){
+            while(a[j] < a[i] - 2) j ++;
+            dp[i + 1] = Math.max(dp[i], dp[j] + 1l * a[i] * map.get(a[i]));
+        }
+        return dp[n];
+    }
+}
+```
+
+> 法二：排序、二分查找、dp
+>
+> $dp[i][1/0]$：选/不选第$i$个数$0\sim i$能取到的最大值。
+>
+> 从左往右遍历，分情况讨论$i$和$i -1$的关系，写对应的转移方程。（见代码）
+>
+> $O(n\log n)$
+
+```java
+class Solution {
+    public long maximumTotalDamage(int[] p) {
+        int n = p.length, a[] = new int[n + 1], k = 1;
+        for(int x : p) a[k ++] = x;
+        Arrays.sort(a);
+        long dp[][] = new long[n + 1][2];
+        for(int i = 1; i <= n; i ++){
+            if(a[i] - a[i - 1] > 2){
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+                dp[i][1] = dp[i][0] + a[i];
+            }else if(a[i] == a[i - 1]){
+                dp[i][0] = dp[i - 1][0];
+                dp[i][1] = dp[i - 1][1] + a[i];
+            }else{
+                int l = 0, r = i - 1, idx = 0;
+                while(l <= r){
+                    int m = (l + r) >> 1;
+                    if(a[m] < a[i] - 2){
+                        idx = m;
+                        l = m + 1;
+                    }else{
+                        r = m - 1;
+                    }
+                }
+                dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+                dp[i][1] = Math.max(dp[idx][0], dp[idx][1]) + a[i];
+            }
+        }            
+        return Math.max(dp[n][0], dp[n][1]);
+    }
+}
+```
+
+
+
+
+
+# 第 403 场周赛
+
+**T3** 	[100337. 最大化子数组的总成本](https://leetcode.cn/problems/maximize-total-cost-of-alternating-subarrays/)
+
+给你一个长度为 `n` 的整数数组 `nums`。
+
+子数组 `nums[l..r]`（其中 `0 <= l <= r < n`）的 **成本** 定义为：
+
+```
+cost(l, r) = nums[l] - nums[l + 1] + ... + nums[r] * (−1)r − l
+```
+
+你的任务是将 `nums` 分割成若干子数组，使得所有子数组的成本之和 **最大化**，并确保每个元素 **正好** 属于一个子数组。
+
+返回在最优分割方式下的子数组成本之和的最大值。
+
+```java
+class Solution {
+    /*  dp[i][0/1]: 第i个数取正/负0~i最大成本
+        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1]) + a[i]
+        dp[i][1] = dp[i - 1][0] - a[i]
+     */
+    public long maximumTotalCost(int[] a) {
+        long ans = 0;
+        int n = a.length;
+        long dp[][] = new long[n + 1][2];
+        dp[1][0] = a[0];
+        dp[1][1] = a[0];
+        for(int i = 2; i <= n; i ++){
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]) + a[i - 1];
+            dp[i][1] = dp[i - 1][0] - a[i - 1];
+        }
+        return Math.max(dp[n][0], dp[n][1]);
+    }
+}
+```
+
+# 第 133 场双周赛
+
+**T3** [100346. 使二进制数组全部等于 1 的最少操作次数 II](https://leetcode.cn/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-ii/)
+
+给你一个二进制数组 `nums` 。
+
+你可以对数组执行以下操作 **任意** 次（也可以 0 次）：
+
+- 选择数组中 **任意** 一个下标 `i` ，并将从下标 `i` 开始一直到数组末尾 **所有** 元素 **反转** 。
+
+**反转** 一个元素指的是将它的值从 0 变 1 ，或者从 1 变 0 。
+
+请你返回将 `nums` 中所有元素变为 1 的 **最少** 操作次数。
+
+> 思维
+
+> 从数组开始位置思考，若第一个为1，则考虑的范围变为$1\sim n-1$，若第一个为0，则反转一次，考虑范围再次变为$1\sim n-1$。
+>
+> 对于最左侧的$0$，必须从这里反转一次，则后面的1将会变为0，这时变为往后碰到第一个1时再次反转，这样不断交替。可以发现反转次数为偶数时，后面的元素相当于没有反转，对碰到的0计数；反转次数为奇数时，后面的1变为0，对碰到的1计数。
+>
+> $O(n)$
+
+```java
+class Solution {
+    public int minOperations(int[] a) {
+        int ans = 0, n = a.length;
+        for(int i = 0; i < n; i ++){
+            if(a[i] == ans % 2) ans ++; 
+        }
+        return ans;
+    }
+}
+```
+
