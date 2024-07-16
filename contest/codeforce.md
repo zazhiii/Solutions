@@ -297,3 +297,49 @@ public class Main {
 
 ```
 
+# [Codeforces Round 958 (Div. 2)](https://codeforces.com/contest/1988)
+
+[Problem - C - Codeforces](https://codeforces.com/contest/1988/problem/C)
+
+给定正整数 $n$. 构造**最长**的序列 $a=[a_1,a_2,\ldots,a_k]$ 满足:
+
+- $a_i\le n$ for all $1\le i\le k$.
+- $a$ 严格递增
+- $a_i\,|\,a_{i-1}=n$ for all $2\le i\le k$, |代表按位异或
+
+> 位运算， lowbit
+
+> 注意到要序列**最长**，从最大数开始构造，最大那个数一定是$n$本身，次大值一定为$n - lowbit(n)$一次类推，可以构造出长度为$bitcount(n) + 1$的序列。
+
+> $O(n + n\log n)$瓶颈在排序。
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    public static void solve(){
+        long n = sc.nextLong();
+        Vector<Long> ans = new Vector<>();
+        long x = n;
+        while(x > 0){
+            long e = n - (x & -x);
+            if(e != 0) ans.add(e);
+            x -= (x & -x);
+        }
+        ans.add(n);
+        Collections.sort(ans);
+        pw.println(ans.size());
+        for(long e : ans) pw.print(e + " ");
+        pw.println();
+    }
+    public static void main(String[] args) throws IOException {
+        int T = sc.nextInt();
+        while(T --> 0){solve();}
+        pw.flush();pw.close();
+    }
+}
+```
+
