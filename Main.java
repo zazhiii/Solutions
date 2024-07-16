@@ -2,11 +2,12 @@
 import java.io.*;
 import java.util.*;
 public class Main {
-    //
+// public class Main {
+    
     static public void solve() throws IOException{
 
     }
-    
+    static Scanner sc = new Scanner(System.in);
     static Read rd = new Read();
     static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
     static int inf = (int)2e9;
@@ -14,6 +15,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int T = 1;
         // T = rd.nextInt();
+        // T = sc.nextInt();
         while(T --> 0) solve();
         pw.flush();
         pw.close();
