@@ -75,44 +75,55 @@ public class Main {
 }
 ```
 
-# C
+# C数组分割
 
-$C^0_n+C^1_n+C^2_n+⋯+C^n_n=2^n$
+小蓝有一个长度为 N 的数组 A = [A0, A1,..., AN−1]。现在小蓝想要从 A 对应的数组下标所构成的集合 I = {0, 1, 2, . . . , N − 1} 中找出一个子集 R1，那么 R1在 I 中的补集为 R2。记 S1=∑r∈R1Ar，S2 =∑r∈R2Ar，我们要求 S1 和 S2 均为偶数，请问在这种情况下共有多少种不同的 R1。当 R1 或 R2 为空集时我们将 S1 或 S2 视为 0。
 
-$C^0_n+C^2_n+C^4_n+⋯=C^1_n+C^3_n+C^5_n+⋯=2^{n−1}$
+> 组合数学、快速幂
+
+> 记录奇数和偶数的个数，若奇数个数为奇数则不可能分成两个和为偶数的子集。
+>
+> 假设从中选出若干偶数若干奇数作为一个子集，偶数有$C^0_n+C^1_n+C^2_n+⋯+C^n_n=2^n$种选法，而奇数有$C^0_n+C^2_n+C^4_n+⋯=C^1_n+C^3_n+C^5_n+⋯=2^{n−1}$种选法。将两者相乘即可。
+
+> $O(n)$
 
 ```java
-import java.math.BigInteger;
+import java.io.*;
 import java.util.*;
+
 public class Main {
-	static int T;
-	static BigInteger MOD = new BigInteger("1000000007"), res[], TOW = new BigInteger("2");
-	public static void main(String[] args) {
-		 Scanner s = new Scanner(System.in);
-		 T = s.nextInt();
-		 res = new BigInteger[T];
-		 //T组数据
-		 for(int i = 0; i<=T - 1; i++) {
-			 int n = s.nextInt();
-			 int[] a = new int[n];
-			 int ji = 0, ou = 0;//奇、偶数个数
-			 for(int j = 0; j<n; j++) {
-				 a[j] = s.nextInt();
-				 if(a[j]%2 == 0) ou ++;
-				 else ji ++;
-			 }
-			 if(ji%2 != 0) {// 奇数个数奇数，没有方案
-				 res[i] = new BigInteger("0");
-				 continue;
-			 }
-			 ji = ji == 0?1:ji;//
-			 res[i] = TOW.pow(ou+ji-1).mod(MOD);			 
-		 }
-		 for(int i = 0; i<=T-1; i++) {
-			 System.out.println(res[i]);
-		 }		 
-	}
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, a[], mod = 1000000007;
+    public static void solve(){
+        n = sc.nextInt();
+        long e = 0, o = 0;
+        for(int i = 0; i < n; i ++){
+            int x = sc.nextInt();
+            if(x % 2 == 0) e ++;
+            else o ++;
+        }
+        if(o % 2 == 1){pw.println(0);return;}
+        if(o == 0) o ++;
+        pw.println(qpow(2, e + o - 1));
+    }
+    public static long qpow(long a, long n){
+        a %= mod;
+        long ans = 1;
+        while(n > 0){
+            if(n % 2 == 1) ans = ans * a % mod;
+            a = a * a % mod;
+            n >>>= 1;
+        }
+        return ans;
+    }
+    public static void main(String[] args) throws IOException {
+        int T = sc.nextInt();
+        while(T --> 0) solve();
+        pw.flush();pw.close();
+    }
 }
+
 ```
 
 # D(WA)
@@ -190,7 +201,7 @@ public class Main {
 
 
 
-# E
+# E蜗牛
 
 这天，一只蜗牛来到了二维坐标系的原点。
 
@@ -209,33 +220,42 @@ Ideas:
 <img src="images/image-2023E.png" alt="image-20240207021440159" style="zoom: 33%;" /><img src="images/image-2023E(2).png" alt="image-20240207022327723" style="zoom: 25%;" />
 
 ```java
-import java.util.Scanner;
-public class Main {	
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        int N = s.nextInt();
-        int[] X = new int[N+1];
-        int[] A = new int[N+1];
-        int[] B = new int[N+1];
-        for (int i = 1; i <=N; i++) {
-			X[i] = s.nextInt(); 
-		}
-        for (int i = 1; i <=N-1; i++) {
-			A[i] = s.nextInt();
-			B[i+1] = s.nextInt();
-		}
-        double [][] dp = new double [2][N+1];
-        dp[0][1] = X[1];
-        dp[1][1] = X[1]+A[1]/0.7;
-        
-        for (int j = 2; j <=N; j++) {
-        	dp[0][j] = Math.min(dp[0][j-1]+X[j]-X[j-1],dp[1][j-1]+B[j]/1.3); 
-        	dp[1][j]= Math.min(dp[0][j-1]+X[j]-X[j-1]+A[j]/0.7,dp[1][j-1]+Math.abs(A[j]-B[j])/(A[j]>B[j]?0.7:1.3)); 
-		}
+import java.io.*;
+import java.util.*;
 
-        System.out.printf("%.2f",dp[0][N]);
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, x[], a[], b[];
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        x = new int[n + 1];
+        a = new int[n + 1];
+        b = new int[n + 1];
+        for(int i = 1; i <= n; i ++) x[i] = sc.nextInt();
+        for(int i = 1; i <= n - 1; i ++) {
+            a[i] = sc.nextInt();
+            b[i] = sc.nextInt();
         }
+        double dp[][] = new double[n + 1][2];
+        dp[1][0] = x[1] + 0;
+        dp[1][1] = x[1] + a[1] / 0.7;
+        for(int i = 2; i <= n; i ++){
+            double t1 = x[i] - x[i - 1] + dp[i - 1][0];
+            double t2 = b[i - 1] / 1.3 + dp[i - 1][1];
+            dp[i][0] = Math.min(t1, t2);
+            if(b[i - 1] > a[i]){
+                t1 = (b[i - 1] - a[i]) / 1.3 + dp[i - 1][1];
+            }else{
+                t1 = (a[i] - b[i -1]) / 0.7 + dp[i - 1][1];
+            }
+            t2 = (x[i] - x[i - 1]) + a[i] / 0.7 + dp[i - 1][0];
+            dp[i][1] = Math.min(t1, t2);
+        }
+        pw.printf("%.2f", Math.min(dp[n][0], dp[n][1]));
+        pw.flush();pw.close();
     }
+}
 
 ```
 
