@@ -1045,3 +1045,26 @@ public class Main {
 }
 ```
 
+# Beginner Contest 363
+
+[C - Avoid K Palindrome 2 ](https://atcoder.jp/contests/abc363/tasks/abc363_c)
+
+给你一个 $S$ 长度为 $N$ 
+
+求$S$的字符排列之后不包含长度为$K$的回文字串的字符串个数
+
+> 全排列
+
+
+
+[D - Palindromic Number (atcoder.jp)](https://atcoder.jp/contests/abc363/tasks/abc363_d)
+
+求第$N$个为回文数的非负整数（$1\le N\le10^{18}$）
+
+> 当$l\ge2$，长度为$l$的回文数有$9\times10^{\lceil\frac{l}{2}\rceil - 1}$个。$l$为$1$的回文串有$10$个。
+>
+> 长度小于等于$k$的回文数就有：
+>
+> $10+90+900+...+9\times10^{\lceil\frac{k}{2}\rceil - 1}$
+>
+> 第$m$个长度为$k$的回文数的前半部分为：
