@@ -10,25 +10,26 @@
 
 你可以按 **任何顺序** 返回答案。
 
+> DFS
+
 ```java
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
+    List<List<Integer>> ans = new LinkedList<>();
     List<Integer> tmp = new LinkedList<>();
-
+    int n, k;
     public List<List<Integer>> combine(int n, int k) {
-        dfs(1, k, n);
-        return res;
-
+        this.n = n; this.k = k;
+        dfs(1);
+        return ans;
     }
-
-    public void dfs(int startIdx, int k, int n) {
-        if (tmp.size() == k) {
-            res.add(new LinkedList(tmp));
+    public void dfs(int sIdx){
+        if(tmp.size() == k){
+            ans.add(new LinkedList(tmp));
             return;
         }
-        for (int i = startIdx; i <= n; i++) {
+        for(int i = sIdx; i <= n; i ++){
             tmp.add(i);
-            dfs(i + 1, k, n);
+            dfs(i + 1);
             tmp.removeLast();
         }
     }
@@ -37,27 +38,28 @@ class Solution {
 
 > 剪枝优化
 >
+> 已经选了`tmp.size()`个数了，还需要选`k - tmp.size()`个数，所以最多从`n - (k - tmp.size()) + 1`开始选。
+>
 > `i <= n - (k - tmp.size()) + 1`
 
 ```java
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
+    List<List<Integer>> ans = new LinkedList<>();
     List<Integer> tmp = new LinkedList<>();
-
+    int n, k;
     public List<List<Integer>> combine(int n, int k) {
-        dfs(1, k, n);
-        return res;
-
+        this.n = n; this.k = k;
+        dfs(1);
+        return ans;
     }
-
-    public void dfs(int startIdx, int k, int n) {
-        if (tmp.size() == k) {
-            res.add(new LinkedList(tmp));
+    public void dfs(int sIdx){
+        if(tmp.size() == k){
+            ans.add(new LinkedList(tmp));
             return;
         }
-        for (int i = startIdx; i <= n - (k - tmp.size()) + 1; i++) {
+        for(int i = sIdx; i <= n - (k - tmp.size()) + 1; i ++){
             tmp.add(i);
-            dfs(i + 1, k, n);
+            dfs(i + 1);
             tmp.removeLast();
         }
     }
@@ -75,34 +77,56 @@ class Solution {
 
 返回 *所有可能的有效组合的列表* 。该列表不能包含相同的组合两次，组合可以以任何顺序返回
 
-> 可以减枝优化
+> DFS
 
 ```java
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
+    List<List<Integer>> ans = new LinkedList<>();
     List<Integer> tmp = new LinkedList<>();
-    int sum = 0;
-
+    int k, n;
     public List<List<Integer>> combinationSum3(int k, int n) {
-        dfs(1, k, n);
-        return res;
+        this.k = k; this.n = n;
+        dfs(1, 0);
+        return ans;
     }
 
-    public void dfs(int startIdx, int k, int n) {
-        if (tmp.size() > k || sum > n) { // 超过k个数，或者总和超过sum
+    public void dfs(int sIdx, int sum){
+        if(tmp.size() == k){
+            if(sum == n) ans.add(new LinkedList<>(tmp));
             return;
         }
-        if (tmp.size() == k && sum == n) {
-            res.add(new LinkedList(tmp));
-            return;
-        }
-
-        for (int i = startIdx; i <= 9; i++) {
-            sum += i;
+        for(int i = sIdx; i <= 9; i ++){
             tmp.add(i);
-            dfs(i + 1, k, n);
+            dfs(i + 1, sum + i);
             tmp.removeLast();
-            sum -= i;
+        }
+    }
+}
+```
+
+> 当没有选到$k$个数$sum$就已经大于$n$了可以提前结束搜索，选数时不可能选到超过$n-sum$的数。最多从`n - (k - tmp.size()) + 1`开始选。
+
+```java
+class Solution {
+    List<List<Integer>> ans = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+    int k, n;
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        this.k = k; this.n = n;
+        dfs(1, 0);
+        return ans;
+    }
+
+    public void dfs(int sIdx, int sum){
+        if(sum > n) return;
+        if(tmp.size() == k){
+            if(sum == n) ans.add(new LinkedList<>(tmp));
+            return;
+        }
+        for(int i = sIdx; i <= Math.min(9, n - sum) && i <= 9 - (k - tmp.size()) + 1; i ++){
+            tmp.add(i);
+            dfs(i + 1, sum + i);
+            tmp.removeLast();
         }
     }
 }
@@ -118,31 +142,30 @@ class Solution {
 
 对于给定的输入，保证和为 `target` 的不同组合数少于 `150` 个。
 
+> DFS
+
+> 在适当的时候退出搜索
+
 ```java
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
+    List<List<Integer>> ans = new LinkedList<>();
     List<Integer> tmp = new LinkedList<>();
-    int sum = 0;
-
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        dfs(0, candidates, target);
-        return res;
-
+    int t, a[];
+    public List<List<Integer>> combinationSum(int[] a, int t) {
+        this.t = t; this.a = a;
+        dfs(0, 0);
+        return ans;
     }
-
-    public void dfs(int startIdx, int[] a, int t) {
-        if (sum > t)
-            return;
-        if (sum == t) {
-            res.add(new LinkedList(tmp));
+    public void dfs(int sIdx, int sum){
+        if(sum > t) return;
+        if(sum == t){
+            ans.add(new LinkedList<>(tmp));
             return;
         }
-        for (int i = startIdx; i <= a.length - 1; i++) {
+        for(int i = sIdx; i < a.length; i ++){
             tmp.add(a[i]);
-            sum += a[i];
-            dfs(i, a, t);
+            dfs(i, sum + a[i]);
             tmp.removeLast();
-            sum -= a[i];
         }
     }
 }
@@ -158,44 +181,75 @@ class Solution {
 
 **注意：**解集不能包含重复的组合。
 
+> 对于每一次搜索，在选第$i$个数时不能选相等的数。
+>
 > 用`used[]`数组去重
 
 ```java
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
+    List<List<Integer>> ans = new LinkedList<>();
     List<Integer> tmp = new LinkedList<>();
-    boolean[] used;
-    int sum = 0;
-
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        used = new boolean[candidates.length];
-        Arrays.sort(candidates);
-        dfs(0, candidates, target);
-        return res;
-
+    boolean used[];
+    int t, a[];
+    public List<List<Integer>> combinationSum2(int[] a, int t) {
+        this.t = t; this.a = a;
+        used = new boolean[a.length];
+        Arrays.sort(a);
+        dfs(0, 0);
+        return ans;
     }
-
-    public void dfs(int startIdx, int[] a, int t) {
-        if (sum > t)
-            return;
-        if (sum == t) {
-            res.add(new LinkedList(tmp));
+    public void dfs(int sIdx, int sum){
+        if(sum > t) return;
+        if(sum == t){
+            ans.add(new LinkedList<>(tmp));
             return;
         }
-        for (int i = startIdx; i <= a.length - 1; i++) {
-            if (i != 0 && a[i] == a[i - 1] && used[i - 1] == false)
-                continue;
-            tmp.add(a[i]);
+        for(int i = sIdx; i < a.length; i ++){
+            if(i > 0 && a[i] == a[i - 1] && used[i - 1] == false) continue;
             used[i] = true;
-            sum += a[i];
-            dfs(i + 1, a, t);
+            tmp.add(a[i]);
+            dfs(i + 1, sum + a[i]);
             tmp.removeLast();
             used[i] = false;
-            sum -= a[i];
         }
     }
 }
 ```
+
+> 还可以剪枝
+
+```java
+class Solution {
+    List<List<Integer>> ans = new LinkedList<>();
+    List<Integer> tmp = new LinkedList<>();
+    boolean used[];
+    int t, a[];
+    public List<List<Integer>> combinationSum2(int[] a, int t) {
+        this.t = t; this.a = a;
+        used = new boolean[a.length];
+        Arrays.sort(a);
+        dfs(0, 0);
+        return ans;
+    }
+    public void dfs(int sIdx, int sum){
+        if(sum > t) return;
+        if(sum == t){
+            ans.add(new LinkedList<>(tmp));
+            return;
+        } 									/ * 剪枝 * /
+        for(int i = sIdx; i < a.length && a[i] <= t - sum; i ++){
+            if(i > 0 && a[i] == a[i - 1] && used[i - 1] == false) continue;
+            used[i] = true;
+            tmp.add(a[i]);
+            dfs(i + 1, sum + a[i]);
+            tmp.removeLast();
+            used[i] = false;
+        }
+    }
+}
+```
+
+
 
 ## 78. 子集
 
@@ -548,7 +602,74 @@ public class Main {
 
 
 
-# 决策树
+# 树形的DFS
+
+## 131. 分割回文串
+
+[131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/)
+
+给你一个字符串 `s`，请你将 `s` 分割成一些子串，使每个子串都是 
+
+**回文串**
+
+ 。返回 `s` 所有可能的分割方案。
+
+> DFS枚举所有子串的长度。
+>
+> **预处理子串是否为回文串**，用$st[i][j]$表示从$i \to j$的子串是否为回文串。若$s[i] =s[j](i < j)$，当$s_{i+1,j-1}$为回文串时，$s_{i,j}$为回文串，反之则不是回文串；若$s[i] \neq s[j]$，则$s_{i,j}$不是回文串。（有些类似区间dp）
+>
+> **预处理字串**，用$s[i][j]$存储$i \to j$的字串。
+
+```java
+class Solution {
+    List<List<String>> ans = new LinkedList<>();
+    List<String> tmp = new LinkedList<>();
+    char c[];
+    boolean st[][];
+    String s[][];
+    int n;
+    public List<List<String>> partition(String str) {
+        c = str.toCharArray();
+        n = c.length;
+        s = new String[n][n];
+        st = new boolean[n][n];
+        for(int l = 1; l <= n; l ++){
+            for(int i = 0; i <= n - l; i ++){
+                int j = i + l - 1;
+                if(l == 1) {
+                    st[i][j] = true;
+                    s[i][j] = c[i] + "";
+                }
+                else if(l == 2) {
+                    st[i][j] = c[i] == c[j];
+                    s[i][j] = "" + c[i] + c[j];
+                }
+                else {
+                    if(c[i] == c[j]) st[i][j] = st[i + 1][j - 1];
+                    s[i][j] = c[i] + s[i + 1][j - 1] + c[j];
+                }
+            }
+        }
+        dfs(0, 0);
+        return ans;
+    }
+    public void dfs(int l, int sum){
+        if(sum == n){
+            ans.add(new LinkedList<>(tmp));
+            return;
+        }
+        for(int i = 1; i <= n - sum; i ++){
+            int r = l + i - 1;
+            if(!st[l][r]) continue;
+            tmp.add(s[l][r]);
+            dfs(r + 1, sum + i);
+            tmp.removeLast();
+        }
+    }
+}
+```
+
+
 
 ## P1036选数
 
@@ -876,38 +997,15 @@ public class Main {
 
 # P1088火星人
 
-[P1088 [NOIP2004 普及组\] 火星人 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1088)
+[P1088 火星人](https://www.luogu.com.cn/problem/P1088)
 
-火星人用一种非常简单的方式来表示数字――掰手指。火星人只有一只手，但这只手上有成千上万的手指，这些手指排成一列，分别编号为 $1,2,3,\cdots$。火星人的任意两根手指都能随意交换位置，他们就是通过这方法计数的。
+给出一个$1\sim N$的排列，求按字典序排序该排列后的第$M$个排列。
 
-一个火星人用一个人类的手演示了如何用手指计数。如果把五根手指――拇指、食指、中指、无名指和小指分别编号为 $1,2,3,4$ 和 $5$，当它们按正常顺序排列时，形成了 $5$ 位数 $12345$，当你交换无名指和小指的位置时，会形成 $5$ 位数 $12354$，当你把五个手指的顺序完全颠倒时，会形成 $54321$，在所有能够形成的 $120$ 个 $5$ 位数中，$12345$ 最小，它表示 $1$；$12354$ 第二小，它表示 $2$；$54321$ 最大，它表示 $120$。下表展示了只有 $3$ 根手指时能够形成的 $6$ 个 $3$ 位数和它们代表的数字：
-
-现在你有幸成为了第一个和火星人交流的地球人。一个火星人会让你看他的手指，科学家会告诉你要加上去的很小的数。你的任务是，把火星人用手指表示的数与科学家告诉你的数相加，并根据相加的结果改变火星人手指的排列顺序。输入数据保证这个结果不会超出火星人手指能表示的范围。
-
-共三行。  
-第一行一个正整数 $N$，表示火星人手指的数目（$1 \le N \le 10000$）。  
-第二行是一个正整数 $M$，表示要加上去的小整数（$1  \le  M  \le  100$）。  
-下一行是 $1$ 到 $N$ 这 $N$ 个整数的一个排列，用空格隔开，表示火星人手指的排列顺序。
-
-> tags: 排列
+> 排列，nextPermutation
 
 Ideas:
 
-> 所有数字全排列会超时；所以选择从$N$排列到$M$，关键在于在全排列中找到$N$代表的排列（直接对$N$代表的排列最全排列的话会有错误，eg：1 3 2当作起始排列的话，下一排列为1 2 3 ，与题意不符合）
->
-> 如何控制排列在$N--M$之间？
->
-> 第一：跳过之前的排列
->
-> 首先我们用`count`记录完成排列的次数，`idx`记录排列到第几个数。
->
-> 我们从$1，2，... M$开始排列，快速找到$N$所代表的排列。记$N$所代表的排列为`init[]`
->
-> 在第一次排列中也就是`count==0`时，我们在选数出来排列时，如果当前选择的数字(`i`)与`init[]`在当前位置(`idx`)不同那么则快速跳过这个数字（`continue`），这样能够最快速定位`init[]`，以便继续后续往后排列
->
-> 第二：取消之后的排列
->
-> 在`count==M`时，我们就得到了所求得排列，后面得排列则可以一并跳过，即`return`
+> 使用nextPermutation计算当前排列后的第$m$个排列。
 >
 > ---
 >
@@ -915,56 +1013,36 @@ Ideas:
 
 ```java
 import java.io.*;
+import java.util.*;
+
 public class Main {
-	static int N,M;
-	static int[] init,used,arr;
-	static int count=0;
-	static Reader rd = new Reader(); 
-	static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-	public static void main(String[] args) throws IOException {
-       //读数据
-	   N = rd.nextInt();
-	   M = rd.nextInt();
-	   init = new int[N];
-	   used = new int[N];
-	   arr = new int[N];
-	   for (int i = 0; i <=N-1; i++) {
-		init[i]= rd.nextInt(); 
-	   }
-	   dfs(0);	   
-	}	
-	public static void dfs(int idx) {
-		if (count>M) {
-			return;
-			}
-		if (idx==N) {			
-			if (count==M) {
-				for (int i = 0; i <=N-1; i++) {
-					pw.print(arr[i]+" ");
-				}
-				pw.flush();
-			}				
-			count++;
-			return;
-			}	
-		for (int i = 0; i <=N-1; i++) {
-			if (used[i]==1||i+1!=init[idx]&&count==0) {
-				continue;
-			}
-			arr[idx]=i+1;
-			used[i]= 1;
-			dfs(idx+1);
-			arr[idx]=0;
-			used[i]=0; 			
-		}
-		}	
+    static Read rd = new Read();
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    public static boolean nextPermunation(int a[]){
+        int n = a.length, i = n - 2;
+        while(i >= 0 && a[i] > a[i + 1]) i --;
+        if(i < 0) return false;
+        int k = i + 1;
+        while(k < n && a[k] > a[i]) k ++;
+        {int t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;}// swap(a[i], a[k - 1])
+        Arrays.sort(a, i + 1, n);
+        return true;
+    }
+    public static void main(String[] args) throws IOException {
+        int a[], n, m;
+        n = rd.nextInt();
+        m = rd.nextInt();
+        a = new int[n];
+        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
+        while(m --> 0) nextPermunation(a);
+        for(int i = 0; i < n; i ++) pw.print(a[i] + " ");
+        pw.flush();pw.close();
+    }
 }
- class Reader {
+
+class Read {
 	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
-	public int nextInt() throws IOException {
-		st.nextToken();
-		return (int)st.nval;
-	}
+	public int nextInt() throws IOException {st.nextToken();return (int)st.nval;}
 }
 ```
 
