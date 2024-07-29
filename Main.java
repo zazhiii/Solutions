@@ -20,6 +20,26 @@ public class Main {
         pw.flush();
         pw.close();
     }
+
+    public static int lower_bound(int a[], int l, int r, int t){
+        int ans = r + 1;
+        while(l <= r){
+            int m = (l + r) >>> 1;
+            if(a[m] >= t){ans = m; r = m - 1;}
+            else l = m + 1;
+        }
+        return ans;
+    }
+    public static int upper_bound(int a[], int l, int r, int t){
+        int ans = r + 1;
+        while(l <= r){
+            int m = (l + r) >>> 1;
+            if(a[m] > t){ans = m; r = m - 1;}
+            else l = m + 1;
+        }
+        return ans;
+    }
+    
 }
 class Read{
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
