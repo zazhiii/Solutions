@@ -604,220 +604,9 @@ public class Main {
 
 # 树形的DFS
 
-## 131. 分割回文串
+## P1219 八皇后 
 
-[131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/)
-
-给你一个字符串 `s`，请你将 `s` 分割成一些子串，使每个子串都是 
-
-**回文串**
-
- 。返回 `s` 所有可能的分割方案。
-
-> DFS枚举所有子串的长度。
->
-> **预处理子串是否为回文串**，用$st[i][j]$表示从$i \to j$的子串是否为回文串。若$s[i] =s[j](i < j)$，当$s_{i+1,j-1}$为回文串时，$s_{i,j}$为回文串，反之则不是回文串；若$s[i] \neq s[j]$，则$s_{i,j}$不是回文串。（有些类似区间dp）
->
-> **预处理字串**，用$s[i][j]$存储$i \to j$的字串。
-
-```java
-class Solution {
-    List<List<String>> ans = new LinkedList<>();
-    List<String> tmp = new LinkedList<>();
-    char c[];
-    boolean st[][];
-    String s[][];
-    int n;
-    public List<List<String>> partition(String str) {
-        c = str.toCharArray();
-        n = c.length;
-        s = new String[n][n];
-        st = new boolean[n][n];
-        for(int l = 1; l <= n; l ++){
-            for(int i = 0; i <= n - l; i ++){
-                int j = i + l - 1;
-                if(l == 1) {
-                    st[i][j] = true;
-                    s[i][j] = c[i] + "";
-                }
-                else if(l == 2) {
-                    st[i][j] = c[i] == c[j];
-                    s[i][j] = "" + c[i] + c[j];
-                }
-                else {
-                    if(c[i] == c[j]) st[i][j] = st[i + 1][j - 1];
-                    s[i][j] = c[i] + s[i + 1][j - 1] + c[j];
-                }
-            }
-        }
-        dfs(0, 0);
-        return ans;
-    }
-    public void dfs(int l, int sum){
-        if(sum == n){
-            ans.add(new LinkedList<>(tmp));
-            return;
-        }
-        for(int i = 1; i <= n - sum; i ++){
-            int r = l + i - 1;
-            if(!st[l][r]) continue;
-            tmp.add(s[l][r]);
-            dfs(r + 1, sum + i);
-            tmp.removeLast();
-        }
-    }
-}
-```
-
-
-
-## P1036选数
-
-[P1036 [NOIP2002 普及组] 选数 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1036)
-
-已知 $n$ 个整数 $x_1,x_2,\cdots,x_n$，以及 $1$ 个整数 $k$（$k<n$）。从 $n$ 个整数中任选 $k$ 个整数相加，可分别得到一系列的和。现在，要求你计算出和为素数共有多少种。
-
-> tags: DFS、质数判断
-
-Ideas:
-
-> 选数
-
-```java
-import java.util.Scanner;
-public class Main {
-	static int N, K, a[], count = 0, sum = 0, res = 0;
-	public static void main(String[] args) {
-		Scanner s = new Scanner(System.in);
-		N = s.nextInt();
-		K = s.nextInt();
-		a = new int[N];
-		for(int i = 0; i<=N-1; i++) {
-			a[i] = s.nextInt();
-		}
-		dfs(0);
-		System.out.print(res);
-	}
-	private static void dfs(int startIdx) {
-		if(count == K) {
-			if(isPrime(sum)) res++;
-			return;
-		}	
-		for(int i = startIdx;i<=N-1;i++) {
-			count ++;
-			sum += a[i];
-			dfs(i+1);
-			sum -= a[i];
-			count --;
-		}
-	}
-	private static boolean isPrime(int n) {
-		if(n == 1) return false;
-		if(n == 2) return true;
-		for(int i = 2; i<=Math.sqrt(n); i++) {
-			if(n%i == 0)return false;
-		}
-		return true;
-	}
-}
-```
-
-## P2404自然数的拆分问题
-
-[P2404 自然数的拆分问题 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P2404)
-
-任何一个大于 $1$ 的自然数 $n$，总可以拆分成若干个小于 $n$ 的自然数之和。现在给你一个自然数 $n$，要求你求出 $n$ 的拆分成一些数字的和。每个拆分后的序列中的数字从小到大排序。然后你需要输出这些序列，其中字典序小的序列需要优先输出。
-
-> tags:  dfs、选数
-
-Ideas:
-
-> 基础dfs：
->
-> 第一层在$[1,n]$中选$t1$，第二层在$[t1,n]$中选……直到$t_1+t_2+...+t_m=n$.
->
-> 记录三个数据：到$k$层$t_1+t_2+...+t_k$:`sum`、选了几个数`count`、存放$t_1、t_2...t_m$的数组`arr`
->
-> 优化：
->
-> 在每一层选数时与`sum`相加大于$n$的数就不可能选之，所以选数范围有所优化：
->
-> 第一层在$[1,n]$中选$t1$，第二层在$\mathbf{[t_1,n-sum]}$中选……直到$t_1+t_2+...+t_m=n$.
-
-![image-20240204012716956](images\image-P2404.png)
-
-```java
-import java.util.Scanner;
-public class Main {
-	static int N;
-	static int[] arr;
-	static int sum;
-	public static void main(String[] args) {
-       //读数据
-	   Scanner s = new Scanner(System.in);
-	   N = s.nextInt();
-	   arr = new int[N];
-	   back(1,0);
-    }
-	//t:上一层选择数大小
-	public static void back(int t,int count) {
-		if (sum==N&&count!=1) {
-			String str = "";
-			for (int i = 0; i <=count-2; i++) {
-				str+=arr[i]+"+";
-			}
-			str+=arr[count-1];
-			System.out.println(str);
-			return;
-		}
-		//t~N-sum 剪枝
-		for (int i = t; i <=N-sum; i++) {
-			sum+=i;
-			arr[count] = i;
-			back(i,count+1);
-			sum-=i;
-			arr[count]=0;			
-		}
-	}
-	}
-```
-
-```java
-import java.util.Scanner;
-public class Main {
-	static int N, sum = 0, a[], count = 0;
-	public static void main(String[] args) {
-		Scanner s = new Scanner(System.in);
-		N = s.nextInt();
-		a = new int[N];
-		dfs(1);
-	}
-
-	private static void dfs(int startIdx) {
-		if(sum==N&&count != 1) {
-			String res = "" + a[0];
-			for(int i = 1;i<=N-1&&a[i]!=0;i++) {
-				res+=("+"+a[i]);
-			}
-			System.out.println(res);
-			return;
-		}
-		for(int i = startIdx;i<=N-sum;i++) {
-			a[count] = i;
-			count ++;
-			sum += i;
-			dfs(i);
-			sum -= i;
-			count --;
-			a[count] = 0;			
-		}
-	}
-}
-```
-
-## P1219八皇后 Checker Challenge
-
-[P1219 [USACO1.5\] 八皇后 Checker Challenge - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1219)
+[P1219八皇后 Checker Challenge](https://www.luogu.com.cn/problem/P1219)
 
 一个如下的 $6 \times 6$ 的跳棋棋盘，有六个棋子被放置在棋盘上，使得每行、每列有且只有一个，每条对角线（包括两条主对角线的所有平行线）上至多有一个棋子。
 
@@ -888,6 +677,154 @@ public class Main {
 }
 ```
 
+## P1036选数
+
+[P1036 选数](https://www.luogu.com.cn/problem/P1036)
+
+已知 $n$ 个整数 $x_1,x_2,\cdots,x_n$，以及 $1$ 个整数 $k$（$k<n$）。从 $n$ 个整数中任选 $k$ 个整数相加，可分别得到一系列的和。现在，要求你计算出和为素数共有多少种。
+
+$1\le n\le20$
+
+> tags: DFS、质数判断
+
+> $2^{20}\approx10^6$，放心大胆地枚举每一种情况。可以用**dfs枚举**所有情况。
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, k, a[], ans = 0;
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        k = sc.nextInt();
+        a = new int[n];
+        for(int i = 0; i < n; i ++) a[i] = sc.nextInt();
+        dfs(0, 0, 0);
+        pw.println(ans);
+        pw.flush();
+    }   
+    public static void dfs(int sIdx, int cnt, int sum){
+        if(cnt == k){
+            if(isPrime(sum)) ans ++;
+            return;
+        }
+        for(int i = sIdx; i < n; i ++){
+            dfs(i + 1, cnt + 1, sum + a[i]);
+        }
+    }
+    public static boolean isPrime(int x){
+        if(x < 2) return false;
+        for(int i = 2; i * i <= x; i ++){
+            if(x % i == 0) return false;
+        }
+        return true;
+    } 
+}
+```
+
+## 131. 分割回文串
+
+[131. 分割回文串](https://leetcode.cn/problems/palindrome-partitioning/)
+
+给你一个字符串 `s`，请你将 `s` 分割成一些子串，使每个子串都是 
+
+**回文串** 。返回 `s` 所有可能的分割方案。
+
+> DFS枚举所有子串的长度。
+>
+> **预处理子串是否为回文串**，用$st[i][j]$表示从$i \to j$的子串是否为回文串。若$s[i] =s[j](i < j)$，当$s_{i+1,j-1}$为回文串时，$s_{i,j}$为回文串，反之则不是回文串；若$s[i] \neq s[j]$，则$s_{i,j}$不是回文串。（有些类似区间dp）
+>
+> **预处理子串**，用$s[i][j]$存储$i \to j$的字串。
+
+```java
+class Solution {
+    List<List<String>> ans = new LinkedList<>();
+    List<String> tmp = new LinkedList<>();
+    char c[];
+    boolean st[][];
+    String s[][];
+    int n;
+    public List<List<String>> partition(String str) {
+        c = str.toCharArray();
+        n = c.length;
+        s = new String[n][n];
+        st = new boolean[n][n];
+        for(int l = 1; l <= n; l ++){
+            for(int i = 0; i <= n - l; i ++){
+                int j = i + l - 1;
+                if(l == 1) {
+                    st[i][j] = true;
+                    s[i][j] = c[i] + "";
+                }else if(l == 2) {
+                    st[i][j] = c[i] == c[j];
+                    s[i][j] = "" + c[i] + c[j];
+                }
+                else {
+                    if(c[i] == c[j]) st[i][j] = st[i + 1][j - 1];
+                    s[i][j] = c[i] + s[i + 1][j - 1] + c[j];
+                }
+            }
+        }
+        dfs(0, 0);
+        return ans;
+    }
+    public void dfs(int l, int sum){
+        if(sum == n){
+            ans.add(new LinkedList<>(tmp));
+            return;
+        }
+        for(int i = 1; i <= n - sum; i ++){
+            int r = l + i - 1;
+            if(!st[l][r]) continue;
+            tmp.add(s[l][r]);
+            dfs(r + 1, sum + i);
+            tmp.removeLast();
+        }
+    }
+}
+```
+
+## P2404自然数的拆分问题
+
+[P2404 自然数的拆分问题 ](https://www.luogu.com.cn/problem/P2404)
+
+任何一个大于 $1$ 的自然数 $n$，总可以拆分成若干个小于 $n$ 的自然数之和。现在给你一个自然数 $n$，要求你求出 $n$ 的拆分成一些数字的和。每个拆分后的序列中的数字从小到大排序。然后你需要输出这些序列，其中字典序小的序列需要优先输出。
+
+> 每一层选取一个大于等于前一次选过的数，在和大于等于的时候退出、处理答案。
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n;
+    static Deque<Integer> que = new ArrayDeque<>();
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        dfs(1, 0);
+        pw.flush();
+    }   
+    public static void dfs(int sIdx, int sum){
+        if(sum > n) return;
+        if(sum == n){
+            String ans = "";
+            for(int x : que) ans += x + "+";
+            pw.println(ans.substring(0, ans.length() - 1));
+            return;
+        }
+        for(int i = sIdx; i < n; i ++){
+            que.addLast(i);
+            dfs(i, sum + i);
+            que.removeLast();
+        }
+    }
+}
+```
+
 ## P2036 PERKET
 
 [P2036 [COCI2008-2009 #2\] PERKET - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P2036)
@@ -898,43 +835,34 @@ Perket 是一种流行的美食。为了做好 Perket，厨师必须谨慎选择
 
 另外，我们必须添加至少一种配料，因为没有任何食物以水为配料的。
 
-> tags: DFS
-
-Ideas:
-
-> 枚举所有食材组合
->
-> 简单的DFS；所有食材当作一层，一次选取一个食材，记录目前选取的食材的酸度`sour`、苦度`bitter`, 记录最小值。
-
-![image-20240204132617367](images\image-P2036.png)
+> 枚举总食材集合的所有子集，记录最小酸度和苦度。
 
 ```java
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 public class Main {
-	static int N, sour[], bit[], sumSour = 1, sumBit = 0, res = Integer.MAX_VALUE;
-	public static void main(String[] args) {
-		Scanner s = new Scanner(System.in);
-		N = s.nextInt();
-		sour = new int[N];
-		bit = new int[N];
-		for(int i = 0; i <= N-1; i++) {
-		sour[i] = s.nextInt();
-		bit[i] = s.nextInt();
-		}
-		dfs(0);
-		System.out.print(res);
-	}
-	private static void dfs(int idx) {
-		for(int i = idx; i <= N-1; i++) {
-			sumSour *= sour[i];
-			sumBit += bit[i];
-			res = Math.min(res, Math.abs(sumBit - sumSour));
-			dfs(i+1);
-			sumSour /= sour[i];
-			sumBit -= bit[i];
-		}		
-	}
-}
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    static int n, s[], b[], ans = (int)1e9;
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        s = new int[n];
+        b = new int[n];
+        for(int i = 0; i < n; i ++){
+            s[i] = sc.nextInt();
+            b[i] = sc.nextInt();
+        }
+        dfs(0, 1, 0);
+        pw.println(ans);
+        pw.flush();
+    }   
+    public static void dfs(int sIdx, int S, int B){
+        //至少选择一个食材
+        if(sIdx != 0) ans = Math.min(ans, Math.abs(S - B));
+        for(int i = sIdx; i < n; i ++){
+            dfs(i + 1, S * s[i], B + b[i]);
+        }
+    }
 ```
 
 ---
