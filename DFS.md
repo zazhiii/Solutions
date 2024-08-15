@@ -1,5 +1,48 @@
 # 排列问题
 
+## [P1088 火星人](https://www.luogu.com.cn/problem/P1088)
+
+给出一个$1\sim N$的排列，求按字典序排序该排列后的第$M$个排列。
+
+> 使用nextPermutation计算当前排列后的第$m$个排列。
+>
+> tips: 有个数据点要用快速读写
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Read rd = new Read();
+    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+    public static boolean nextPermunation(int a[]){
+        int n = a.length, i = n - 2;
+        while(i >= 0 && a[i] > a[i + 1]) i --;
+        if(i < 0) return false;
+        int k = i + 1;
+        while(k < n && a[k] > a[i]) k ++;
+        {int t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;}// swap(a[i], a[k - 1])
+        Arrays.sort(a, i + 1, n);
+        return true;
+    }
+    public static void main(String[] args) throws IOException {
+        int a[], n, m;
+        n = rd.nextInt();
+        m = rd.nextInt();
+        a = new int[n];
+        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
+        while(m --> 0) nextPermunation(a);
+        for(int i = 0; i < n; i ++) pw.print(a[i] + " ");
+        pw.flush();pw.close();
+    }
+}
+class Read {
+	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+	public int nextInt() throws IOException {st.nextToken();return (int)st.nval;}
+}
+```
+
+
+
 # 组合问题
 
 ## 77. 组合
@@ -9,8 +52,6 @@
 给定两个整数 `n` 和 `k`，返回范围 `[1, n]` 中所有可能的 `k` 个数的组合。
 
 你可以按 **任何顺序** 返回答案。
-
-> DFS
 
 ```java
 class Solution {
@@ -77,8 +118,6 @@ class Solution {
 
 返回 *所有可能的有效组合的列表* 。该列表不能包含相同的组合两次，组合可以以任何顺序返回
 
-> DFS
-
 ```java
 class Solution {
     List<List<Integer>> ans = new LinkedList<>();
@@ -141,8 +180,6 @@ class Solution {
 `candidates` 中的 **同一个** 数字可以 **无限制重复被选取** 。如果至少一个数字的被选数量不同，则两种组合是不同的。 
 
 对于给定的输入，保证和为 `target` 的不同组合数少于 `150` 个。
-
-> DFS
 
 > 在适当的时候退出搜索
 
@@ -249,8 +286,6 @@ class Solution {
 }
 ```
 
-
-
 ## 78. 子集
 
 [78. 子集](https://leetcode.cn/problems/subsets/)
@@ -319,8 +354,6 @@ class Solution {
 }
 ```
 
-
-
 # 关于二维的DFS
 
 ## P1605迷宫
@@ -335,35 +368,24 @@ https://www.luogu.com.cn/problem/P1605
 
 $1≤𝑁,𝑀≤5$
 
-> tags: DFS
-
-Ideas:
-
-> DFS**四个方向**搜索路径，搜索过的地方标记，搜到终点了则方案+1
->
-> 边界处理方法：
->
-> 1. 将边界初始化为障碍
-> 2. 在搜索函数里判断x，y的范围
-
 ```java
 import java.io.*;
 import java.util.*;
 public class Main {
     static Scanner sc = new Scanner(System.in);
     static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-    static int N, M, T, sx, sy, fx, fy;
-    static boolean vis[][];    
-    public static void main(String[] args) throws Exception {
-        N = sc.nextInt();
-        M = sc.nextInt();
-        T = sc.nextInt();
+    static int n, m, t, sx, sy, fx, fy, ans = 0;
+    static boolean [][] vis;
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        m = sc.nextInt();
+        t = sc.nextInt();
         sx = sc.nextInt();
         sy = sc.nextInt();
         fx = sc.nextInt();
         fy = sc.nextInt();
-        vis = new boolean[N  + 1][M + 1];
-        while(T --> 0){
+        vis = new boolean[n + 1][m + 1];
+        while(t --> 0){
             int x = sc.nextInt();
             int y = sc.nextInt();
             vis[x][y] = true;
@@ -371,23 +393,22 @@ public class Main {
         dfs(sx, sy);
         pw.println(ans);
         pw.flush();
-    }
-    static int ans = 0;
-    static int dx[] = {1, -1, 0, 0}, dy[] = {0, 0, 1, -1};
-    private static void dfs(int x, int y) {
+    }   
+    static int[] dx = {1, -1, 0, 0}, dy = {0, 0, 1, -1};
+    public static void dfs(int x, int y){
         if(x == fx && y == fy){
             ans ++;
             return;
         }
-        vis[x][y] = true; // 标记当前位置
+        vis[x][y] = true;
         for(int i = 0; i < 4; i ++){
             int nx = x + dx[i];
             int ny = y + dy[i];
-            if(nx >= 1 && nx <= N && ny >= 1 && ny <= M && !vis[nx][ny]){//符合条件再dfs
+            if(nx > 0 && nx <= n && ny > 0 && ny <= m && !vis[nx][ny]){
                 dfs(nx, ny);
             }
         }
-        vis[x][y] = false;// 取消标记
+        vis[x][y] = false;
     }
 }
 ```
@@ -409,17 +430,17 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
     static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
     static int n, m, ans = 0;
-    static char[][] a;
-    static boolean vis[][];   
-    public static void main(String[] args) throws Exception {
+    static char c[][];
+    static boolean vis[][];
+    public static void main(String[] args) throws IOException {
         n = sc.nextInt();
         m = sc.nextInt();
-        a = new char[n][m];
+        c = new char[n][m];
         vis = new boolean[n][m];
-        for(int i = 0; i < n; i ++) a[i] = sc.next().toCharArray();
+        for(int i = 0; i < n; i ++) c[i] = sc.next().toCharArray();
         for(int i = 0; i < n; i ++){
             for(int j = 0; j < m; j ++){
-                if(a[i][j] == 'W'){
+                if(c[i][j] == 'W' && !vis[i][j]){
                     ans ++;
                     dfs(i, j);
                 }
@@ -427,20 +448,19 @@ public class Main {
         }
         pw.println(ans);
         pw.flush();
-    }
-    static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0}, dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-    private static void dfs(int x, int y) {
-        a[x][y] = '.';
-        for(int i = 0 ; i < 8; i ++){
+    }   
+    static int[] dx = {1, 1, 1, -1, -1, -1, 0, 0}, dy = {1, 0, -1, 1, 0, -1, 1, -1};
+    public static void dfs(int x, int y){
+        vis[x][y] = true;
+        for(int i = 0; i < 8; i ++){
             int nx = x + dx[i];
             int ny = y + dy[i];
-            if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] == 'W'){
+            if(nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny] && c[nx][ny] == 'W'){
                 dfs(nx, ny);
             }
         }
     }
 }
-
 ```
 
 > BFS做法
@@ -454,17 +474,18 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
     static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
     static int n, m, ans = 0;
-    static char[][] a;
-    static boolean vis[][];   
-    public static void main(String[] args) throws Exception {
+    static char c[][];
+    static boolean vis[][];
+    static int[] dx = {1, 1, 1, -1, -1, -1, 0, 0}, dy = {1, 0, -1, 1, 0, -1, 1, -1};
+    public static void main(String[] args) throws IOException {
         n = sc.nextInt();
         m = sc.nextInt();
-        a = new char[n][m];
+        c = new char[n][m];
         vis = new boolean[n][m];
-        for(int i = 0; i < n; i ++) a[i] = sc.next().toCharArray();
+        for(int i = 0; i < n; i ++) c[i] = sc.next().toCharArray();
         for(int i = 0; i < n; i ++){
             for(int j = 0; j < m; j ++){
-                if(a[i][j] == 'W'){
+                if(c[i][j] == 'W' && !vis[i][j]){
                     ans ++;
                     bfs(i, j);
                 }
@@ -472,22 +493,22 @@ public class Main {
         }
         pw.println(ans);
         pw.flush();
-    }
-    static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0}, dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-    private static void bfs(int x0, int y0) {
-        Queue<int[]> que = new LinkedList<>();
+    }   
+    public static void bfs(int x0, int y0){
+        Queue<int[]> que = new ArrayDeque<>();
         que.add(new int[]{x0, y0});
-        int pos[], x, y;
+        vis[x0][y0] = true;
         while(!que.isEmpty()){
-            pos = que.poll();
-            x = pos[0];
-            y = pos[1];
+            int p[], x, y;
+            p = que.poll();
+            x = p[0];
+            y = p[1];
             for(int i = 0; i < 8; i ++){
                 int nx = x + dx[i];
                 int ny = y + dy[i];
-                if(nx >= 0 && nx < n && ny >= 0 && ny < m && a[nx][ny] == 'W'){
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny] && c[nx][ny] == 'W'){
+                    vis[nx][ny] = true;
                     que.add(new int[]{nx, ny});
-                    a[nx][ny] = '.'; // 在入队则标记
                 }
             }
         }
@@ -543,66 +564,9 @@ public class Main {
 }
 ```
 
-## P1101单词方阵
-
-给一 $n \times n$ 的字母方阵，内可能蕴含多个 `yizhong` 单词。单词在方阵中是沿着同一方向连续摆放的。摆放可沿着 $8$ 个方向的任一方向，同一单词摆放时不再改变方向，单词与单词之间可以交叉，因此有可能共用字母。输出时，将不是单词的字母用 `*` 代替，以突出显示单词。
-
-```java
-import java.util.Scanner;
-public class Main {
-	static String target = "yizhong";
-	static int n;
-	static String[] strs;
-	static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
-	static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
-	static int[] xs = new int[7], ys = new int[7];//记录搜索路径
-	static char[][] res;//记录结果
-	public static void main(String[] args){
-		Scanner s = new Scanner(System.in);
-		n = s.nextInt();
-		res = new char[n][n];
-		strs = new String[n];
-		for(int i = 0; i <= n-1; i++) {
-			strs[i] = s.next(); 
-		}
-		
-		for (int i = 0; i <=n-1; i++) {
-			for(int j = 0;j <= n-1; j++) {
-					for(int k = 0; k<=7; k++) {//八个方向
-						dfs(i, j, dx[k], dy[k], 0);
-				}
-			}
-		}
-		for (int i = 0; i <=n-1; i++) {//输出答案
-			for(int j = 0; j<=n-1; j++) {
-				System.out.print(res[i][j]==0?'*':res[i][j]);
-			}
-			System.out.println();
-		}
-}
-	public static void dfs(int x, int y, int dx, int dy, int Idx) {
-		if (Idx==7) {//处理答案	
-			for (int k = 0; k <=6; k++) {
-				res[xs[k]][ys[k]] = target.charAt(k); 
-			}
-			return;
-		}
-		//越界 或 跟目标字符串不匹配了
-		if (x<0||x>n-1||y<0||y>n-1||strs[x].charAt(y)!=target.charAt(Idx)) {
-			return;
-		}
-		xs[Idx] = x;
-		ys[Idx] = y; 
-		dfs(x+dx, y+dy, dx, dy, Idx+1);
-		xs[Idx] = 0;
-		ys[Idx] = 0; 		
-	}	
-}
-```
 
 
-
-# 树形的DFS
+# 可抽象成树形的DFS
 
 ## P1219 八皇后 
 
@@ -869,7 +833,7 @@ public class Main {
 
 # P1618三连击（升级版）
 
-[P1618 三连击（升级版） - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1618)
+[P1618 三连击（升级版）](https://www.luogu.com.cn/problem/P1618)
 
 将 $1, 2,\ldots, 9$ 共 $9$ 个数分成三组，分别组成三个三位数，且使这三个三位数的比例是 $A:B:C$，试求出所有满足条件的三个三位数，若无解，输出 `No!!!`。
 
@@ -920,57 +884,6 @@ public class Main {
 			used[i]= false; 
 		}
 	}
-}
-```
-
-# P1088火星人
-
-[P1088 火星人](https://www.luogu.com.cn/problem/P1088)
-
-给出一个$1\sim N$的排列，求按字典序排序该排列后的第$M$个排列。
-
-> 排列，nextPermutation
-
-Ideas:
-
-> 使用nextPermutation计算当前排列后的第$m$个排列。
->
-> ---
->
-> tips: 有个数据点要用快速读写
-
-```java
-import java.io.*;
-import java.util.*;
-
-public class Main {
-    static Read rd = new Read();
-    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-    public static boolean nextPermunation(int a[]){
-        int n = a.length, i = n - 2;
-        while(i >= 0 && a[i] > a[i + 1]) i --;
-        if(i < 0) return false;
-        int k = i + 1;
-        while(k < n && a[k] > a[i]) k ++;
-        {int t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;}// swap(a[i], a[k - 1])
-        Arrays.sort(a, i + 1, n);
-        return true;
-    }
-    public static void main(String[] args) throws IOException {
-        int a[], n, m;
-        n = rd.nextInt();
-        m = rd.nextInt();
-        a = new int[n];
-        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
-        while(m --> 0) nextPermunation(a);
-        for(int i = 0; i < n; i ++) pw.print(a[i] + " ");
-        pw.flush();pw.close();
-    }
-}
-
-class Read {
-	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
-	public int nextInt() throws IOException {st.nextToken();return (int)st.nval;}
 }
 ```
 
