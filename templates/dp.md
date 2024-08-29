@@ -356,7 +356,39 @@ public class Main {
 }
 ```
 
-# 线性dp
+# 经典线性dp
+
+## 最大子串和
+
+[P1115 最大子段和 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1115)
+
+```java
+import java.io.*;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static PrintWriter pw = new PrintWriter(System.out);
+    static int n, a[], dp[];
+    public static void main(String[] args) throws IOException {
+        n = sc.nextInt();
+        a = new int[n + 1];
+        for(int i = 1; i <= n; i ++) a[i] = sc.nextInt();
+        // dp[i]: 以第i个数结尾的最大子串和
+        dp = new int[n + 1];
+        int ans = -(int)1e9;
+        for(int i = 1; i <= n; i ++){
+            // 考虑: 从这个数重新开始计算 | 将这个数接到前一个和最大子串结尾
+            dp[i] = Math.max(a[i], dp[i - 1] + a[i]);
+            // 记录所有最大字串和的最大值
+            ans = Math.max(ans, dp[i]);
+        }
+        pw.println(ans);
+        pw.flush();
+    }   
+}
+```
+
+
 
 ## 最长公共子序列`(LCS)`
 
