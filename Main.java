@@ -23,12 +23,12 @@ public class Main {
 class Read{
     StringTokenizer st;
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    String next(){
-        while (st == null || !st.hasMoreElements())st = new StringTokenizer(br.readLine());
+    String next() throws IOException{
+        while (st == null || !st.hasMoreElements()) st = new StringTokenizer(br.readLine());
         return st.nextToken();
     }
-    int nextInt() {return Integer.parseInt(next());}
-    long nextLong() {return Long.parseLong(next());}
-    double nextDouble() {return Double.parseDouble(next());}
-    String nextLine() {return br.readLine();}
+    int nextInt() throws IOException {return Integer.parseInt(next());}
+    long nextLong() throws IOException {return Long.parseLong(next());}
+    double nextDouble() throws IOException {return Double.parseDouble(next());}
+    String nextLine() throws IOException {return br.readLine();}
 }
