@@ -22,7 +22,7 @@ public static void init(){
 当$a$和$b$较大（$1\le b\le a\le10^5$），预处理阶乘和阶乘的逆元，利用组合数公式$\frac{n!}{m!(n-m)!}$计算每一个组合数。
 
 ```java
-static int N = (int)1e5 + 10, mod = (int)1e9 + 7;
+static int N = (int)1e6 + 10, mod = (int)1e9 + 7;
 static long f[] = new long[N], invf[] = new long[N];
 
 // 预处理阶乘和阶乘的逆元
