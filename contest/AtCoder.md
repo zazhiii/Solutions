@@ -1440,3 +1440,96 @@ public class Main {
 }
 ```
 
+
+
+# Beginner Contest 371
+
+[C - Make Isomorphic (atcoder.jp)](https://atcoder.jp/contests/abc371/tasks/abc371_c)
+
+将无向图$h$改为形状与无向图$g$相同的最小代价，在顶点$i、j$上加减边的代价为$A_{i,j}$。顶点个数$N\le8$
+
+> 全排列
+>
+> 排列h的顶点，再枚举所有顶点，判断顶点之间的边的有无是否一致，不一致则修改。
+
+```java
+    public static void solve() throws IOException{     
+        int n = rd.nextInt();
+        boolean g[][] = new boolean[n + 1][n + 1];
+        boolean h[][] = new boolean[n + 1][n + 1];
+        int mg = rd.nextInt();
+        while(mg --> 0){
+            int u = rd.nextInt();
+            int v = rd.nextInt();
+            g[u][v] = g[v][u] = true;
+        }
+        int mh = rd.nextInt();
+        while(mh --> 0){
+            int u = rd.nextInt();
+            int v = rd.nextInt();
+            h[u][v] = h[v][u] = true;
+        }
+
+        int a[][] = new int[n + 1][n + 1];
+        for(int i = 1; i < n; i ++){
+            for(int j = i + 1; j <= n; j ++){
+                a[i][j] = rd.nextInt();
+                a[j][i] = a[i][j];
+            }
+        }
+
+        int p[] = new int[n];
+        for(int i = 1; i <= n; i ++) p[i - 1] = i;
+
+        long ans = (long)1e18;
+        do{
+            long cnt = 0;
+            for(int i = 1; i < n; i ++){
+                for(int j = i + 1; j <= n; j ++){
+                    if(h[p[i - 1]][p[j - 1]] ^ g[i][j]) cnt += a[p[i - 1]][p[j - 1]];
+                }
+            }
+
+            ans = Math.min(ans, cnt);
+        }while(next_permutation(p));
+
+        pw.println(ans);
+        
+    }
+
+    public static boolean next_permutation(int a[]){
+        int n = a.length, i = n - 2;
+        while(i >= 0 && a[i] > a[i + 1]) i --;
+        if(i < 0) return false;
+        int k = i + 1;
+        while(k < n && a[k] > a[i]) k ++;
+        int t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;
+        Arrays.sort(a, i + 1, n);
+        return true;
+    }
+```
+
+
+
+
+
+
+
+[E - I Hate Sigma Problems (atcoder.jp)](https://atcoder.jp/contests/abc371/tasks/abc371_e)
+
+
+
+```java
+    public static void solve() throws IOException{     
+        int n = rd.nextInt();
+        int st[] = new int[(int)2e5 + 10];
+        long ans = 0;
+        for(int i = 1; i <= n; i ++){
+            int x = rd.nextInt();
+            ans += 1L * (i - st[x]) * (n - i + 1);
+            st[x] = i;
+        }
+        pw.println(ans);
+    }
+```
+
