@@ -41,3 +41,6 @@ https://www.luogu.com.cn/problem/P4017
 
 ---
 
+# 树型dp
+
+[C-Cidoai的树上方案_牛客练习赛128 (nowcoder.com)](https://ac.nowcoder.com/acm/contest/88880/C)
