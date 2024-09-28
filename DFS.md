@@ -1,46 +1,5 @@
 # 排列问题
 
-## [P1088 火星人](https://www.luogu.com.cn/problem/P1088)
-
-给出一个$1\sim N$的排列，求按字典序排序该排列后的第$M$个排列。
-
-> 使用nextPermutation计算当前排列后的第$m$个排列。
->
-> tips: 有个数据点要用快速读写
-
-```java
-import java.io.*;
-import java.util.*;
-public class Main {
-    static Read rd = new Read();
-    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-    public static boolean nextPermunation(int a[]){
-        int n = a.length, i = n - 2;
-        while(i >= 0 && a[i] > a[i + 1]) i --;
-        if(i < 0) return false;
-        int k = i + 1;
-        while(k < n && a[k] > a[i]) k ++;
-        {int t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;}// swap(a[i], a[k - 1])
-        Arrays.sort(a, i + 1, n);
-        return true;
-    }
-    public static void main(String[] args) throws IOException {
-        int a[], n, m;
-        n = rd.nextInt();
-        m = rd.nextInt();
-        a = new int[n];
-        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
-        while(m --> 0) nextPermunation(a);
-        for(int i = 0; i < n; i ++) pw.print(a[i] + " ");
-        pw.flush();pw.close();
-    }
-}
-class Read {
-	StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
-	public int nextInt() throws IOException {st.nextToken();return (int)st.nval;}
-}
-```
-
 
 
 # 组合问题
