@@ -14,3 +14,10 @@
 
 ---
 
+ 待做：
+
+[2421. 好路径的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/number-of-good-paths/description/)
+
+[928. 尽量减少恶意软件的传播 II - 力扣（LeetCode）](https://leetcode.cn/problems/minimize-malware-spread-ii/description/)
+
+---
