@@ -1509,15 +1509,49 @@ public class Main {
     }
 ```
 
+[D - 1D Country (atcoder.jp)](https://atcoder.jp/contests/abc371/tasks/abc371_d)
 
+> 二分、前缀和
 
+```java
+    public static void solve() throws IOException{     
+        int n = rd.nextInt();
+        int x[] = new int[n + 1];
+        long pre[] = new long[n + 1];
+        for(int i = 1; i <= n; i ++) x[i] = rd.nextInt();
+        for(int i = 1; i <= n; i ++) {
+            pre[i] = rd.nextLong();
+            pre[i] += pre[i - 1];
+        }
 
-
-
+        int q = rd.nextInt();
+        while(q --> 0){
+            int a = rd.nextInt();
+            int b = rd.nextInt();
+            int l = 1, r = n;
+            while(l <= r){
+                int m = (l + r) >>> 1;
+                if(x[m] >= a) r = m - 1;
+                else l = m + 1;
+            }
+            int L = l;
+            l = 1; r = n;
+            while(l <= r){
+                int m = (l + r) >>> 1;
+                if(x[m] <= b) l = m + 1;
+                else r = m - 1;
+            }
+            int R = r;
+            pw.println(pre[R] - pre[L - 1]);
+        }
+    }
+```
 
 [E - I Hate Sigma Problems (atcoder.jp)](https://atcoder.jp/contests/abc371/tasks/abc371_e)
 
-
+> 考虑每一段子数组中每种数字的出现的第一个做出1个贡献（例如[**1**, 1, **2**, 2, **3**, **4**, **5**, 5]）。
+>
+> 那么在枚举每一个数$a_i$时，计算在多少个子数组中$a_i$是他这种数第一次出现的，用一个数组记录每一个数的上次出现的位置`st[x]`，那么包含$a_i$且他是他这种数第一次出现的子数组个数为`(i - st[x]) * (n - i + 1)`个（也就是枚举子数组起点和终点的总方案数），这是一个数做出的所有贡献，累加每一个数的贡献即为答案。
 
 ```java
     public static void solve() throws IOException{     
