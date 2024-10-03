@@ -430,3 +430,8 @@ https://www.luogu.com.cn/problem/P4343
 >
 > **注意二分的上下边界！！！**
 
+
+
+
+
+https://leetcode.cn/problems/minimum-speed-to-arrive-on-time/description/
