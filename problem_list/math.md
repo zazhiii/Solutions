@@ -81,21 +81,30 @@ public class Main {
 			pw.print(k);
 		}else {
 			pw.print(pcnt == ecnt && pcnt % 2 != 0 ? minp : 1);	
-		}
-		
+		}		
 		pw.flush();
 	}
 }
 
 ```
 
-## 
 
 
+# 概率
 
+---
 
+[1227. 飞机座位分配概率 - 力扣（LeetCode）](https://leetcode.cn/problems/airplane-seat-assignment-probability/description/)
 
+> 定义$f(n)$为第 `n` 位乘客坐在自己的座位上的概率。
+>
+> 若$n=1,f(n)=1$
+>
+> 若$n\ge2$：
+>
+> - 若第一个人坐在1位置，那么后面的所有人都能做到自己的位置，概率：$\frac{1}{n}$
+> - 若第一个人坐在$i$位置，那么$2\sim i-1$可以做自己的位置，$i+1\sim n$这些人又变成了问题$f(n-i)$
+>
+> 那么$f(n)=\frac{1}{n}+\frac{1}{n}\times\sum_2^{n-1}f(i)$, 可以化简为$f(n)=f(n-1)$，又$f(2)=\frac{1}{2}$，那么$f(n)=\frac{1}{2}$
 
-
-
-
+---
