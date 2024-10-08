@@ -436,4 +436,9 @@ https://www.luogu.com.cn/problem/P4343
 
 [1870. 准时到达的列车最小时速 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-speed-to-arrive-on-time/description/)
 
-[注意二分上界和check函数及时返回]  [2187. 完成旅途的最少时间 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-time-to-complete-trips/description/)
+---
+
+[注意二分上界和check函数及时返回] 
+
+- [2187. 完成旅途的最少时间 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-time-to-complete-trips/description/)
+- [Problem - F - Codeforces](https://codeforces.com/contest/1985/problem/F)
