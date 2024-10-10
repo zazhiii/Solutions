@@ -442,3 +442,4 @@ https://www.luogu.com.cn/problem/P4343
 
 - [2187. 完成旅途的最少时间 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-time-to-complete-trips/description/)
 - [Problem - F - Codeforces](https://codeforces.com/contest/1985/problem/F)
+- [3296. 移山所需的最少秒数 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-number-of-seconds-to-make-mountain-height-zero/description/)
