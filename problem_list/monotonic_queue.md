@@ -1,4 +1,4 @@
-> 可以用deque实现
+可以用deque实现
 
 ```java
 for(int i = 0; i < n - 1; i ++){
@@ -32,7 +32,6 @@ $$\def\arraystretch{1.2}
 $$
 
 ```java
-
 import java.io.*;
 import java.util.*;
 public class Main {
