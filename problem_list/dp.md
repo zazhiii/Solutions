@@ -29,6 +29,14 @@ https://www.luogu.com.cn/problem/P1854
 >
 > 对于每次选数，枚举选哪个，再枚举上一个数选哪个，转移过来取最大值，`dp[i][j] = max(dp[i - 1][k])`，注意其中`j` `k`的范围，用`path[i][j]`记录`dp[i][j]`取到最大值的时候上一个数选的哪个位置，这样可以通过答案往回找到整个转移路径。
 
+---
+
+[1884. 鸡蛋掉落-两枚鸡蛋 - 力扣（LeetCode）](https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors/description/)
+
+> 法一：`dp[i]`：`i`楼测出答案的最少次数。$dp[i]=\min^i_{j=1}(\max(dp[i-j]+1,j))$
+>
+> 法二：计算仍$i$次最多能测出多高楼层的答案
+
 # 记忆化搜索
 
 ---
