@@ -106,53 +106,6 @@
 
 # Round 944 (Div. 4)（exc：G）
 
-**C. Clock and Strings**
-
-[Problem - C - Codeforces](https://codeforces.com/contest/1971/problem/C)
-
-如下图所示，有一个时钟，上面按顺时针顺序标有 $$1$$$ 到 $$$12$$ 的数字。
-
-![](https://espresso.codeforces.com/61e348551b1e468c2730b6e3b36e33b76e3132ca.png)
-
-在本例中， $$(a,b,c,d)=(2,9,10,6)$$ 和字符串相交。
-
-有四个**不同的**整数 $a$$$ 、 $$$b$$$ 、 $$$c$$$ 、 $$$d$$$ ，且不大于 $$$12$$$ 。爱丽丝用红色字符串连接 $$$a$$$ 和 $$$b$$$ ，鲍勃用蓝色字符串连接 $$$c$$$ 和 $$$d$ 。这两条线相交吗？(字符串是直线段）。
-
-> 从$a，b$中较小值遍历到较大值，若其中包含$c,d$中的0或2个则不相交；反之则相交
->
-> 注意：处理从12 到 1点
-
-```java
-import java.io.*;
-import java.util.*;
-public class Main {
-    static Scanner sc = new Scanner(System.in);
-    static PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-    static int T, a, b, c, d;
-    public static void main(String[] args) throws IOException {
-    	T = sc.nextInt();
-    	while(T --> 0) {
-    		a = sc.nextInt();b = sc.nextInt();
-    		c = sc.nextInt();d = sc.nextInt();
-    		int s = Math.min(a, b);
-    		int e = Math.max(a, b);
-    		int k = s, ans = 0;
-    		for(int i = s; i<=e; i++) {
-    			if(k == c || k == d) ans ++;
-    			k ++;
-    			if(k == 13) k = 1;
-    		}
-    		pw.println(ans == 0 || ans == 2? "NO":"YES");
-    	}
-    	pw.flush();
-    }
-}
-```
-
-
-
-**D. Binary Cut**
-
 [Problem - D - Codeforces](https://codeforces.com/contest/1971/problem/D)
 
 给你一个01串。请找出最少需要切割成多少个片段，以便将得到的片段重新排列成一个有序的二进制字符串。
@@ -192,13 +145,9 @@ public class Main {
 
 ```
 
-
-
-**E. Find the Car**
-
 [Problem - E - Codeforces](https://codeforces.com/contest/1971/problem/E)
 
-铁木尔乘坐的汽车在数线上从 $$$0$$$ 点行驶到 $$$n$$$ 点。汽车在 $$$0$$$ 分钟时从 $$$0$$$ 点开始行驶。
+铁木尔乘坐的汽车在数线上从 $0$ 点行驶到 $$$n$$$ 点。汽车在 $$$0$$$ 分钟时从 $$$0$$$ 点开始行驶。
 
 在$0, a_1, a_2, \dots, a_k$$ 点的数线上有 $$$k+1$$$ 个标志，帖木儿知道汽车将分别在$$0, b_1, b_2, \dots, b_k$$ 分钟到达那里。序列 $$$a$$$ 和 $$$b$$$ 与 $ $a_k = n$ 严格递增。
 
@@ -319,11 +268,6 @@ Ivy 在黑板上写下了在 $l$ 到 $r$ 之间的所有整数。
 > 答案为所有数变为$0$的操作次数，再加上最小的那个数变为$0$的操作次数
 
 ```java
-import java.io.*;
-import java.util.*;
-public class Main{
-    static Scanner sc = new Scanner(System.in);
-    static PrintWriter pw = new PrintWriter(System.out);
     static long pow3[] = new long[15];
     static long cnt[] = new long[(int)2e5 + 1];
     static long pre[] = new long[(int)2e5 + 1];
@@ -346,13 +290,6 @@ public class Main{
         int r = sc.nextInt();
         pw.println(pre[r] - pre[l - 1] + cnt[l]);
     }
-    public static void main(String[] args) throws IOException {
-        int T = sc.nextInt();
-        init();
-        while(T --> 0) solve();
-        pw.flush();
-    }   
-}
 ```
 
 [Problem - F - Codeforces](https://codeforces.com/contest/1999/problem/F)
