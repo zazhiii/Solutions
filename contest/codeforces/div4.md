@@ -1,6 +1,8 @@
 # [Round 898 (Div. 4)](https://codeforces.com/contest/1873)
 
-[E. Building an Aquarium](https://codeforces.com/contest/1873/problem/E)  二分答案
+[E. Building an Aquarium](https://codeforces.com/contest/1873/problem/E)  
+
+> 二分答案
 
 [F. Money Trees](https://codeforces.com/contest/1873/problem/F)
 
@@ -8,12 +10,20 @@
 >
 >    双指针找到每个位置最多能往右到哪个位置，在此基础上二分找到从第$i$位置开始$\sum a_i$不超过$k$的最长区间
 
+[Problem - G - Codeforces](https://codeforces.com/contest/1873/problem/G) 
+
+> 思维
+>
+> B能消掉所有与之相邻的A，若字符串以B结尾或开头，或者有BB子串那么所有A都能被消掉，否则会剩一段连续A子串消不掉，剩最短的A子串即可。
+
 # [Round 937 (Div. 4)](https://codeforces.com/contest/1950)（exc：F G）
 
 [Problem - D - Codeforces](https://codeforces.com/contest/1950/problem/D)
 
 给定一个$n$，判断$n$是否能分解成若干只由$01$组成的数的乘积。
 
+> 枚举
+>
 > 枚举出所有$10^5$以内的由$01$组成的数（除0和1，可以用二进制枚举），$n$从大到小试除，判断最后$n$能否被除为$1$
 
 ```java
@@ -36,6 +46,8 @@
     }
 ```
 
+> DFS
+>
 > 枚举出所有$10^5$以内的由$01$组成的数，dfs枚举出若干这些数能组成的所有数（这两步都是预处理），这样就可以$O(1)$判断答案
 
 ```java
