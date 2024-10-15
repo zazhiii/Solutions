@@ -1,3 +1,13 @@
+# [Round 898 (Div. 4)](https://codeforces.com/contest/1873)
+
+[E. Building an Aquarium](https://codeforces.com/contest/1873/problem/E)  二分答案
+
+[F. Money Trees](https://codeforces.com/contest/1873/problem/F)
+
+>    二分、双指针
+>
+>    双指针找到每个位置最多能往右到哪个位置，在此基础上二分找到从第$i$位置开始$\sum a_i$不超过$k$的最长区间
+
 # [Round 937 (Div. 4)](https://codeforces.com/contest/1950)（exc：F G）
 
 [Problem - D - Codeforces](https://codeforces.com/contest/1950/problem/D)
