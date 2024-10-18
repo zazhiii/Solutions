@@ -2,8 +2,26 @@
 
 # 滑动窗口
 
-[学习滑窗思想]  [2962. 统计最大元素出现至少 K 次的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/)
+解决子数组和子串问题
 
-[76. 最小覆盖子串 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-window-substring/)
+## 经典例题
+
+[209. 长度最小的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-sum/description/) 
+
+[3. 无重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/)
+
+[76. 最小覆盖子串 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-window-substring/) 
+
+[134. 加油站 - 力扣（LeetCode）](https://leetcode.cn/problems/gas-station/submissions/) 判断是否有长度>=n的子数组满足其前缀和都>=0
+
+[1234. 替换子串得到平衡字符串 - 力扣（LeetCode）](https://leetcode.cn/problems/replace-the-substring-for-balanced-string/) 转化为[76.最小覆盖子串]，最小子串覆盖所有超过n/4的部分
+
+[992. K 个不同整数的子数组 - 力扣（LeetCode） ](https://leetcode.cn/problems/subarrays-with-k-different-integers/description/) 求不同数字数等于k 转化为 不同数字数<=k 减去 不同数字数 <= k - 1
+
+待做	[395. 至少有 K 个重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-with-at-least-k-repeating-characters/description/)
+
+---
+
+[学习滑窗思想]  [2962. 统计最大元素出现至少 K 次的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/)
 
 [76题的计数版本]  [3298. 统计重新排列后包含另一个字符串的子字符串数目 II - 力扣（LeetCode）](https://leetcode.cn/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-ii/description/)
