@@ -2,6 +2,7 @@
     static int N = (int)1e5 + 10;
     static int p[] = new int[N], size[] = new int[N];
     static{
+        // 若多组测试，放到单组测试中初始化，且初始化为当组所需大小
         for(int i = 0; i < N; i ++){
             p[i] = i;
             size[i] = 1;
