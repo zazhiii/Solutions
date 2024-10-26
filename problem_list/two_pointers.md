@@ -4,11 +4,13 @@
 
 解决子数组和子串问题
 
-## 经典例题
+## 不定长滑窗
+
+### 经典例题
 
 [209. 长度最小的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-sum/description/) 
 
-[3. 无重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/)
+[3. 无重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/) 
 
 [76. 最小覆盖子串 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-window-substring/) 
 
@@ -25,3 +27,19 @@
 [学习滑窗思想]  [2962. 统计最大元素出现至少 K 次的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/)
 
 [76题的计数版本]  [3298. 统计重新排列后包含另一个字符串的子字符串数目 II - 力扣（LeetCode）](https://leetcode.cn/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-ii/description/)
+
+### 求最长/最大
+
+移动一次右端点，缩减左端点至区间合法之后记录答案
+
+ [3090. 每个字符最多出现两次的最长子字符串](https://leetcode.cn/problems/maximum-length-substring-with-two-occurrences/)  类似：3. 无重复字符的最长子串
+
+[1493. 删掉一个元素以后全为 1 的最长子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-subarray-of-1s-after-deleting-one-element/)  包含<=1个0的最长子串
+
+[1208. 尽可能使字符串相等 - 力扣（LeetCode）](https://leetcode.cn/problems/get-equal-substrings-within-budget/description/)  总和不超过max的最长子数组
+
+[2730. 找到最长的半重复子字符串 - 力扣（LeetCode）](https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/description/) 
+
+# 双指针
+
+[922. 按奇偶排序数组 II - 力扣（LeetCode）](https://leetcode.cn/problems/sort-array-by-parity-ii/) 用两个奇偶指针操作
