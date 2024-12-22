@@ -47,6 +47,8 @@ https://www.luogu.com.cn/problem/P4017
 
 > 记忆化搜索 | 拓扑排序
 
+https://leetcode.cn/problems/sort-integers-by-the-power-value/	leetcode 1507
+
 ---
 
 # 树型dp
