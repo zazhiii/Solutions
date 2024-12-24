@@ -37,6 +37,14 @@ https://www.luogu.com.cn/problem/P1854
 >
 > 法二：计算仍$i$次最多能测出多高楼层的答案
 
+---
+
+[P1044  栈 - 洛谷](https://www.luogu.com.cn/problem/P1044)
+
+> 法一：dp
+>
+> 法二：记忆化搜索
+
 # 记忆化搜索
 
 ---
