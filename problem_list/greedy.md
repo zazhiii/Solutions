@@ -73,3 +73,7 @@
 
 [1326. 灌溉花园的最少水龙头数目 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-number-of-taps-to-open-to-water-a-garden/description/) 可转化为：45.跳跃游戏
 
+---
+
+[1705. 吃苹果的最大数目 - 力扣（LeetCode） ](https://leetcode.cn/problems/maximum-number-of-eaten-apples/description/)   1930
+
