@@ -4,7 +4,7 @@
 2. [leetcode](https://leetcode.cn)
 3. [牛客](https://ac.nowcoder.com/)
 3. [AtCoder](https://atcoder.jp/)
-4. [codeforce](https://codeforces.com/)
+4. [codeforces](https://codeforces.com/)
 ## 知识点
 ### Java
 ### 基础算法
