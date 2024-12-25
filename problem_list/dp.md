@@ -39,11 +39,9 @@ https://www.luogu.com.cn/problem/P1854
 
 ---
 
-[P1044  栈 - 洛谷](https://www.luogu.com.cn/problem/P1044)
+[P1044  栈 - 洛谷](https://www.luogu.com.cn/problem/P1044)  dp | 记忆化搜索
 
-> 法一：dp
->
-> 法二：记忆化搜索
+[P1990 覆盖墙壁 - 洛谷](https://www.luogu.com.cn/problem/P1990)  线性dp
 
 # 记忆化搜索
 
