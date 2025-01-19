@@ -30,7 +30,7 @@
 
 ### 求最长/最大
 
-移动一次右端点，缩减左端点至区间合法之后记录答案
+>  移动一次右端点，缩减左端点至区间合法之后记录答案
 
  [3090. 每个字符最多出现两次的最长子字符串](https://leetcode.cn/problems/maximum-length-substring-with-two-occurrences/)  类似：3. 无重复字符的最长子串
 
@@ -39,6 +39,12 @@
 [1208. 尽可能使字符串相等 - 力扣（LeetCode）](https://leetcode.cn/problems/get-equal-substrings-within-budget/description/)  总和不超过max的最长子数组
 
 [2730. 找到最长的半重复子字符串 - 力扣（LeetCode）](https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/description/) 
+
+[904. 水果成篮 - 力扣（LeetCode）](https://leetcode.cn/problems/fruit-into-baskets/description/) 1516 包含不超过2种数字的最长子数组
+
+[1695. 删除子数组的最大得分 - 力扣（LeetCode）](https://leetcode.cn/problems/maximum-erasure-value/description/) 1529 无重复数字子数组最大和
+
+[2958. 最多 K 个重复元素的最长子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/length-of-longest-subarray-with-at-most-k-frequency/description/) 1535 
 
 # 双指针
 
