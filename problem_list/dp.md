@@ -43,6 +43,8 @@ https://www.luogu.com.cn/problem/P1854
 
 [P1990 覆盖墙壁 - 洛谷](https://www.luogu.com.cn/problem/P1990)  线性dp
 
+[2266. 统计打字方案数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-texts/description/) 1857 计数 线性dp
+
 # 记忆化搜索
 
 ---
