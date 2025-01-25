@@ -1,14 +1,12 @@
-[2024. 考试的最大困扰度 - 力扣（LeetCode）](https://leetcode.cn/problems/maximize-the-confusion-of-an-exam/description/) 维护 某个元素的个数不超过k的 最大区间
+
 
 # 滑动窗口
 
-解决子数组和子串问题
+> 解决子数组和子串问题
 
 ## 不定长滑窗
 
 ### 经典例题
-
-[209. 长度最小的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-sum/description/) 
 
 [3. 无重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/) 
 
@@ -45,6 +43,30 @@
 [1695. 删除子数组的最大得分 - 力扣（LeetCode）](https://leetcode.cn/problems/maximum-erasure-value/description/) 1529 无重复数字子数组最大和
 
 [2958. 最多 K 个重复元素的最长子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/length-of-longest-subarray-with-at-most-k-frequency/description/) 1535 
+
+[2024. 考试的最大困扰度 - 力扣（LeetCode）](https://leetcode.cn/problems/maximize-the-confusion-of-an-exam/description/) 1643 维护 某个元素的个数不超过k的 最大区间
+
+[1004. 最大连续1的个数 III - 力扣（LeetCode）](https://leetcode.cn/problems/max-consecutive-ones-iii/description/) 1656 包含不超过k个0的最长子串
+
+[1658. 将 x 减到 0 的最小操作数 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero/description/) 1817 和恰好为`sum - x` 的最长子数组
+
+[1838. 最高频元素的频数 - 力扣（LeetCode）](https://leetcode.cn/problems/frequency-of-the-most-frequent-element/) 1879 
+
+[2516. 每种字符至少取 K 个 - 力扣（LeetCode）](https://leetcode.cn/problems/take-k-of-each-character-from-left-and-right/description/) 1948 每种字符最多出现$sum_i-k$次的最长子数组
+
+[2831. 找出最长等值子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/find-the-longest-equal-subarray/description/) 1976 分组+枚举每个数n次滑窗
+
+### 求最短/最小
+
+> 移动一次右端点，缩减左端点到最后一次合法(再移动左端点就不合法)，记录答案
+
+[209. 长度最小的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-sum/description/) 
+
+[2904. 最短且字典序最小的美丽子字符串 - 力扣（LeetCode）](https://leetcode.cn/problems/shortest-and-lexicographically-smallest-beautiful-string/description/) 1482
+
+[2875. 无限数组的最短子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-in-infinite-array/description/) 1914 
+
+
 
 # 双指针
 
