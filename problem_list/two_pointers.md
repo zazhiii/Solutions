@@ -66,6 +66,34 @@
 
 [2875. 无限数组的最短子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-in-infinite-array/description/) 1914 
 
+### 计数类
+
+> 移动一次右端点，移动左端点到分界点，统计答案
+
+[1358. 包含所有三种字符的子字符串数目 - 力扣（LeetCode）](https://leetcode.cn/problems/number-of-substrings-containing-all-three-characters/description/) 1646
+
+[2799. 统计完全子数组的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-complete-subarrays-in-an-array/description/) $O(n)$做法
+
+[2537. 统计好子数组的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-good-subarrays/description/) 1892
+
+---
+
+[713. 乘积小于 K 的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-product-less-than-k/description/)
+
+[2302. 统计得分小于 K 的子数组数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-subarrays-with-score-less-than-k/description/) 1808
+
+[2762. 不间断子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/continuous-subarrays/description/) 1940 单调队列维护区间最值
+
+### 恰好型
+
+[930. 和相同的二元子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/binary-subarrays-with-sum/description/) 1592 滑窗 | 前缀和 + 哈希表
+
+[1248. 统计「优美子数组」 - 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-nice-subarrays/description/) 1624 同上一题
+
+[3306. 元音辅音字符串计数 II - 力扣（LeetCode）](https://leetcode.cn/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii/description/) 2200
+
+[992. K 个不同整数的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarrays-with-k-different-integers/description/) 2210
+
 
 
 # 双指针
