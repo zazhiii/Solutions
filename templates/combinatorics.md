@@ -17,6 +17,8 @@ public static void init(){
 /* c[a][b] */
 ```
 
+
+
 当$a$和$b$较大（$1\le b\le a\le10^5$），预处理阶乘和阶乘的逆元，利用组合数公式$\frac{n!}{m!(n-m)!}$计算每一个组合数。
 
 ```java
@@ -32,12 +34,6 @@ public static void init(){
     }
 }
 
-//用组合数公式计算逆元
-public static long C(int a, int b){
-    if(b > a) return 0;
-    return f[a] * invf[b] % mod * invf[a - b] % mod;
-}
-
 //快速幂，用以计算逆元
 public static long qpow(long a, long n){
     long ans = 1;
@@ -48,7 +44,17 @@ public static long qpow(long a, long n){
     }
     return ans;
 }
-/* C(a, b) */
+
+// 用排列数公式计算排列 
+public static long A(int a, int b){
+    return f[a] * invf[a - b] % mod;
+}
+
+// 用组合数公式计算组合
+public static long C(int a, int b){
+    if(b > a) return 0;
+    return f[a] * invf[b] % mod * invf[a - b] % mod;
+}
 ```
 
 
@@ -56,3 +62,5 @@ public static long qpow(long a, long n){
 # 题目
 
 [Problem - 1999F - Codeforces](https://codeforces.com/problemset/problem/1999/F)
+
+[E-小红的好排列_牛客周赛 Round 79](https://ac.nowcoder.com/acm/contest/100902/E)
