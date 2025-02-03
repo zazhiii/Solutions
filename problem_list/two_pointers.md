@@ -22,9 +22,11 @@
 
 ---
 
-[学习滑窗思想]  [2962. 统计最大元素出现至少 K 次的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/)
+[2962. 统计最大元素出现至少 K 次的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/) [学习滑窗思想]  
 
-[76题的计数版本]  [3298. 统计重新排列后包含另一个字符串的子字符串数目 II - 力扣（LeetCode）](https://leetcode.cn/problems/count-substrings-that-can-be-rearranged-to-contain-a-string-ii/description/)
+[3298. 统计重新排列后包含另一个字符串的子字符串数目 II - 力扣（LeetCode）](https://leetcode.cn/problems/count-substrings-that- can-be-rearranged-to-contain-a-string-ii/description/) [76题的计数版本] 
+
+[P2058 [NOIP 2016 普及组] 海港 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P2058) 黄
 
 ### 求最长/最大
 
