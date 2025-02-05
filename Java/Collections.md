@@ -22,4 +22,6 @@ E lower(E e) // 返回集合中严格小于e的最小元素，若没有则返回
 
 题目
 
-[D - Cross Explosion (atcoder.jp)](https://atcoder.jp/contests/abc370/tasks/abc370_d)
+[D - Cross Explosion (atcoder.jp)](https://atcoder.jp/contests/abc370/tasks/abc370_d) 
+
+[P2234 [HNOI2002] 营业额统计 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P2234) 
