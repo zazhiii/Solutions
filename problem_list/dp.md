@@ -62,3 +62,9 @@ https://leetcode.cn/problems/sort-integers-by-the-power-value/	leetcode 1507
 # 树型dp
 
 [C-Cidoai的树上方案_牛客练习赛128 (nowcoder.com)](https://ac.nowcoder.com/acm/contest/88880/C)
+
+# 期望/概率dp
+
+[F-口吃_牛客周赛 Round 60 (nowcoder.com)](https://ac.nowcoder.com/acm/contest/90070/F)
+
+[F-小红的小球染色期望_牛客周赛 Round 79](https://ac.nowcoder.com/acm/contest/100902/F)
