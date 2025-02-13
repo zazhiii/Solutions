@@ -45,6 +45,8 @@ https://www.luogu.com.cn/problem/P1854
 
 [2266. 统计打字方案数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-texts/description/) 1857 计数 线性dp
 
+[P1113 杂务 - 洛谷](https://www.luogu.com.cn/problem/P1113) 黄；不止一种方法。
+
 # 记忆化搜索
 
 ---
