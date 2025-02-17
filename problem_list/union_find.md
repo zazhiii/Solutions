@@ -1,8 +1,26 @@
+# 并查集
+
 [模板]  [P3367 【模板】并查集 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P3367)
 
-[维护集合个数]  [839. 相似字符串组](https://leetcode.cn/problems/similar-string-groups/submissions/568724958/)、[加边的无向图](https://ac.nowcoder.com/acm/problem/14685     )
+## 维护集合个数
 
-[维护集合大小]  [Friends](https://www.luogu.com.cn/problem/UVA10608) 、[[ABC350D] New Friends](https://www.luogu.com.cn/problem/AT_abc350_d) 、[P2078 朋友](https://www.luogu.com.cn/problem/P2078)
+[839. 相似字符串组](https://leetcode.cn/problems/similar-string-groups/submissions/568724958/) 
+
+[加边的无向图](https://ac.nowcoder.com/acm/problem/14685) 
+
+[P1536 村村通 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P1536) 
+
+[P1621 集合 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P1621) 黄；质数筛
+
+## 维护集合大小
+
+[Friends - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/UVA10608) 
+
+ [[ABC350D] New Friends](https://www.luogu.com.cn/problem/AT_abc350_d) 
+
+[P2078 朋友 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P2078) 
+
+
 
 - [P1111 修复公路](https://www.luogu.com.cn/problem/P1111)  [按时间顺序修，$t$时刻集合大小为$N$了则修完了]
 
