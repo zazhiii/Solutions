@@ -47,6 +47,8 @@ https://www.luogu.com.cn/problem/P1854
 
 [P1113 杂务 - 洛谷](https://www.luogu.com.cn/problem/P1113) 黄；不止一种方法。
 
+[2209. 用地毯覆盖后的最少白色砖块 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-white-tiles-after-covering-with-carpets/description/) 2106
+
 # 记忆化搜索
 
 ---
