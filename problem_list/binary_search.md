@@ -445,3 +445,7 @@ https://www.luogu.com.cn/problem/P4343
 - [3296. 移山所需的最少秒数 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-number-of-seconds-to-make-mountain-height-zero/description/)
 - [*1100] [E. Building an Aquarium](https://codeforces.com/contest/1873/problem/E)
 - [*1100] [E. Cardboard for Pictures](https://codeforces.com/contest/1850/problem/E)
+
+[1760. 袋子里最少数目的球 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/description/) 1940
+
+[1552. 两球之间的磁力 - 力扣（LeetCode）](https://leetcode.cn/problems/magnetic-force-between-two-balls/description/) 1920
