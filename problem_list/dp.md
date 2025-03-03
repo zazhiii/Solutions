@@ -11,7 +11,7 @@ $1≤n≤1000,1≤m≤200,1≤k≤m$。
 
 ---
 
-[二进制优化多重背包模板题] https://www.luogu.com.cn/problem/P1833
+https://www.luogu.com.cn/problem/P1833 [二进制优化多重背包模板题] 
 
 ---
 
@@ -48,6 +48,8 @@ https://www.luogu.com.cn/problem/P1854
 [P1113 杂务 - 洛谷](https://www.luogu.com.cn/problem/P1113) 黄；不止一种方法。
 
 [2209. 用地毯覆盖后的最少白色砖块 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-white-tiles-after-covering-with-carpets/description/) 2106
+
+[132. 分割回文串 II - 力扣（LeetCode）](https://leetcode.cn/problems/palindrome-partitioning-ii/description/) 困难
 
 # 记忆化搜索
 
