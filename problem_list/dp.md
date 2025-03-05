@@ -65,6 +65,10 @@ https://leetcode.cn/problems/sort-integers-by-the-power-value/	leetcode 1507
 
 ---
 
+# 区间 dp
+
+https://leetcode.cn/problems/longest-palindromic-subsequence-after-at-most-k-operations/ 
+
 # 树型dp
 
 [C-Cidoai的树上方案_牛客练习赛128 (nowcoder.com)](https://ac.nowcoder.com/acm/contest/88880/C)
