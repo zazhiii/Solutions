@@ -1,3 +1,5 @@
+
+
 # Round 957 (Div. 3)
 
 [C - Gorilla and Permutation](https://codeforces.com/contest/1992/problem/C)
@@ -355,6 +357,12 @@ public class Prac {
 # [Round 974 (Div. 3)](https://codeforces.com/contest/2014) (exc: F G H)
 
 [分图层最短路]  [Problem - E - Codeforces](https://codeforces.com/contest/2014/problem/E)
+
+# Round 988 （exc: F G）
+
+https://codeforces.com/contest/2037/problem/E 
+
+>    从 1 往后询问$f(i,i+1)$，找到第一个 01 的位置$(x-1,x)$，再询问$f(1,x)$,所得数目为$(1,x-1)$中0 的个数，且这些 0 都靠在右侧。再从$x+1$枚举询问$f(1,j)$并与$f(1,j-1)$比较，若后者大，则$j$位置为 1 反之为 0。若没有找到01 那么就是无法确定的情况。
 
 
 
