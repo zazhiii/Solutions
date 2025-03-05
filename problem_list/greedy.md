@@ -77,3 +77,4 @@
 
 [1705. 吃苹果的最大数目 - 力扣（LeetCode） ](https://leetcode.cn/problems/maximum-number-of-eaten-apples/description/)   1930
 
+[1328. 破坏回文串](https://leetcode.cn/problems/break-a-palindrome/)
