@@ -66,7 +66,9 @@ https://www.luogu.com.cn/problem/P2004
 
 
 
+# 前缀异或和
 
+https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays 
 
 # 差分
 
