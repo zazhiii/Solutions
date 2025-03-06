@@ -1660,3 +1660,59 @@ public class Main {
     }
 ```
 
+
+
+# [Beginner Contest 395](https://atcoder.jp/contests/abc395)
+
+[C - Shortest Duplicate Subarray](https://atcoder.jp/contests/abc395/tasks/abc395_c)
+
+>    记录每一个数前一次出现的位置$pre_i$，答案为$\min(i-pre_i+1)$
+
+```java
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        Map<Integer, Integer> map = new HashMap<>();
+        int ans = inf;
+        for(int i = 0; i < n; i ++){
+            int x = rd.nextInt();
+            if(map.containsKey(x)){
+                ans = Math.min(ans, i - map.get(x) + 1);
+            }
+            map.put(x, i);
+        }
+        pw.println(ans == inf ? -1 : ans);
+    }
+```
+
+[D - Pigeon Swap](https://atcoder.jp/contests/abc395/tasks/abc395_d)
+
+```java
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        int q = rd.nextInt();
+        int[] f = new int[n + 1]; // 第 i 号巢放在第几个位置
+        int[] g = new int[n + 1]; // 第 i 个位置放的是第几号巢
+        int[] h = new int[n + 1]; // 第 i 个鸽子在第几个位置
+        for(int i = 0; i <= n; i ++){
+            f[i] = g[i] = h[i] = i;
+        }
+        while(q -- > 0){
+            int op = rd.nextInt();
+            int a = rd.nextInt();
+            if(op == 1){
+                int b = rd.nextInt();
+                h[a] = f[b];
+            }else if(op == 2){
+                int b = rd.nextInt();
+                g[f[a]] = b;
+                g[f[b]] = a;
+                int t = f[a];
+                f[a] = f[b];
+                f[b] = t;
+            }else{
+                pw.println(g[h[a]]);
+            }
+        }
+    }
+```
+
