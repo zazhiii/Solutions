@@ -1,4 +1,4 @@
-# Beginner Contest 350
+# ABC 350
 
 **C - Sort**
 
@@ -109,7 +109,7 @@ public class Main {
 
 
 
-# Beginner Contest 351
+# ABC 351
 
 **c. Merge the balls**
 
@@ -230,7 +230,7 @@ public class Main {
 
 
 
-# Beginner Contest 352
+# ABC 352
 
 **D - Permutation Subsequence**
 
@@ -302,7 +302,7 @@ class Read{
 }
 ```
 
-# Beginner Contest 353
+# ABC 353
 
 **C - Sigma Problem**
 
@@ -420,7 +420,7 @@ public class Main {
 
 [E - Yet Another Sigma Problem](https://atcoder.jp/contests/abc353/tasks/abc353_e) **字典树**
 
-# Beginner Contest 354
+# ABC 354
 
 [C - AtCoder Magics](https://atcoder.jp/contests/abc354/tasks/abc354_c)
 
@@ -484,7 +484,7 @@ public class Main {
 }
 ```
 
-# Beginner Contest 355
+# ABC 355
 
 **D - Intersecting Intervals**
 
@@ -573,7 +573,7 @@ public class Main {
 
 
 
-# Beginner Contest 356
+# ABC 356
 
 [C - Keys](https://atcoder.jp/contests/abc356/tasks/abc356_c)
 
@@ -640,7 +640,7 @@ public class Main {
 }
 ```
 
-# Beginner Contest 357
+# ABC 357
 
 D	https://atcoder.jp/contests/abc357/tasks/abc357_d
 
@@ -692,7 +692,7 @@ public class Main {
 }
 ```
 
-# Beginner Contest 358
+# ABC 358
 
 [B - Ticket Counter](https://atcoder.jp/contests/abc358/tasks/abc358_b)
 
@@ -832,7 +832,7 @@ public class Main {
 }
 ```
 
-# Beginner Contest 359
+# ABC 359
 
 **C**
 
@@ -872,7 +872,7 @@ public class Main {
 }
 ```
 
-# Beginner Contest 360
+# ABC 360
 
 [C - Move It (atcoder.jp)](https://atcoder.jp/contests/abc360/tasks/abc360_c)
 
@@ -976,7 +976,7 @@ public class Main {
 
 ```
 
-# Beginner Contest 362
+# ABC 362
 
 [D - Shortest Path 3 (atcoder.jp)](https://atcoder.jp/contests/abc362/tasks/abc362_d)
 
@@ -1045,7 +1045,7 @@ public class Main {
 }
 ```
 
-# Beginner Contest 363
+# ABC 363
 
 [C - Avoid K Palindrome 2 ](https://atcoder.jp/contests/abc363/tasks/abc363_c)
 
@@ -1069,7 +1069,7 @@ public class Main {
 >
 > 第$m$个长度为$k$的回文数的前半部分为：
 
-# [Beginner Contest 364](https://atcoder.jp/contests/abc364/tasks)
+# [ABC 364](https://atcoder.jp/contests/abc364/tasks)
 
 [D - K-th Nearest (atcoder.jp)](https://atcoder.jp/contests/abc364/tasks/abc364_d)
 
@@ -1145,7 +1145,7 @@ public class Main {
 }
 ```
 
-# [Beginner Contest 365](https://atcoder.jp/contests/abc365/tasks)
+# [ABC 365](https://atcoder.jp/contests/abc365/tasks)
 
 [C - Transportation Expenses (atcoder.jp)](https://atcoder.jp/contests/abc365/tasks/abc365_c)
 
@@ -1334,7 +1334,7 @@ public class Prac {
 }
 ```
 
-# Beginner Contest 367
+# ABC 367
 
 [D - Pedometer (atcoder.jp)](https://atcoder.jp/contests/abc367/tasks/abc367_d)
 
@@ -1356,7 +1356,7 @@ Find the number of possible pairs $(s,t)$.
 >
 > **注意**：当目的地`i`是`[n + 1, 2n - 1]`之间时，只能从`[i - n + 1, n]`过来。
 
-# Beginner Contest 370
+# ABC 370
 
 [D - Cross Explosion (atcoder.jp)](https://atcoder.jp/contests/abc370/tasks/abc370_d)
 
@@ -1442,7 +1442,7 @@ public class Main {
 
 
 
-# Beginner Contest 371
+# ABC 371
 
 [C - Make Isomorphic (atcoder.jp)](https://atcoder.jp/contests/abc371/tasks/abc371_c)
 
@@ -1567,7 +1567,7 @@ public class Main {
     }
 ```
 
-#  [Beginner Contest 372](https://atcoder.jp/contests/abc372) 
+#  [ABC 372](https://atcoder.jp/contests/abc372) 
 
 [D. Buildings](https://atcoder.jp/contests/abc372/tasks/abc372_d)
 
@@ -1662,7 +1662,36 @@ public class Main {
 
 
 
-# [Beginner Contest 394](https://atcoder.jp/contests/abc394)
+ # [ABC393](https://atcoder.jp/contests/abc393)
+
+[D - Swap to Gather](https://atcoder.jp/contests/abc393/tasks/abc393_d)
+
+> 贪心
+>
+> 让所有 1 聚成一堆也就是让所有 0 靠边站，对于每个 0 要么靠左要么靠右站，每个 0 靠边站和他左右有多少 0 以及他自己的位置有关，哪边需要移动步数少就往哪边移动
+>
+> $O(n)$
+
+```java
+    static public void solve() throws IOException {
+        int n = rd.nextInt();
+        char[] c = rd.next().toCharArray();
+        long ans = 0;
+        int[] l = new int[n], r = new int[n];
+        for (int i = 1; i < n; i++)
+            l[i] = l[i - 1] + (c[i - 1] == '0' ? 1 : 0);
+        for (int i = n - 2; i >= 0; i--)
+            r[i] = r[i + 1] + (c[i + 1] == '0' ? 1 : 0);
+        for (int i = 0; i < n; i++)
+            if (c[i] == '0')
+                ans += Math.min(i - l[i], n - 1 - i - r[i]);
+        pw.println(ans);
+    }
+```
+
+
+
+# [ABC 394](https://atcoder.jp/contests/abc394)
 
 [E - Palindromic Shortest Path](https://atcoder.jp/contests/abc394/tasks/abc394_e)
 
@@ -1715,7 +1744,7 @@ public class Main {
 
 
 
-# [Beginner Contest 395](https://atcoder.jp/contests/abc395)
+# [ABC 395](https://atcoder.jp/contests/abc395)
 
 [C - Shortest Duplicate Subarray](https://atcoder.jp/contests/abc395/tasks/abc395_c)
 
