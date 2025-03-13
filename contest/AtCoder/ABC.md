@@ -1356,7 +1356,32 @@ Find the number of possible pairs $(s,t)$.
 >
 > **注意**：当目的地`i`是`[n + 1, 2n - 1]`之间时，只能从`[i - n + 1, n]`过来。
 
-# ABC 370
+# [ABC 368](https://atcoder.jp/contests/abc368)
+
+[C - Triple Attack](https://atcoder.jp/contests/abc368/tasks/abc368_c)
+
+> 数学
+
+```java
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        long ans = 0;
+        for(int i = 1; i <= n; i ++){
+            int x = rd.nextInt();
+            ans += 1L * x / 5 * 3;
+            x %= 5;
+            while(x > 0){
+                ans ++;
+                x -= ans % 3 == 0 ? 3 : 1;
+            }
+        }
+        pw.println(ans);
+    }
+```
+
+
+
+# [ABC 370](https://atcoder.jp/contests/abc370)
 
 [D - Cross Explosion (atcoder.jp)](https://atcoder.jp/contests/abc370/tasks/abc370_d)
 
