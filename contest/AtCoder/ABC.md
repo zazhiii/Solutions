@@ -1049,11 +1049,42 @@ public class Main {
 
 [C - Avoid K Palindrome 2 ](https://atcoder.jp/contests/abc363/tasks/abc363_c)
 
-给你一个 $S$ 长度为 $N$ 
+> 全排列、枚举
 
-求$S$的字符排列之后不包含长度为$K$的回文字串的字符串个数
-
-> 全排列
+```java
+    public static boolean nextPermutation(char a[]){
+        int n = a.length, i = n - 2;
+        while(i >= 0 && a[i] >= a[i + 1]) i --;
+        if(i < 0) return false;
+        int k = i + 1;
+        while(k < n && a[k] > a[i]) k ++;
+        {char t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;}// swap(a[i], a[k - 1])
+        Arrays.sort(a, i + 1, n);
+        return true;
+    }
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        int k = rd.nextInt();
+        char[] c = rd.next().toCharArray();
+        Arrays.sort(c);
+        int ans = 0;
+        do{
+            boolean ff = true;
+            for(int i = k - 1; i < n; i ++){
+                boolean f = true;
+                for(int l = i - k + 1, r = i; l < r; l ++, r --){
+                    if(c[l] != c[r]) {
+                        f = false;
+                        break;
+                    }
+                }
+                if(f) ff = false;
+            }
+            if(ff) ans ++;
+        }while(nextPermutation(c));
+        pw.println(ans);
+    }
+```
 
 
 
