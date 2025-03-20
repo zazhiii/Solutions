@@ -1092,13 +1092,57 @@ public class Main {
 
 求第$N$个为回文数的非负整数（$1\le N\le10^{18}$）
 
-> 当$l\ge2$，长度为$l$的回文数有$9\times10^{\lceil\frac{l}{2}\rceil - 1}$个。$l$为$1$的回文串有$10$个。
+> 找规律
 >
-> 长度小于等于$k$的回文数就有：
+> 暂不考虑0，
 >
-> $10+90+900+...+9\times10^{\lceil\frac{k}{2}\rceil - 1}$
+> | 字符串长度 | 个数 |
+> | :--------: | :--: |
+> |     1      |  9   |
+> |     2      |  9   |
+> |     3      |  90  |
+> |     4      |  90  |
+> |     5      | 900  |
+> |     6      | 900  |
+> |     ……     |  ……  |
 >
-> 第$m$个长度为$k$的回文数的前半部分为：
+> 长度为$k$的回文串有$9\times10^{\lfloor\frac{k-1}{2}\rfloor}$个。
+>
+> 通过这个规律可以初步得到第$n$个回文串的长度。
+>
+> 接下来确定这个数具体是多少。
+>
+> 例如样例中的第 46 个回文数，初步确定长度为3（因为 46 比长度为1、2的回文串个数加起来还多）。
+>
+> 从前半段开始凑，第一个长度为3的回文数前半段（包括中间位置）为10(**10**1)，101是第一个长度为3的回文数，也是第1 （0是第一个）+ 9 + 9 + 1 = 20 个回文数，距离46还差26个回文数，在前半段 + 26得到第 46 个回文数的前半段：36，凑齐后半段结果为 363。
+>
+> 长度为偶数的回文数的凑法也类似。
+
+```java
+    static long[] t = new long[38];
+    static{
+        for(int i = 1; i <= 37; i ++){
+            t[i] = 9 * (long) Math.pow(10, (i - 1) / 2);
+            t[i] += t[i - 1];
+        }
+    }
+    static public void solve() throws IOException{
+        long n = rd.nextLong();
+        int p = 0;
+        while(t[p] < n) p ++;
+        int preLen = (p + 1) / 2;
+        long initPre = (long)Math.pow(10, preLen - 1);
+        StringBuilder initPreSb = new StringBuilder((initPre + n - t[p - 1] - 2) + "");
+        if(p % 2 == 1){
+            pw.print(initPreSb.toString() + new StringBuilder(initPreSb.substring(0, initPreSb.length() - 1)).reverse());
+        }else{
+            StringBuilder t = new StringBuilder(initPreSb.toString());
+            pw.print(t.append(initPreSb.reverse()));
+        }
+    }
+```
+
+
 
 # [ABC 364](https://atcoder.jp/contests/abc364/tasks)
 
