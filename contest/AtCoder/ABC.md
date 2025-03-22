@@ -1662,6 +1662,113 @@ public class Main {
 
 
 
+# [ABC391](https://atcoder.jp/contests/abc391)
+
+
+
+[E - Hierarchical Majority Vote](https://atcoder.jp/contests/abc391/tasks/abc391_e)
+
+>    dp
+>
+>    从长推到短，记录每个节点的「字符」和「要使当前字符改变的最小操作次数」
+>
+>    初始化：一开始每个节点的字符确定，修改当前字符的最小操作为 1
+>
+>    转移：由上面三个节点转移到一个节点，分别讨论 0、1 个数对两个信息的影响，转移到长度只有 1 时结束。
+>
+>    ```tex
+>    sample_1
+>    010011101 (111111111)
+>    011(111)
+>    1(1)
+>    
+>    sample_2
+>    000(111)
+>    1(2)
+>    ```
+
+```java
+    static public void solve() throws IOException {
+        int n = rd.nextInt();
+        char[] c = rd.next().toCharArray();
+        int[] cost = new int[c.length];
+        Arrays.fill(cost, 1);
+        pw.println(dfs(c, cost, n));
+
+    }
+
+    public static int dfs(char[] c, int[] cost, int n) {
+        if (n == 0) return cost[0]; // 退出
+        for (int i = 0; i < Math.pow(3, n - 1); i++) {
+            int x = i * 3; int y = i * 3 + 1; int z = i * 3 + 2;
+            int one = 0, maxOneCost = 0, minOneCost = inf;
+            int zero = 0, maxZeroCost = 0, minZeroCost = inf;
+            for (int j = x; j <= z; j++) {
+                if (c[j] == '1') {
+                    one++;
+                    maxOneCost = Math.max(maxOneCost, cost[j]);
+                    minOneCost = Math.min(minOneCost, cost[j]);
+                } else {
+                    zero++;
+                    maxZeroCost = Math.max(maxZeroCost, cost[j]);
+                    minZeroCost = Math.min(minZeroCost, cost[j]);
+                }
+            }
+            if (one == 3 || one == 2) {
+                c[i] = '1';
+                if (one == 3) cost[i] = cost[x] + cost[y] + cost[z] - maxOneCost;
+                if (one == 2) cost[i] = minOneCost;
+            } else {
+                c[i] = '0';
+                if (zero == 3) cost[i] = cost[x] + cost[y] + cost[z] - maxZeroCost;
+                if (zero == 2) cost[i] = minZeroCost;
+            }
+        }
+        return dfs(c, cost, n - 1);
+    }
+```
+
+
+
+# [ABC392](https://atcoder.jp/contests/abc392)
+
+[D - Doubles](https://atcoder.jp/contests/abc392/tasks/abc392_d)
+
+>    枚举、概率
+>
+>    预处理每个骰子的每个数出现几次 ，$cnt[i][x]$ ：第$i$个骰子中$x$出现几次。枚举每对骰子，再枚举其中一个$i$的每一个数$x$，若另一个骰子$j$中若包含$x$，那么可以计算概率$\frac{cnt[i][x]}{k_i}\times \frac{cnt[j][x]}{k_j}$，累加每个数的概率得到这对骰子 roll 到相同数的概率。
+
+```java
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        Map<Integer, Integer>[] map = new Map[n];
+        Arrays.setAll(map, i -> new HashMap<>());
+        int[] k = new int[n];
+        int[] mxa = new int[n];
+        double ans = 0;
+        for(int i = 0; i < n; i ++){
+            k[i] = rd.nextInt();
+            for(int j = 0; j < k[i]; j ++){
+                int x = rd.nextInt();
+                map[i].put(x, map[i].getOrDefault(x, 0) + 1);
+                mxa[i] = Math.max(mxa[i], x);
+            }
+            for(int j = 0; j < i; j ++){
+                double res = 0;
+                for(int x : map[i].keySet()){
+                    if(map[j].containsKey(x)){
+                        res += (1d * map[i].get(x) * map[j].get(x)) / (1d * k[i] * k[j]);
+                    }
+                }
+                ans = Math.max(ans, res);
+            }
+        }
+        pw.printf("%.15f", ans);
+    }
+```
+
+
+
  # [ABC393](https://atcoder.jp/contests/abc393)
 
 [D - Swap to Gather](https://atcoder.jp/contests/abc393/tasks/abc393_d)
