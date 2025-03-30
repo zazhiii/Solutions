@@ -2,7 +2,7 @@
 
 [P1135 奇怪的电梯 - 洛谷](https://www.luogu.com.cn/problem/P1135) 黄
 
-[E - Palindromic Shortest Path](https://atcoder.jp/contests/abc394/tasks/abc394_e) 1403
+[E - Palindromic Shortest Path](https://atcoder.jp/contests/abc394/tasks/abc394_e) atc-1403
 
 
 
@@ -18,6 +18,8 @@
 
 [P1825 Corn Maze S - 洛谷](https://www.luogu.com.cn/problem/P1825) 黄
 
+[D - Snaky Walk](https://atcoder.jp/contests/abc387/tasks/abc387_d) atc-817
+
 # 图
 
-[P2853 [USACO06DEC] Cow Picnic S - 洛谷](https://www.luogu.com.cn/problem/P2853) 
+[P2853 [USACO06DEC] Cow Picnic S - 洛谷](https://www.luogu.com.cn/problem/P2853) 黄
