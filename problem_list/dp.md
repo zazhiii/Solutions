@@ -92,6 +92,8 @@ https://www.luogu.com.cn/problem/P1854
 
 [P1002 [NOIP2002 普及组] 过河卒 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1002)
 
+https://leetcode.cn/problems/solving-questions-with-brainpower/description/ 
+
 # 四. 区间dp
 
 https://www.luogu.com.cn/problem/P1775
@@ -137,3 +139,5 @@ https://www.luogu.com.cn/problem/P1434
 [1012. 至少有 1 位重复的数字 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-with-repeated-digits/description/) 2230
 
 [P2657 [SCOI2009] windy 数 - 洛谷](https://www.luogu.com.cn/problem/P2657) 蓝
+
+https://atcoder.jp/contests/abc387/tasks/abc387_c 1249
