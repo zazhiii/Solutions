@@ -1713,122 +1713,92 @@ public class Main {
     }
 ```
 
+# [ABC 387](https://atcoder.jp/contests/abc387)
 
+https://atcoder.jp/contests/abc387/tasks/abc387_c
 
-<<<<<<< HEAD
-# [ABC391](https://atcoder.jp/contests/abc391)
-
-
-
-[E - Hierarchical Majority Vote](https://atcoder.jp/contests/abc391/tasks/abc391_e)
-
->    dp
->
->    从长推到短，记录每个节点的「字符」和「要使当前字符改变的最小操作次数」
->
->    初始化：一开始每个节点的字符确定，修改当前字符的最小操作为 1
->
->    转移：由上面三个节点转移到一个节点，分别讨论 0、1 个数对两个信息的影响，转移到长度只有 1 时结束。
->
->    ```tex
->    sample_1
->    010011101 (111111111)
->    011(111)
->    1(1)
->    
->    sample_2
->    000(111)
->    1(2)
->    ```
+>    数位 dp
 
 ```java
-    static public void solve() throws IOException {
-        int n = rd.nextInt();
-        char[] c = rd.next().toCharArray();
-        int[] cost = new int[c.length];
-        Arrays.fill(cost, 1);
-        pw.println(dfs(c, cost, n));
-
-    }
-
-    public static int dfs(char[] c, int[] cost, int n) {
-        if (n == 0) return cost[0]; // 退出
-        for (int i = 0; i < Math.pow(3, n - 1); i++) {
-            int x = i * 3; int y = i * 3 + 1; int z = i * 3 + 2;
-            int one = 0, maxOneCost = 0, minOneCost = inf;
-            int zero = 0, maxZeroCost = 0, minZeroCost = inf;
-            for (int j = x; j <= z; j++) {
-                if (c[j] == '1') {
-                    one++;
-                    maxOneCost = Math.max(maxOneCost, cost[j]);
-                    minOneCost = Math.min(minOneCost, cost[j]);
-                } else {
-                    zero++;
-                    maxZeroCost = Math.max(maxZeroCost, cost[j]);
-                    minZeroCost = Math.min(minZeroCost, cost[j]);
-                }
-            }
-            if (one == 3 || one == 2) {
-                c[i] = '1';
-                if (one == 3) cost[i] = cost[x] + cost[y] + cost[z] - maxOneCost;
-                if (one == 2) cost[i] = minOneCost;
-            } else {
-                c[i] = '0';
-                if (zero == 3) cost[i] = cost[x] + cost[y] + cost[z] - maxZeroCost;
-                if (zero == 2) cost[i] = minZeroCost;
+    static long[][][] dp = new long[20][11][2];
+    public static void clear(){
+        for(int i = 0; i < 20; i ++){
+            for(int j = 0; j < 11; j ++){
+                dp[i][j][0] = dp[i][j][1] = -1;
             }
         }
-        return dfs(c, cost, n - 1);
+    }
+    static public void solve() throws IOException{
+        long a = rd.nextLong();
+        long b = rd.nextLong();
+        pw.println(f(b) - f(a - 1));
+    }
+    public static long f(long num){
+        int len = 1;
+        long tmp = num / 10, offset = 1;
+        while(tmp > 0){
+            len ++;
+            offset *= 10;
+            tmp /= 10;
+        }
+        clear();
+        return dfs(num, len, offset, 10, 0);
+    }
+    public static long dfs(long num, int len, long offset, int fst, int free){
+        if(len == 1 && fst == 10){
+            return 0;
+        }
+        if(len == 0){
+            return 1;
+        }
+        if(dp[len][fst][free] != -1){
+            return dp[len][fst][free];
+        }
+        long ans = 0;
+        int cur = (int)(num / offset % 10);
+        if(free == 0){
+            if(fst == 10){ // 选第一个数
+                ans += dfs(num, len - 1, offset / 10, 10, 1); // 第一个数不选
+                for(int i = 1; i < cur; i ++){ // 首位已经决定小于num了
+                    ans += dfs(num, len - 1, offset / 10, i, 1);
+                }
+                ans += dfs(num, len - 1, offset / 10, cur, 0);
+            }else{ // 前面选得和 num 前缀一样
+                for(int i = 0; i < cur && i < fst; i ++){
+                    ans += dfs(num, len - 1, offset / 10, fst, 1);
+                }
+                if(cur < fst){
+                    ans += dfs(num, len - 1, offset / 10, fst, 0);
+                }
+            }
+        }else{
+            if(fst == 10){ // 最高位没选且前面都没选
+                ans += dfs(num, len - 1, offset / 10, 10, 1); // 继续不选
+                for(int i = 1; i <= 9; i ++){
+                    ans += dfs(num, len - 1, offset / 10, i, 1);
+                }
+            }else{ // 前面选了，已经确定比 num 小了
+                for(int i = 0; i < fst; i ++){
+                    ans += dfs(num, len - 1, offset / 10, fst, 1);
+                }
+            }
+        }
+        dp[len][fst][free] = ans;
+        return ans;
     }
 ```
 
 
-
-# [ABC392](https://atcoder.jp/contests/abc392)
-
-[D - Doubles](https://atcoder.jp/contests/abc392/tasks/abc392_d)
-
->    枚举、概率
->
->    预处理每个骰子的每个数出现几次 ，$cnt[i][x]$ ：第$i$个骰子中$x$出现几次。枚举每对骰子，再枚举其中一个$i$的每一个数$x$，若另一个骰子$j$中若包含$x$，那么可以计算概率$\frac{cnt[i][x]}{k_i}\times \frac{cnt[j][x]}{k_j}$，累加每个数的概率得到这对骰子 roll 到相同数的概率。
-=======
-# [ABC 387](https://atcoder.jp/contests/abc387)
 
 [D - Snaky Walk](https://atcoder.jp/contests/abc387/tasks/abc387_d) 
 
 > BFS
 >
 > 每个状态记录四个字段：`x, y, step, flag` ： 位置、到该位置的步长、下一步可以走到方向（横/竖）
->>>>>>> 9e9cf9f936c0e46e537bc595254757d5441ee22e
 
 ```java
     static public void solve() throws IOException{
         int n = rd.nextInt();
-<<<<<<< HEAD
-        Map<Integer, Integer>[] map = new Map[n];
-        Arrays.setAll(map, i -> new HashMap<>());
-        int[] k = new int[n];
-        int[] mxa = new int[n];
-        double ans = 0;
-        for(int i = 0; i < n; i ++){
-            k[i] = rd.nextInt();
-            for(int j = 0; j < k[i]; j ++){
-                int x = rd.nextInt();
-                map[i].put(x, map[i].getOrDefault(x, 0) + 1);
-                mxa[i] = Math.max(mxa[i], x);
-            }
-            for(int j = 0; j < i; j ++){
-                double res = 0;
-                for(int x : map[i].keySet()){
-                    if(map[j].containsKey(x)){
-                        res += (1d * map[i].get(x) * map[j].get(x)) / (1d * k[i] * k[j]);
-                    }
-                }
-                ans = Math.max(ans, res);
-            }
-        }
-        pw.printf("%.15f", ans);
-=======
         int m = rd.nextInt();
         char[][] a = new char[n][m];
         Queue<int[]> que = new ArrayDeque<>();
@@ -1872,15 +1842,9 @@ public class Main {
             }
         }
         pw.println(-1);
->>>>>>> 9e9cf9f936c0e46e537bc595254757d5441ee22e
     }
 ```
 
-
-
-<<<<<<< HEAD
- # [ABC393](https://atcoder.jp/contests/abc393)
-=======
 # [ABC 388](https://atcoder.jp/contests/abc388)
 
 
@@ -1983,8 +1947,111 @@ public class Main {
 
 
 
+# [ABC391](https://atcoder.jp/contests/abc391)
+
+
+
+[E - Hierarchical Majority Vote](https://atcoder.jp/contests/abc391/tasks/abc391_e)
+
+>    dp
+>
+>    从长推到短，记录每个节点的「字符」和「要使当前字符改变的最小操作次数」
+>
+>    初始化：一开始每个节点的字符确定，修改当前字符的最小操作为 1
+>
+>    转移：由上面三个节点转移到一个节点，分别讨论 0、1 个数对两个信息的影响，转移到长度只有 1 时结束。
+>
+>    ```tex
+>    sample_1
+>    010011101 (111111111)
+>    011(111)
+>    1(1)
+>    
+>    sample_2
+>    000(111)
+>    1(2)
+>    ```
+
+```java
+    static public void solve() throws IOException {
+        int n = rd.nextInt();
+        char[] c = rd.next().toCharArray();
+        int[] cost = new int[c.length];
+        Arrays.fill(cost, 1);
+        pw.println(dfs(c, cost, n));
+
+    }
+
+    public static int dfs(char[] c, int[] cost, int n) {
+        if (n == 0) return cost[0]; // 退出
+        for (int i = 0; i < Math.pow(3, n - 1); i++) {
+            int x = i * 3; int y = i * 3 + 1; int z = i * 3 + 2;
+            int one = 0, maxOneCost = 0, minOneCost = inf;
+            int zero = 0, maxZeroCost = 0, minZeroCost = inf;
+            for (int j = x; j <= z; j++) {
+                if (c[j] == '1') {
+                    one++;
+                    maxOneCost = Math.max(maxOneCost, cost[j]);
+                    minOneCost = Math.min(minOneCost, cost[j]);
+                } else {
+                    zero++;
+                    maxZeroCost = Math.max(maxZeroCost, cost[j]);
+                    minZeroCost = Math.min(minZeroCost, cost[j]);
+                }
+            }
+            if (one == 3 || one == 2) {
+                c[i] = '1';
+                if (one == 3) cost[i] = cost[x] + cost[y] + cost[z] - maxOneCost;
+                if (one == 2) cost[i] = minOneCost;
+            } else {
+                c[i] = '0';
+                if (zero == 3) cost[i] = cost[x] + cost[y] + cost[z] - maxZeroCost;
+                if (zero == 2) cost[i] = minZeroCost;
+            }
+        }
+        return dfs(c, cost, n - 1);
+    }
+```
+
+
+
+# [ABC392](https://atcoder.jp/contests/abc392)
+
+[D - Doubles](https://atcoder.jp/contests/abc392/tasks/abc392_d)
+
+>    枚举、概率
+>
+>    预处理每个骰子的每个数出现几次 ，$cnt[i][x]$ ：第$i$个骰子中$x$出现几次。枚举每对骰子，再枚举其中一个$i$的每一个数$x$，若另一个骰子$j$中若包含$x$，那么可以计算概率$\frac{cnt[i][x]}{k_i}\times \frac{cnt[j][x]}{k_j}$，累加每个数的概率得到这对骰子 roll 到相同数的概率。
+
+```java
+        Map<Integer, Integer>[] map = new Map[n];
+        Arrays.setAll(map, i -> new HashMap<>());
+        int[] k = new int[n];
+        int[] mxa = new int[n];
+        double ans = 0;
+        for(int i = 0; i < n; i ++){
+            k[i] = rd.nextInt();
+            for(int j = 0; j < k[i]; j ++){
+                int x = rd.nextInt();
+                map[i].put(x, map[i].getOrDefault(x, 0) + 1);
+                mxa[i] = Math.max(mxa[i], x);
+            }
+            for(int j = 0; j < i; j ++){
+                double res = 0;
+                for(int x : map[i].keySet()){
+                    if(map[j].containsKey(x)){
+                        res += (1d * map[i].get(x) * map[j].get(x)) / (1d * k[i] * k[j]);
+                    }
+                }
+                ans = Math.max(ans, res);
+            }
+        }
+        pw.printf("%.15f", ans);
+```
+
+
+
  # [ABC 393](https://atcoder.jp/contests/abc393)
->>>>>>> 9e9cf9f936c0e46e537bc595254757d5441ee22e
 
 [D - Swap to Gather](https://atcoder.jp/contests/abc393/tasks/abc393_d)
 
