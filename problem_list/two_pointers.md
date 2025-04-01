@@ -78,6 +78,8 @@
 
 [2537. 统计好子数组的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-good-subarrays/description/) 1892
 
+[C - Various Kagamimochi](https://atcoder.jp/contests/abc388/tasks/abc388_c) 
+
 ---
 
 [713. 乘积小于 K 的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-product-less-than-k/description/)

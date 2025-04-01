@@ -4,17 +4,8 @@
 
 https://atcoder.jp/contests/abc350/tasks/abc350_c
 
-给你一个 $(1,2,\ldots,N)$ 的排列组合 $A=(A_1, ..., A_n)$ 。  
-请在 $0$ 和 $N-1$ 之间(包括首尾两次)进行以下运算，将 $A$ 转化为 $(1,2,\ldots,N)$ ：
-
-- 运算：选择任意一对整数 $(i,j)$ ，使得 $1\leq i < j \leq N$ .交换 $A$ 的 $i$ -th 和 $j$ -th 位置上的元素。
-
-可以证明，在给定的约束条件下，总是可以把 $A$ 变换成 $(1,2,\ldots,N)$ 。
-
-- $2 \leq N \leq 2\times 10^5$
-
 > 模拟
-
+>
 > 第$i$个元素应该放在$A_i$的位置，遍历，不断将当前位置的元素换到对应的位置
 
 ```java
@@ -52,19 +43,13 @@ public class Main {
 
 https://atcoder.jp/contests/abc350/tasks/abc350_d
 
-$N$个用户，有 $M$ 对好友关系，其中 $i$ /th对由用户 $A_i$ 和 $B_i$ 组成。
-
-请确定以下操作的最大执行次数：
-
-- 操作：选择三个用户 X、Y 和 Z，使得 X 和 Y 是好友，Y 和 Z 是好友，但 X 和 Z 不是好友。让 X 和 Z 成为好友。
-
-> **并查集**
-
+> 并查集
+>
 > 最后所有用户会形成若干个完全图，若每个集合人数为$num$，则每个集合最终好友对数为$num*(num-1)/2$，求和所有集合的好友对数，减去原来的好友对数，即答案。
 >
 > 遍历用户，若用户$i$的顶节点不在`Set`内，则记录该集合的好友对数
 >
-> **$num*(num-1)/2$会超`int`**！！！！！
+> **$num*(num-1)/2$ 会超`int`**！！！！！
 
 ```java
 import java.util.*;
@@ -115,19 +100,8 @@ public class Main {
 
 https://atcoder.jp/contests/abc351/tasks/abc351_c
 
-你有一个空序列和 $N$ 个球。第 $i$ 个球 $(1 \leq i \leq N)$ 的大小是 $2^{Ai}$ 。
-
-你将进行 $N$ 次运算。  
-在 $i$ /th操作中，你将 $i$ /th球添加到序列的右端，然后重复下面的步骤：
-
-1.  如果序列中只有一个或更少的球，则结束操作。
-2.  如果序列中最右边的球和第二最右边的球大小不同，结束操作。
-3.  如果序列中最右边的球和最右边的第二个球的大小相同，则移除这两个球，并在序列的右端添加一个新球，其大小等于移除的两个球的大小之和。然后回到步骤 1，重复上述过程。
-
-计算经过 $N$ 次操作后，序列中剩余的球数。
-
 > 模拟
-
+>
 > 对于每一个球：先将第$i$个球加入序列，记录幂级数，若最后两个球一样，则倒数第二个球的幂级数$+1$，直到停止操作。
 
 ```java
@@ -236,20 +210,10 @@ public class Main {
 
 https://atcoder.jp/contests/abc352/tasks/abc352_d
 
-给你一个 $(1, 2, \dots, N)$ 的排列组合 $P = (P_1, P_2, \dots, P_N)$ 
-
-如果一个索引序列 $(i_1, i_2, \dots, i_K)$ 同时满足以下两个条件，那么这个索引序列被称为**好索引序列**：
-
-- $1 \leq i_1 < i_2 < \dots < i_K \leq N$.
-- 子序列 $(P_{i_1}, P_{i_2}, \dots, P_{i_K})$ 可以通过重新排列一些连续的 $K$ 整数而得到。  
-    形式上，存在一个整数 $a$ ，使得 $\lbrace P_{i_1},P_{i_2},\dots,P_{i_K} \rbrace = \lbrace a,a+1,\dots,a+K-1 \rbrace$ .
-
-求所有好的索引序列中 $i_K - i_1$ 的最小值。可以证明，在此问题的约束条件下，至少存在一个好的索引序列。
-
 > **单调队列**、**区间最大值**
-
+>
 > 记录每个数的位置，按数大小排序，遍历，计算长度为$k$的连续序列中位置的最大值与最小值的差，记录最小值
-
+>
 > $P_i:$$10\ 1\ 6\ 8\ 7\ 2\ 5\ 9\ 3\ 4$			--->     $P_i:1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10$			--->      5 6 7 8 9	--->  $8 - 3 = 5$
 >
 > $i:\ \ 1\ \ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10 	$		            	$i : 2\ 6\ 9\ 10\ 7\ 3\ 5\ 4\ 8\ 1$				    7 3 5 4 8
@@ -304,18 +268,7 @@ class Read{
 
 # ABC 353
 
-**C - Sigma Problem**
-
 [C - Sigma Problem (atcoder.jp)](https://atcoder.jp/contests/abc353/tasks/abc353_c)
-
-对于正整数 $x$ 和 $y$ ，定义 $f(x, y)$ 为 $(x + y)$ 除以 $10^8$ 的余数。
-
-给你一个长度为 $N$ 的正整数序列  $A = (A_1, \ldots, A_N)$ 。求下面表达式的值：
-
-$\displaystyle \sum_{i=1}^{N-1}\sum_{j=i+1}^N f(A_i,A_j)$ .
-
--    $2≤N≤3×10^5$
--    $1≤A_i<10^8$
 
 >    若不算$mod$操作求和为$(n-1)\times \sum A_i$，若两个数加起来大于了$10^8$，mod则会减去$10^8$。所以计算一下有多少对加起来大于$10^8$的数，然后求和减去这么多个$10^8$即可
 >
@@ -416,7 +369,7 @@ public class Main {
 
 ```
 
-### **E - Yet Another Sigma Problem**
+**E - Yet Another Sigma Problem**
 
 [E - Yet Another Sigma Problem](https://atcoder.jp/contests/abc353/tasks/abc353_e) **字典树**
 
@@ -1049,11 +1002,42 @@ public class Main {
 
 [C - Avoid K Palindrome 2 ](https://atcoder.jp/contests/abc363/tasks/abc363_c)
 
-给你一个 $S$ 长度为 $N$ 
+> 全排列、枚举
 
-求$S$的字符排列之后不包含长度为$K$的回文字串的字符串个数
-
-> 全排列
+```java
+    public static boolean nextPermutation(char a[]){
+        int n = a.length, i = n - 2;
+        while(i >= 0 && a[i] >= a[i + 1]) i --;
+        if(i < 0) return false;
+        int k = i + 1;
+        while(k < n && a[k] > a[i]) k ++;
+        {char t = a[i]; a[i] = a[k - 1]; a[k - 1] = t;}// swap(a[i], a[k - 1])
+        Arrays.sort(a, i + 1, n);
+        return true;
+    }
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        int k = rd.nextInt();
+        char[] c = rd.next().toCharArray();
+        Arrays.sort(c);
+        int ans = 0;
+        do{
+            boolean ff = true;
+            for(int i = k - 1; i < n; i ++){
+                boolean f = true;
+                for(int l = i - k + 1, r = i; l < r; l ++, r --){
+                    if(c[l] != c[r]) {
+                        f = false;
+                        break;
+                    }
+                }
+                if(f) ff = false;
+            }
+            if(ff) ans ++;
+        }while(nextPermutation(c));
+        pw.println(ans);
+    }
+```
 
 
 
@@ -1061,13 +1045,57 @@ public class Main {
 
 求第$N$个为回文数的非负整数（$1\le N\le10^{18}$）
 
-> 当$l\ge2$，长度为$l$的回文数有$9\times10^{\lceil\frac{l}{2}\rceil - 1}$个。$l$为$1$的回文串有$10$个。
+> 找规律
 >
-> 长度小于等于$k$的回文数就有：
+> 暂不考虑0，
 >
-> $10+90+900+...+9\times10^{\lceil\frac{k}{2}\rceil - 1}$
+> | 字符串长度 | 个数 |
+> | :--------: | :--: |
+> |     1      |  9   |
+> |     2      |  9   |
+> |     3      |  90  |
+> |     4      |  90  |
+> |     5      | 900  |
+> |     6      | 900  |
+> |     ……     |  ……  |
 >
-> 第$m$个长度为$k$的回文数的前半部分为：
+> 长度为$k$的回文串有$9\times10^{\lfloor\frac{k-1}{2}\rfloor}$个。
+>
+> 通过这个规律可以初步得到第$n$个回文串的长度。
+>
+> 接下来确定这个数具体是多少。
+>
+> 例如样例中的第 46 个回文数，初步确定长度为3（因为 46 比长度为1、2的回文串个数加起来还多）。
+>
+> 从前半段开始凑，第一个长度为3的回文数前半段（包括中间位置）为10(**10**1)，101是第一个长度为3的回文数，也是第1 （0是第一个）+ 9 + 9 + 1 = 20 个回文数，距离46还差26个回文数，在前半段 + 26得到第 46 个回文数的前半段：36，凑齐后半段结果为 363。
+>
+> 长度为偶数的回文数的凑法也类似。
+
+```java
+    static long[] t = new long[38];
+    static{
+        for(int i = 1; i <= 37; i ++){
+            t[i] = 9 * (long) Math.pow(10, (i - 1) / 2);
+            t[i] += t[i - 1];
+        }
+    }
+    static public void solve() throws IOException{
+        long n = rd.nextLong();
+        int p = 0;
+        while(t[p] < n) p ++;
+        int preLen = (p + 1) / 2;
+        long initPre = (long)Math.pow(10, preLen - 1);
+        StringBuilder initPreSb = new StringBuilder((initPre + n - t[p - 1] - 2) + "");
+        if(p % 2 == 1){
+            pw.print(initPreSb.toString() + new StringBuilder(initPreSb.substring(0, initPreSb.length() - 1)).reverse());
+        }else{
+            StringBuilder t = new StringBuilder(initPreSb.toString());
+            pw.print(t.append(initPreSb.reverse()));
+        }
+    }
+```
+
+
 
 # [ABC 364](https://atcoder.jp/contests/abc364/tasks)
 
@@ -1356,7 +1384,32 @@ Find the number of possible pairs $(s,t)$.
 >
 > **注意**：当目的地`i`是`[n + 1, 2n - 1]`之间时，只能从`[i - n + 1, n]`过来。
 
-# ABC 370
+# [ABC 368](https://atcoder.jp/contests/abc368)
+
+[C - Triple Attack](https://atcoder.jp/contests/abc368/tasks/abc368_c)
+
+> 数学
+
+```java
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        long ans = 0;
+        for(int i = 1; i <= n; i ++){
+            int x = rd.nextInt();
+            ans += 1L * x / 5 * 3;
+            x %= 5;
+            while(x > 0){
+                ans ++;
+                x -= ans % 3 == 0 ? 3 : 1;
+            }
+        }
+        pw.println(ans);
+    }
+```
+
+
+
+# [ABC 370](https://atcoder.jp/contests/abc370)
 
 [D - Cross Explosion (atcoder.jp)](https://atcoder.jp/contests/abc370/tasks/abc370_d)
 
@@ -1662,6 +1715,7 @@ public class Main {
 
 
 
+<<<<<<< HEAD
 # [ABC391](https://atcoder.jp/contests/abc391)
 
 
@@ -1737,10 +1791,20 @@ public class Main {
 >    枚举、概率
 >
 >    预处理每个骰子的每个数出现几次 ，$cnt[i][x]$ ：第$i$个骰子中$x$出现几次。枚举每对骰子，再枚举其中一个$i$的每一个数$x$，若另一个骰子$j$中若包含$x$，那么可以计算概率$\frac{cnt[i][x]}{k_i}\times \frac{cnt[j][x]}{k_j}$，累加每个数的概率得到这对骰子 roll 到相同数的概率。
+=======
+# [ABC 387](https://atcoder.jp/contests/abc387)
+
+[D - Snaky Walk](https://atcoder.jp/contests/abc387/tasks/abc387_d) 
+
+> BFS
+>
+> 每个状态记录四个字段：`x, y, step, flag` ： 位置、到该位置的步长、下一步可以走到方向（横/竖）
+>>>>>>> 9e9cf9f936c0e46e537bc595254757d5441ee22e
 
 ```java
     static public void solve() throws IOException{
         int n = rd.nextInt();
+<<<<<<< HEAD
         Map<Integer, Integer>[] map = new Map[n];
         Arrays.setAll(map, i -> new HashMap<>());
         int[] k = new int[n];
@@ -1764,12 +1828,163 @@ public class Main {
             }
         }
         pw.printf("%.15f", ans);
+=======
+        int m = rd.nextInt();
+        char[][] a = new char[n][m];
+        Queue<int[]> que = new ArrayDeque<>();
+        boolean[][][] vis = new boolean[n][m][2];
+        for(int i = 0; i < n; i ++){
+            a[i] = rd.next().toCharArray();
+            for(int j = 0; j < m; j ++){
+                if(a[i][j] == 'S') {
+                    que.add(new int[]{i, j, 0, 0}); // x y step flag 
+                    que.add(new int[]{i, j, 0, 1});
+                    vis[i][j][0] = vis[i][j][1] = true;
+                }
+            }
+        }
+        int[] dx = {1, -1, 0, 0}, dy = {0, 0, 1, -1};
+        while(!que.isEmpty()){
+            int[] t = que.poll();
+            int x = t[0], y = t[1], step = t[2], flag = t[3];
+            if(a[x][y] == 'G'){
+                pw.println(step);
+                return;
+            }
+            if(flag == 0){
+                for(int k = 0; k < 2; k ++){
+                    int nx = x + dx[k];
+                    int ny = y + dy[k];
+                    if(nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny][1] && a[nx][ny] != '#'){
+                        que.add(new int[]{nx, ny, step + 1, 1});
+                        vis[nx][ny][1] = true;
+                    }
+                }
+            }else{
+                for(int k = 2; k < 4; k ++){
+                    int nx = x + dx[k];
+                    int ny = y + dy[k];
+                    if(nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny][0] && a[nx][ny] != '#'){
+                        que.add(new int[]{nx, ny, step + 1, 0});
+                        vis[nx][ny][0] = true;
+                    }
+                }
+            }
+        }
+        pw.println(-1);
+>>>>>>> 9e9cf9f936c0e46e537bc595254757d5441ee22e
     }
 ```
 
 
 
+<<<<<<< HEAD
  # [ABC393](https://atcoder.jp/contests/abc393)
+=======
+# [ABC 388](https://atcoder.jp/contests/abc388)
+
+
+
+[C - Various Kagamimochi](https://atcoder.jp/contests/abc388/tasks/abc388_c)
+
+> 二分 | 双指针
+
+```java
+    // 双指针
+ 	static public void solve() throws IOException{
+        int n = rd.nextInt();
+        int[] a = new int[n];
+        long ans = 0;
+        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
+        Arrays.sort(a);
+        for(int l = 0, r = 0; r < n; r ++){
+            while(a[l] <= a[r] / 2){
+                l ++;
+            }
+            ans += l;
+        }
+        pw.println(ans);
+    }
+	// 二分
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        int[] a = new int[n];
+        long ans = 0;
+        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
+        Arrays.sort(a);
+        for(int i = 0; i < n; i ++){
+            int l = 0, r = i - 1;
+            while(l <= r){
+                int m = (l + r) >> 1;
+                if(a[m] <= a[i] / 2) l = m + 1;
+                else r = m - 1;
+            }
+            ans += r + 1;
+        }
+        pw.println(ans);
+    }
+```
+
+[D - Coming of Age Celebration](https://atcoder.jp/contests/abc388/tasks/abc388_d)
+
+> 差分
+
+```java
+    static public void solve() throws IOException{
+        int n = rd.nextInt();
+        long[] a = new long[n + 2];
+        long[] b = new long[n + 2];
+        for(int i = 1; i <= n; i ++) {
+            a[i] = rd.nextInt();
+            b[i] += b[i - 1];
+            a[i] += b[i];
+            b[i + 1] ++;
+            b[(int)Math.min(n, i + a[i]) + 1] --;
+            a[i] -= Math.min(n - i, a[i]);
+            pw.print(a[i] + " ");
+        }
+    }
+```
+
+[E - Simultaneous Kagamimochi](https://atcoder.jp/contests/abc388/tasks/abc388_e)
+
+> 贪心？
+>
+> 先排序，将所有数平分为两段(n / 2)，拿左边的每一个去和右边的匹配，直到左边的数用完或者右边的数用完。
+
+```java
+    static public void solve() throws IOException {
+        int n = rd.nextInt();
+        int[] a = new int[n];
+        for(int i = 0; i < n; i ++) a[i] = rd.nextInt();
+        Arrays.sort(a);
+        int p = 0;
+        int l = 0, r = n - 1;
+        while (l <= r) {
+            int m = (l + r) >>> 1;
+            if(a[0] <= a[m] / 2) r = m - 1;
+            else l = m + 1;
+        }
+        p = Math.max(n / 2, l); // 只去匹配右半部分的数
+        l = 0; r = p;
+        int ans = 0;
+        for(int i = 0; i < p; i ++){
+            while(r < n && a[i] > a[r] / 2){
+                r ++;
+            }
+            if(r < n){
+                ans ++;
+                r ++;
+            }
+        }
+        pw.println(ans);
+    }
+```
+
+
+
+ # [ABC 393](https://atcoder.jp/contests/abc393)
+>>>>>>> 9e9cf9f936c0e46e537bc595254757d5441ee22e
 
 [D - Swap to Gather](https://atcoder.jp/contests/abc393/tasks/abc393_d)
 
