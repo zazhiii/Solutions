@@ -92,6 +92,8 @@ https://www.luogu.com.cn/problem/P1854
 
 [P1002 [NOIP2002 普及组] 过河卒 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1002)
 
+https://leetcode.cn/problems/solving-questions-with-brainpower/description/ 
+
 # 四. 区间dp
 
 https://www.luogu.com.cn/problem/P1775
@@ -141,3 +143,5 @@ https://www.luogu.com.cn/problem/P1434
 [P3413 SAC#1 - 萌数 - 洛谷](https://www.luogu.com.cn/problem/P3413) 紫；**正难则反**
 
 [600. 不含连续1的非负整数 - 力扣（LeetCode）](https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones/description/) 二进制位的数位dp
+
+https://atcoder.jp/contests/abc387/tasks/abc387_c 1249
