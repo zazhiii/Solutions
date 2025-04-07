@@ -20,11 +20,19 @@
 
 [P1048 [NOIP2005 普及组] 采药 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1048) 【模板】
 
+---
+
+[416. 分割等和子集 - 力扣（LeetCode）](https://leetcode.cn/problems/partition-equal-subset-sum/description/) 
+
+
+
 ## 2.2 完全背包
 
 [完全背包](https://ac.nowcoder.com/acm/problem/226516) 【模板】
 
 [P1616 疯狂的采药 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1616)
+
+
 
 ## 2.3 多重背包
 
@@ -90,9 +98,9 @@ https://www.luogu.com.cn/problem/P1854
 
 [63. 不同路径 II](https://leetcode.cn/problems/unique-paths-ii/)
 
-[P1002 [NOIP2002 普及组] 过河卒 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1002)
+[P1002 [NOIP2002 普及组] 过河卒 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1002) 橙
 
-https://leetcode.cn/problems/solving-questions-with-brainpower/description/ 
+[2140. 解决智力问题 - 力扣（LeetCode）](https://leetcode.cn/problems/solving-questions-with-brainpower/description/) 1709
 
 # 四. 区间dp
 
