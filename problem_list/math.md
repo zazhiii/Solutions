@@ -34,6 +34,10 @@ https://www.luogu.com.cn/problem/P5723
 
 
 
+**Miller-Rabin测试**
+
+[U148828 素数判断(Miller-Rabin模板) - 洛谷](https://www.luogu.com.cn/problem/U148828) 
+
 
 
 ## 质数分解
