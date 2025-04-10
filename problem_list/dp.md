@@ -152,4 +152,8 @@ https://www.luogu.com.cn/problem/P1434
 
 [600. 不含连续1的非负整数 - 力扣（LeetCode）](https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones/description/) 二进制位的数位dp
 
-https://atcoder.jp/contests/abc387/tasks/abc387_c 1249
+[C - Snake Numbers](https://atcoder.jp/contests/abc387/tasks/abc387_c) 1249
+
+
+
+[2999. 统计强大整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/) 2351
