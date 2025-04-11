@@ -104,7 +104,7 @@ https://www.luogu.com.cn/problem/P1854
 
 # 四. 区间dp
 
-https://www.luogu.com.cn/problem/P1775
+[P1775 石子合并（弱化版） - 洛谷](https://www.luogu.com.cn/problem/P1775) 黄
 
 [3472. 至多 K 次操作后的最长回文子序列 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-palindromic-subsequence-after-at-most-k-operations/description/) 1884
 
@@ -114,7 +114,7 @@ https://www.luogu.com.cn/problem/P1775
 
 # 五. 记忆化搜索
 
-https://www.luogu.com.cn/problem/P1434
+[P1434 SHOI2002\] 滑雪 - 洛谷](https://www.luogu.com.cn/problem/P1434) 黄
 
 [P4017 最大食物链计数 - 洛谷](https://www.luogu.com.cn/problem/P4017) 记忆化搜索 | 拓扑排序
 
@@ -138,22 +138,31 @@ https://www.luogu.com.cn/problem/P1434
 
 # 八. 数位dp
 
-[902. 最大为 N 的数字组合 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/description/) 1990
+[2843. 统计对称整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-symmetric-integers/description/) 1270；枚举 || 数位dp
 
-[2719. 统计整数数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-of-integers/description/) 2355
+[902. 最大为 N 的数字组合 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/description/) 1990
 
 [2376. 统计特殊整数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-special-integers/description/) 2120
 
 [1012. 至少有 1 位重复的数字 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-with-repeated-digits/description/) 2230
 
+[2999. 统计强大整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/) 2351；**TODO**
+
+[2719. 统计整数数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-of-integers/description/) 2355
+
+[600. 不含连续1的非负整数 - 力扣（LeetCode）](https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones/description/) 二进制位的数位dp
+
+
+
 [P2657 [SCOI2009] windy 数 - 洛谷](https://www.luogu.com.cn/problem/P2657) 蓝
 
 [P3413 SAC#1 - 萌数 - 洛谷](https://www.luogu.com.cn/problem/P3413) 紫；**正难则反**
 
-[600. 不含连续1的非负整数 - 力扣（LeetCode）](https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones/description/) 二进制位的数位dp
+
 
 [C - Snake Numbers](https://atcoder.jp/contests/abc387/tasks/abc387_c) 1249
 
 
 
-[2999. 统计强大整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/) 2351
+
+
