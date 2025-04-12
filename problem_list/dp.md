@@ -70,8 +70,6 @@
 
 # 三. 经典问题
 
-# 四. 线性`dp`
-
 ## 经典问题
 
 **子序列问题**
@@ -90,7 +88,7 @@ https://www.luogu.com.cn/problem/P2758 「编辑距离」
 
 
 
----
+# 四. 线性`dp`
 
 https://www.luogu.com.cn/problem/P2679
 
