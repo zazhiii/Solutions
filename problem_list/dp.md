@@ -16,6 +16,8 @@
 
 ## 2.1 `01`背包
 
+> 「选」或者「不选」
+
 [01背包](https://ac.nowcoder.com/acm/problem/226514) 【模板】
 
 [P1048 [NOIP2005 普及组] 采药 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1048) 【模板】
@@ -31,6 +33,8 @@
 [P1507 NASA的食物计划 - 洛谷](https://www.luogu.com.cn/problem/P1507) 橙
 
 [P1855 榨取kkksc03 - 洛谷](https://www.luogu.com.cn/problem/P1855) 橙
+
+[2915. 和为目标值的最长子序列的长度 - 力扣（LeetCode）](https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/description/) 1659
 
 
 
@@ -62,7 +66,11 @@
 
 [P5020 [NOIP 2018 提高组] 货币系统 - 洛谷](https://www.luogu.com.cn/problem/P5020)  绿
 
-# 三. 线性`dp`
+
+
+# 三. 经典问题
+
+# 四. 线性`dp`
 
 ## 经典问题
 
@@ -148,7 +156,7 @@ https://www.luogu.com.cn/problem/P1874
 
 [P1077 [NOIP2012 普及组] 摆花 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1077)
 
-# 四. 区间dp
+# 五. 区间dp
 
 [P1775 石子合并（弱化版） - 洛谷](https://www.luogu.com.cn/problem/P1775) 黄
 
@@ -158,7 +166,7 @@ https://www.luogu.com.cn/problem/P1874
 
 
 
-# 五. 记忆化搜索
+# 六. 记忆化搜索
 
 [P1434 SHOI2002\] 滑雪 - 洛谷](https://www.luogu.com.cn/problem/P1434) 黄
 
@@ -170,13 +178,13 @@ https://www.luogu.com.cn/problem/P1874
 
 
 
-# 六. 树型dp
+# 七. 树型dp
 
 [C-Cidoai的树上方案_牛客练习赛128 (nowcoder.com)](https://ac.nowcoder.com/acm/contest/88880/C)
 
 
 
-# 七. 期望/概率dp
+# 八. 期望/概率dp
 
 [F-口吃_牛客周赛 Round 60](https://ac.nowcoder.com/acm/contest/90070/F)
 
@@ -184,7 +192,7 @@ https://www.luogu.com.cn/problem/P1874
 
 
 
-# 八. 数位dp
+# 九. 数位dp
 
 [2843. 统计对称整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-symmetric-integers/description/) 1270；枚举 || 数位dp
 
