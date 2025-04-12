@@ -22,7 +22,29 @@
 
 ---
 
+[P1049 [NOIP2001 普及组] 装箱问题 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1049) 橙
+
+[P1060 [NOIP 2006 普及组] 开心的金明 - 洛谷](https://www.luogu.com.cn/problem/P1060) 橙
+
+[P1802 5 倍经验日 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn) ](https://www.luogu.com.cn/problem/P1802) 橙
+
+[P1507 NASA的食物计划 - 洛谷](https://www.luogu.com.cn/problem/P1507) 橙
+
+[P1855 榨取kkksc03 - 洛谷](https://www.luogu.com.cn/problem/P1855) 橙
+
+
+
+**分割等和子串**
+
+> 问题： 将一个集合分为两个最接近的子集。
+>
+> 设集合总和为`S`，用一个容量为`S/2`的背包去装集合里的元素，求得能装的最大值`dp[S/2]`则为小于`S/2`且最接近`S/2`的子集，`S-dp[S/2]`则为较大者子集；
+
 [416. 分割等和子集 - 力扣（LeetCode）](https://leetcode.cn/problems/partition-equal-subset-sum/description/) 
+
+[1049. 最后一块石头的重量 II](https://leetcode.cn/problems/last-stone-weight-ii/)
+
+[P2392 kkksc03考前临时抱佛脚 - 洛谷](https://www.luogu.com.cn/problem/P2392) 橙
 
 
 
@@ -37,6 +59,8 @@
 ## 2.3 多重背包
 
 [P1833 樱花 - 洛谷](https://www.luogu.com.cn/problem/P1833) [二进制优化多重背包模板题] 
+
+[P5020 [NOIP 2018 提高组] 货币系统 - 洛谷](https://www.luogu.com.cn/problem/P5020)  绿
 
 # 三. 线性`dp`
 
@@ -62,27 +86,11 @@ https://www.luogu.com.cn/problem/P2758 「编辑距离」
 
 https://www.luogu.com.cn/problem/P2679
 
-> `dp[i][j][k][1|0]`：用`A`的前`i`个字符取出`k`个字符组成`B`的前`j`个字符的方案数量，`[1|0]`表示第`i`个字符是否使用
-
-
-
 https://www.luogu.com.cn/problem/P2340
-
-> `dp[i][j]`：前`i`只牛总智商为`j`的最大总情商
 
 https://www.luogu.com.cn/problem/P1854
 
-> `dp[i][j]`：第`i`行选第`j`个数能获得的最大总和
->
-> 对于每次选数，枚举选哪个，再枚举上一个数选哪个，转移过来取最大值，`dp[i][j] = max(dp[i - 1][k])`，注意其中`j` `k`的范围，用`path[i][j]`记录`dp[i][j]`取到最大值的时候上一个数选的哪个位置，这样可以通过答案往回找到整个转移路径。
-
 [1884. 鸡蛋掉落-两枚鸡蛋 - 力扣（LeetCode）](https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors/description/)
-
-> 法一：`dp[i]`：`i`楼测出答案的最少次数。$dp[i]=\min^i_{j=1}(\max(dp[i-j]+1,j))$
->
-> 法二：计算仍$i$次最多能测出多高楼层的答案
-
-
 
 [P1044  栈 - 洛谷](https://www.luogu.com.cn/problem/P1044)  dp | 记忆化搜索
 
@@ -102,6 +110,44 @@ https://www.luogu.com.cn/problem/P1854
 
 [2140. 解决智力问题 - 力扣（LeetCode）](https://leetcode.cn/problems/solving-questions-with-brainpower/description/) 1709
 
+[P2285 [HNOI2004] 打鼹鼠 - 洛谷](https://www.luogu.com.cn/problem/P2285) 黄
+
+https://www.luogu.com.cn/problem/P3842
+
+https://www.luogu.com.cn/problem/P2196
+
+https://www.luogu.com.cn/problem/P1359
+
+https://www.luogu.com.cn/problem/P1020
+
+https://www.luogu.com.cn/problem/P1091
+
+https://www.luogu.com.cn/problem/P1541
+
+https://www.luogu.com.cn/problem/P1868
+
+https://www.luogu.com.cn/problem/P1725
+
+https://www.luogu.com.cn/problem/P1435
+
+https://www.luogu.com.cn/problem/P4933
+
+https://www.luogu.com.cn/problem/P1874
+
+
+
+ [518. 零钱兑换 II - 力扣（LeetCode）](https://leetcode.cn/problems/coin-change-ii/description/)
+
+[377. 组合总和 Ⅳ - 力扣（LeetCode）](https://leetcode.cn/problems/combination-sum-iv/description/)
+
+[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)
+
+[279. 完全平方数](https://leetcode.cn/problems/perfect-squares/)
+
+[P1164 小A点菜 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1164)
+
+[P1077 [NOIP2012 普及组] 摆花 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1077)
+
 # 四. 区间dp
 
 [P1775 石子合并（弱化版） - 洛谷](https://www.luogu.com.cn/problem/P1775) 黄
@@ -119,6 +165,8 @@ https://www.luogu.com.cn/problem/P1854
 [P4017 最大食物链计数 - 洛谷](https://www.luogu.com.cn/problem/P4017) 记忆化搜索 | 拓扑排序
 
 [1387. 将整数按权重排序 - 力扣（LeetCode）](https://leetcode.cn/problems/sort-integers-by-the-power-value/description/) 1507
+
+[3040. 相同分数的最大操作数目 II](https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii/)
 
 
 
