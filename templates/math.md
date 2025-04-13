@@ -92,3 +92,22 @@
 **欧拉筛** $O(n)$
 
 > 埃氏筛已经够用了。
+
+
+
+# 快速幂
+
+> $\log n$
+
+```java
+    public long qpow(long a, long n){
+        long ans = 1;
+        while(n > 0){
+            if(n % 2 == 1) ans = ans * a % mod;
+            a = a * a % mod;
+            n >>= 1;
+        }
+        return ans;
+    }
+```
+
