@@ -38,3 +38,11 @@ https://www.luogu.com.cn/problem/P10411?contestId=166040
 
 [1227. 飞机座位分配概率 - 力扣（LeetCode）](https://leetcode.cn/problems/airplane-seat-assignment-probability/description/)
 
+
+
+
+
+---
+
+[2183. 统计可以被 K 整除的下标对数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-array-pairs-divisible-by-k/description/) gcd；预处理因子；
+

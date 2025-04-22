@@ -22,6 +22,8 @@ https://leetcode.cn/problems/the-number-of-beautiful-subsets rating: 2023; 二�
 
 [P5194 [USACO05DEC] Scales S - 洛谷](https://www.luogu.com.cn/problem/P5194)
 
+[E - Maximize XOR](https://atcoder.jp/contests/abc386/tasks/abc386_e) 剪枝；n 个数中选择 k 个数 使得异或和最大。
+
 # 网格图上的DFS
 
 [200. 岛屿数量](https://leetcode.cn/problems/number-of-islands/)

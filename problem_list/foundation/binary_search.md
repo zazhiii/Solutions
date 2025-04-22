@@ -42,7 +42,13 @@ https://www.luogu.com.cn/problem/P1024
 
 [P3853 [TJOI2007] 路标设置 - 洛谷](https://www.luogu.com.cn/problem/P3853)
 
+
+
 [P1182 数列分段 Section II - 洛谷 ](https://www.luogu.com.cn/problem/P1182) 黄
+
+[D-真爱粉Tk（三）_牛客周赛 Round 90](https://ac.nowcoder.com/acm/contest/107500/D)  
+
+
 
 [1011. 在 D 天内送达包裹的能力 - 力扣（LeetCode）](https://leetcode.cn/problems/capacity-to-ship-packages-within-d-days/description/) 1725
 
@@ -56,9 +62,9 @@ https://www.luogu.com.cn/problem/P1024
 
 https://www.luogu.com.cn/problem/P4343
 
-> **注意二分的上下边界**
-
 [1870. 准时到达的列车最小时速 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-speed-to-arrive-on-time/description/)
+
+
 
 ---
 
