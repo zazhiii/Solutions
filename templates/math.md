@@ -12,7 +12,7 @@
 ```java
 	private static boolean isPrime(long n) {
 		if(n < 2) return false;
-		for(int i = 2; i * i <= n; i ++) {		//枚举2~sqrt(n)
+		for(int i = 2; i <= n / i; i ++) {		//枚举2~sqrt(n)
 			if(n % i == 0) return false;
 		}
 		return true;
@@ -64,6 +64,8 @@
 	}
 ```
 
+
+
 ## 3. 质数筛
 
 
@@ -108,6 +110,37 @@
             n >>= 1;
         }
         return ans;
+    }
+```
+
+
+
+# 二进制位中1的个数
+
+> 遍历每一位的方法比较基础，不再赘述
+
+
+
+1. 巧用 `lowBit: n & (n - 1)`，每次去除最低位1
+
+```java
+    public int bitCount(long x){
+        int cnt = 0;
+        while(x > 0){
+            cnt ++;
+            x -= x & (x - 1); 
+        }
+        return cnt;
+    }
+```
+
+
+
+2. Java自带函数
+
+```java
+    public int cntOnes(long x){
+        return Long.bitCount(x);
     }
 ```
 
