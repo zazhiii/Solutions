@@ -76,16 +76,16 @@
 
 ```java
     // 筛出 [0, n] 范围内的质数
-	int cnt = 0, maxn = (int)1e7;
-    int[] p = new int[maxn];
-    boolean[] vis = new boolean[maxn];
-    public void f(int n){
+    public static List<Integer> sift(int n){
+        List<Integer> res = new ArrayList<>(n);
+        boolean[] vis = new boolean[n + 1];
         for(int i = 2; i <= n; i ++){
             if(!vis[i]){
-                p[cnt ++] = i;
-                for(int j = 2 * i; j <= n; j += i) vis[j] = true;
+                res.add(i);
+                for(int j = i + i; j <= n; j += i) vis[j] = true;
             }
         }
+        return res;
     }
 ```
 
