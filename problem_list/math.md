@@ -4,11 +4,17 @@
 
 ## 质数筛
 
-https://www.luogu.com.cn/problem/P5736
+https://www.luogu.com.cn/problem/P5736 橙
+
+https://www.luogu.com.cn/problem/P5723 橙
+
+
 
 [A-数数_牛客练习赛129 (nowcoder.com)](https://ac.nowcoder.com/acm/contest/90074/A)
 
-https://www.luogu.com.cn/problem/P5723
+
+
+https://atcoder.jp/contests/abc383/tasks/abc383_d 884
 
 
 

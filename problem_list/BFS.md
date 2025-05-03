@@ -18,7 +18,13 @@
 
 [P1825 Corn Maze S - 洛谷](https://www.luogu.com.cn/problem/P1825) 黄
 
-[D - Snaky Walk](https://atcoder.jp/contests/abc387/tasks/abc387_d) atc-817
+
+
+[C - Humidifier 3](https://atcoder.jp/contests/abc383/tasks/abc383_c) 446
+
+[D - Snaky Walk](https://atcoder.jp/contests/abc387/tasks/abc387_d) 817
+
+[E - Takahashi is Slime 2](https://atcoder.jp/contests/abc384/tasks/abc384_e) 1002；BFS，优先队列
 
 # 图
 
