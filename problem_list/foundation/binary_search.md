@@ -1,4 +1,4 @@
-# 1. 二分查找
+# 1. 二分查找入门
 
 ## 基础二分查找
 
@@ -7,8 +7,6 @@
 ## `lower_bound`
 
 [35. 搜索插入位置 ](https://leetcode.cn/problems/search-insert-position/) 查找大于等于目标值的最小值的位置。
-
-
 
 ## `leftmost, rightmost`
 
@@ -25,6 +23,8 @@
 [P1102 A-B 数对 - 洛谷](https://www.luogu.com.cn/problem/P1102)
 
 [P1678 烦恼的高考志愿 - 洛谷](https://www.luogu.com.cn/problem/P1678)
+
+https://atcoder.jp/contests/abc382/tasks/abc382_c	476；前缀最小值，二分
 
 # 3. 小数二分
 
@@ -71,10 +71,10 @@ https://www.luogu.com.cn/problem/P4343
 [注意二分上界和check函数及时返回] 
 
 - [2187. 完成旅途的最少时间 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-time-to-complete-trips/description/)
-- [*1500] [F. Final Boss](https://codeforces.com/contest/1985/problem/F)
+- [F. Final Boss](https://codeforces.com/contest/1985/problem/F) [*1500] 
 - [3296. 移山所需的最少秒数 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-number-of-seconds-to-make-mountain-height-zero/description/)
-- [*1100] [E. Building an Aquarium](https://codeforces.com/contest/1873/problem/E)
-- [*1100] [E. Cardboard for Pictures](https://codeforces.com/contest/1850/problem/E)
+- [E. Building an Aquarium](https://codeforces.com/contest/1873/problem/E) [*1100] 
+- [E. Cardboard for Pictures ](https://codeforces.com/contest/1850/problem/E)[*1100]
 
 [1760. 袋子里最少数目的球 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/description/) 1940
 
