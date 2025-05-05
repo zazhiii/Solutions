@@ -10,7 +10,11 @@
 
 [P1216 [USACO1.5\] [IOI1994]数字三角形 Number Triangles - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1216)
 
+> 从小范围开始，寻找规律，得到递推式
 
+[790. 多米诺和托米诺平铺 - 力扣（LeetCode）](https://leetcode.cn/problems/domino-and-tromino-tiling/description/) 
+
+[P1990 覆盖墙壁 - 洛谷](https://www.luogu.com.cn/problem/P1990)
 
 # 二. 背包
 
@@ -99,8 +103,6 @@ https://www.luogu.com.cn/problem/P1854
 [1884. 鸡蛋掉落-两枚鸡蛋 - 力扣（LeetCode）](https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors/description/)
 
 [P1044  栈 - 洛谷](https://www.luogu.com.cn/problem/P1044)  dp | 记忆化搜索
-
-[P1990 覆盖墙壁 - 洛谷](https://www.luogu.com.cn/problem/P1990)  线性dp
 
 [2266. 统计打字方案数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-texts/description/) 1857 计数 线性dp
 

@@ -14,17 +14,25 @@
 
 # 2. 二分的应用
 
-[153. 寻找旋转排序数组中的最小值](https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/)
+https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/
 
-[33. 搜索旋转排序数组 - 力扣（LeetCode）](https://leetcode.cn/problems/search-in-rotated-sorted-array/description/?envType=study-plan-v2&envId=top-100-liked)
+https://leetcode.cn/problems/search-in-rotated-sorted-array
 
-[74. 搜索二维矩阵 - 力扣（LeetCode）](https://leetcode.cn/problems/search-a-2d-matrix/description/?envType=study-plan-v2&envId=top-100-liked)
+https://leetcode.cn/problems/search-a-2d-matrix
 
-[P1102 A-B 数对 - 洛谷](https://www.luogu.com.cn/problem/P1102)
+https://www.luogu.com.cn/problem/P1102
 
-[P1678 烦恼的高考志愿 - 洛谷](https://www.luogu.com.cn/problem/P1678)
+https://www.luogu.com.cn/problem/P1678
 
 https://atcoder.jp/contests/abc382/tasks/abc382_c	476；前缀最小值，二分
+
+
+
+https://atcoder.jp/contests/abc389/tasks/abc389_d	749
+
+https://codeforces.com/contest/1971/problem/F	1600
+
+
 
 # 3. 小数二分
 
