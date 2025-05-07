@@ -2,7 +2,7 @@
 
 # 前缀和
 
-## 一维前缀和
+**一维前缀和**
 
 https://www.luogu.com.cn/problem/P8218【模版】
 
@@ -20,7 +20,7 @@ https://ac.nowcoder.com/acm/problem/14556
 
 
 
-## 二维前缀和
+**二维前缀和**
 
 https://www.luogu.com.cn/problem/P1719
 
@@ -30,11 +30,19 @@ https://www.luogu.com.cn/problem/P2004
 
 # 前缀异或和
 
-https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays 
+https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays	
+
+
+
+# 前后缀分解
+
+https://codeforces.com/contest/2064/problem/C	1300
+
+
 
 # 差分
 
-## 一维差分
+**一维差分**
 
 [P2367 语文成绩 - 洛谷](https://www.luogu.com.cn/problem/P2367) 【模版】
 
@@ -46,9 +54,7 @@ https://leetcode.cn/problems/count-the-number-of-beautiful-subarrays
 
 
 
-
-
-## 二维差分
+**二维差分**
 
 https://www.luogu.com.cn/problem/P3397
 
