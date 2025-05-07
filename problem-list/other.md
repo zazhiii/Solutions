@@ -6,6 +6,10 @@
 
 [Problem - 1990C - Codeforces](https://codeforces.com/problemset/problem/1990/C)
 
+[Problem - B - Codeforces](https://codeforces.com/contest/2025/problem/B)
+
+
+
 # 枚举右，维护左
 
 [数学考试 (nowcoder.com)](https://ac.nowcoder.com/acm/problem/15553)
