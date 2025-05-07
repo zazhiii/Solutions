@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
 // public class Main {
 
-    static public void solve() throws IOException{
+    public static void solve() throws IOException{
         
 
     }

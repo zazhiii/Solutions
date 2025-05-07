@@ -28,6 +28,8 @@
 
 [P2058 [NOIP 2016 普及组] 海港 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P2058) 黄
 
+
+
 ### 求最长/最大
 
 >  移动一次右端点，缩减左端点至区间合法之后记录答案
@@ -57,6 +59,12 @@
 [2516. 每种字符至少取 K 个 - 力扣（LeetCode）](https://leetcode.cn/problems/take-k-of-each-character-from-left-and-right/description/) 1948 每种字符最多出现$sum_i-k$次的最长子数组
 
 [2831. 找出最长等值子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/find-the-longest-equal-subarray/description/) 1976 分组+枚举每个数n次滑窗
+
+
+
+[Problem - C - Codeforces](https://codeforces.com/contest/2025/problem/C)	1300；"最长"、"连续"、"出现不超过k个数" 的子序列
+
+
 
 ### 求最短/最小
 
