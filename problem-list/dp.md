@@ -12,7 +12,7 @@
 
 > 从小范围开始，寻找规律，得到递推式
 
-[790. 多米诺和托米诺平铺 - 力扣（LeetCode）](https://leetcode.cn/problems/domino-and-tromino-tiling/description/) 
+[790. 多米诺和托米诺平铺 - 力扣（LeetCode）](https://leetcode.cn/problems/domino-and-tromino-tiling) 
 
 [P1990 覆盖墙壁 - 洛谷](https://www.luogu.com.cn/problem/P1990)
 
@@ -38,7 +38,7 @@
 
 [P1855 榨取kkksc03 - 洛谷](https://www.luogu.com.cn/problem/P1855) 橙
 
-[2915. 和为目标值的最长子序列的长度 - 力扣（LeetCode）](https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target/description/) 1659
+[2915. 和为目标值的最长子序列的长度 - 力扣（LeetCode）](https://leetcode.cn/problems/length-of-the-longest-subsequence-that-sums-to-target) 1659
 
 
 
@@ -48,7 +48,7 @@
 >
 > 设集合总和为`S`，用一个容量为`S/2`的背包去装集合里的元素，求得能装的最大值`dp[S/2]`则为小于`S/2`且最接近`S/2`的子集，`S-dp[S/2]`则为较大者子集；
 
-[416. 分割等和子集 - 力扣（LeetCode）](https://leetcode.cn/problems/partition-equal-subset-sum/description/) 
+[416. 分割等和子集 - 力扣（LeetCode）](https://leetcode.cn/problems/partition-equal-subset-sum) 
 
 [1049. 最后一块石头的重量 II](https://leetcode.cn/problems/last-stone-weight-ii/)
 
@@ -80,13 +80,15 @@
 
 https://ac.nowcoder.com/acm/problem/226831「最长递增子序列 `LIS`」
 
-[P1115 最大子段和 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1115) 「最大子序列和」
+https://www.luogu.com.cn/problem/P1115 「最大子序列和」
 
 **最长公共子序列**
 
 >    若$A_i=B_i$，$dp[i][j] = dp[i-1][j-1]+1$。
 >
 >    否则，$dp[i][j] = max(dp[i-1][j],dp[i][j-1])$
+
+**编辑距离**
 
 https://www.luogu.com.cn/problem/P2758 「编辑距离」
 
@@ -100,25 +102,13 @@ https://www.luogu.com.cn/problem/P2340
 
 https://www.luogu.com.cn/problem/P1854
 
-[1884. 鸡蛋掉落-两枚鸡蛋 - 力扣（LeetCode）](https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors/description/)
+https://www.luogu.com.cn/problem/P1044  dp | 记忆化搜索
 
-[P1044  栈 - 洛谷](https://www.luogu.com.cn/problem/P1044)  dp | 记忆化搜索
+https://www.luogu.com.cn/problem/P1113 黄；不止一种方法。
 
-[2266. 统计打字方案数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-number-of-texts/description/) 1857 计数 线性dp
+https://www.luogu.com.cn/problem/P1002 橙
 
-[P1113 杂务 - 洛谷](https://www.luogu.com.cn/problem/P1113) 黄；不止一种方法。
-
-[2209. 用地毯覆盖后的最少白色砖块 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-white-tiles-after-covering-with-carpets/description/) 2106
-
-[132. 分割回文串 II - 力扣（LeetCode）](https://leetcode.cn/problems/palindrome-partitioning-ii/description/) 困难
-
-[63. 不同路径 II](https://leetcode.cn/problems/unique-paths-ii/)
-
-[P1002 [NOIP2002 普及组] 过河卒 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1002) 橙
-
-[2140. 解决智力问题 - 力扣（LeetCode）](https://leetcode.cn/problems/solving-questions-with-brainpower/description/) 1709
-
-[P2285 [HNOI2004] 打鼹鼠 - 洛谷](https://www.luogu.com.cn/problem/P2285) 黄
+https://www.luogu.com.cn/problem/P2285 黄
 
 https://www.luogu.com.cn/problem/P3842
 
@@ -142,25 +132,39 @@ https://www.luogu.com.cn/problem/P4933
 
 https://www.luogu.com.cn/problem/P1874
 
+https://www.luogu.com.cn/problem/P1164
+
+https://www.luogu.com.cn/problem/P1077
 
 
- [518. 零钱兑换 II - 力扣（LeetCode）](https://leetcode.cn/problems/coin-change-ii/description/)
 
-[377. 组合总和 Ⅳ - 力扣（LeetCode）](https://leetcode.cn/problems/combination-sum-iv/description/)
+https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors
 
-[322. 零钱兑换](https://leetcode.cn/problems/coin-change/)
+https://leetcode.cn/problems/count-number-of-texts	1857； 计数 线性dp
 
-[279. 完全平方数](https://leetcode.cn/problems/perfect-squares/)
+https://leetcode.cn/problems/minimum-white-tiles-after-covering-with-carpets 2106
 
-[P1164 小A点菜 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1164)
+https://leetcode.cn/problems/palindrome-partitioning-ii	困难
 
-[P1077 [NOIP2012 普及组] 摆花 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)](https://www.luogu.com.cn/problem/P1077)
+https://leetcode.cn/problems/unique-paths-ii/
+
+https://leetcode.cn/problems/solving-questions-with-brainpower1709
+
+https://leetcode.cn/problems/coin-change-ii
+
+https://leetcode.cn/problems/combination-sum-iv
+
+https://leetcode.cn/problems/coin-change/
+
+https://leetcode.cn/problems/perfect-squares/
+
+https://leetcode.cn/problems/total-characters-in-string-after-transformations-i1806
 
 # 五. 区间dp
 
 [P1775 石子合并（弱化版） - 洛谷](https://www.luogu.com.cn/problem/P1775) 黄
 
-[3472. 至多 K 次操作后的最长回文子序列 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-palindromic-subsequence-after-at-most-k-operations/description/) 1884
+[3472. 至多 K 次操作后的最长回文子序列 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-palindromic-subsequence-after-at-most-k-operations) 1884
 
 [D-智乃与长短期主义者博弈_牛客小白月赛110](https://ac.nowcoder.com/acm/contest/101918/D) 
 
@@ -172,7 +176,7 @@ https://www.luogu.com.cn/problem/P1874
 
 [P4017 最大食物链计数 - 洛谷](https://www.luogu.com.cn/problem/P4017) 记忆化搜索 | 拓扑排序
 
-[1387. 将整数按权重排序 - 力扣（LeetCode）](https://leetcode.cn/problems/sort-integers-by-the-power-value/description/) 1507
+[1387. 将整数按权重排序 - 力扣（LeetCode）](https://leetcode.cn/problems/sort-integers-by-the-power-value) 1507
 
 [3040. 相同分数的最大操作数目 II](https://leetcode.cn/problems/maximum-number-of-operations-with-the-same-score-ii/)
 
@@ -194,19 +198,19 @@ https://www.luogu.com.cn/problem/P1874
 
 # 九. 数位dp
 
-[2843. 统计对称整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-symmetric-integers/description/) 1270；枚举 || 数位dp
+[2843. 统计对称整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-symmetric-integers) 1270；枚举 || 数位dp
 
-[902. 最大为 N 的数字组合 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/description/) 1990
+[902. 最大为 N 的数字组合 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set) 1990
 
-[2376. 统计特殊整数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-special-integers/description/) 2120
+[2376. 统计特殊整数 - 力扣（LeetCode）](https://leetcode.cn/problems/count-special-integers) 2120
 
-[1012. 至少有 1 位重复的数字 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-with-repeated-digits/description/) 2230
+[1012. 至少有 1 位重复的数字 - 力扣（LeetCode）](https://leetcode.cn/problems/numbers-with-repeated-digits) 2230
 
-[2999. 统计强大整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/) 2351；**TODO**
+[2999. 统计强大整数的数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-the-number-of-powerful-integers) 2351；**TODO**
 
-[2719. 统计整数数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-of-integers/description/) 2355
+[2719. 统计整数数目 - 力扣（LeetCode）](https://leetcode.cn/problems/count-of-integers) 2355
 
-[600. 不含连续1的非负整数 - 力扣（LeetCode）](https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones/description/) 二进制位的数位dp
+[600. 不含连续1的非负整数 - 力扣（LeetCode）](https://leetcode.cn/problems/non-negative-integers-without-consecutive-ones) 二进制位的数位dp
 
 
 
