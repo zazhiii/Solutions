@@ -72,7 +72,7 @@ https://www.luogu.com.cn/problem/P4343
 
 [1870. 准时到达的列车最小时速 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-speed-to-arrive-on-time/description/)
 
-
+[3356. 零数组变换 II - 力扣（LeetCode）](https://leetcode.cn/problems/zero-array-transformation-ii/description/)	1913；二分、差分；
 
 ---
 

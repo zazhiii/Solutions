@@ -52,7 +52,7 @@ https://codeforces.com/contest/2064/problem/C	1300
 
 [P4552 [Poetize6] IncDec Sequence - 洛谷](https://www.luogu.com.cn/problem/P4552) 绿
 
-
+https://leetcode.cn/problems/zero-array-transformation-i	1591
 
 **二维差分**
 
