@@ -44,6 +44,14 @@ https://www.luogu.com.cn/problem/P1596
 
 https://www.luogu.com.cn/problem/P1162
 
+
+
+# 树上的DFS
+
+https://leetcode.cn/problems/maximize-the-number-of-target-nodes-after-connecting-trees-i	1927
+
+https://leetcode.cn/problems/maximize-the-number-of-target-nodes-after-connecting-trees-ii	2162
+
 # 可抽象成树形的DFS
 
 > 搜索的路径想象成一棵树

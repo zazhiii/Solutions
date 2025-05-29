@@ -148,7 +148,7 @@ https://leetcode.cn/problems/palindrome-partitioning-ii	困难
 
 https://leetcode.cn/problems/unique-paths-ii/
 
-https://leetcode.cn/problems/solving-questions-with-brainpower1709
+https://leetcode.cn/problems/solving-questions-with-brainpower	1709
 
 https://leetcode.cn/problems/coin-change-ii
 
@@ -158,7 +158,9 @@ https://leetcode.cn/problems/coin-change/
 
 https://leetcode.cn/problems/perfect-squares/
 
-https://leetcode.cn/problems/total-characters-in-string-after-transformations-i1806
+https://leetcode.cn/problems/total-characters-in-string-after-transformations-i	1806
+
+https://leetcode.cn/problems/find-the-maximum-sum-of-node-values	2268；思考树上操作有什么性质？
 
 # 五. 区间dp
 
