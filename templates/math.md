@@ -12,7 +12,7 @@
 ```java
 	private static boolean isPrime(long n) {
 		if(n < 2) return false;
-		for(int i = 2; i <= n / i; i ++) {		//枚举2~sqrt(n)
+		for(int i = 2; i <= n / i; i ++) {		//枚举 2 ~ sqrt(n)
 			if(n % i == 0) return false;
 		}
 		return true;

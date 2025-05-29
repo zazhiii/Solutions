@@ -28,4 +28,5 @@
 
 # 图
 
-[P2853 [USACO06DEC] Cow Picnic S - 洛谷](https://www.luogu.com.cn/problem/P2853) 黄
+https://www.luogu.com.cn/problem/P2853	黄
+
