@@ -4,6 +4,14 @@
 
 ## 质数筛
 
+https://leetcode.cn/problems/prime-pairs-with-target-sum	1505
+
+https://leetcode.cn/problems/closest-prime-numbers-in-range	1650
+
+https://leetcode.cn/problems/prime-subtraction-operation	1779
+
+
+
 https://www.luogu.com.cn/problem/P5736 橙
 
 https://www.luogu.com.cn/problem/P5723 橙
