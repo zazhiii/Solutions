@@ -1,3 +1,18 @@
+
+
+# Array
+
+## Arrays类
+
+比较两个数组元素是否全部相等
+
+```java
+int[] a = {}, b = {};
+Arrays.equals(a, b);
+```
+
+
+
 # `TreeSet`
 
 

@@ -19,6 +19,17 @@
 	}
 ```
 
+```python
+# python
+def is_prime(x: int) -> bool:
+    for i in range(2, isqrt(x) + 1):
+        if x % i == 0:
+            return False
+    return x >= 2
+```
+
+
+
 **较大质数判断 ---- Miller-Rabin测试**
 
 > Java中的`BigInteger`已经封装好了Miller-Rabin测试，直接调用即可。
@@ -68,9 +79,11 @@
 
 ## 3. 质数筛
 
+> $0\sim10^6$中的质数有：$78498$个
+>
+> $0\sim10^7$中的质数有：$664579$个
 
-
-**埃氏筛** $O(n\log(\log n))$
+🌟**埃氏筛** $O(n\log(\log n))$
 
 从小到大寻找因数，筛掉每一个因数的倍数。在遇到一个没有被筛掉的数时它一定是质数，如果是合数那么他一定会被他之前的因数筛掉
 
