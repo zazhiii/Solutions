@@ -162,6 +162,8 @@ https://leetcode.cn/problems/total-characters-in-string-after-transformations-i	
 
 https://leetcode.cn/problems/find-the-maximum-sum-of-node-values	2268；思考树上操作有什么性质？
 
+https://leetcode.cn/problems/count-partitions-with-max-min-difference-at-most-k/ 单调队列优化 dp
+
 # 五. 区间dp
 
 [P1775 石子合并（弱化版） - 洛谷](https://www.luogu.com.cn/problem/P1775) 黄

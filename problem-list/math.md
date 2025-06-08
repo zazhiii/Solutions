@@ -36,7 +36,7 @@ https://atcoder.jp/contests/abc383/tasks/abc383_d 884
 
 ## 质数分解
 
-https://www.luogu.com.cn/problem/P10411?contestId=166040
+https://www.luogu.com.cn/problem/P10411
 
 
 
