@@ -108,6 +108,16 @@ def is_prime(x: int) -> bool:
 
 > 埃氏筛已经够用了。
 
+# 最大公约数 gcd
+
+```java
+    public static int gcd(int a, int b){
+        return b == 0 ? a : gcd(b, a % b);
+    }
+```
+
+
+
 
 
 # 快速幂
