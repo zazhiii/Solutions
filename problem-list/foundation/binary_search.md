@@ -49,7 +49,7 @@ https://www.luogu.com.cn/problem/P1024
 [P2678 [NOIP2015 提高组] 跳石头 - 洛谷](https://www.luogu.com.cn/problem/P2678)
 
 [P3853 [TJOI2007] 路标设置 - 洛谷](https://www.luogu.com.cn/problem/P3853)
-
+https://leetcode.cn/problems/minimize-the-maximum-difference-of-pairs    2155
 
 
 [P1182 数列分段 Section II - 洛谷 ](https://www.luogu.com.cn/problem/P1182) 黄
