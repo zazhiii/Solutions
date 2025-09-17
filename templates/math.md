@@ -108,17 +108,19 @@ def is_prime(x: int) -> bool:
 
 > 埃氏筛已经够用了。
 
-# 最大公约数 gcd
+# 最大公约数 GCD & 最小公倍数LCM
 
 ```java
+	// GCD
     public static int gcd(int a, int b){
         return b == 0 ? a : gcd(b, a % b);
     }
+    
+    // LCM
+    public static int lcm(int a, int b){
+	    return a / gcd(a, b) * b;
+    }
 ```
-
-
-
-
 
 # 快速幂
 

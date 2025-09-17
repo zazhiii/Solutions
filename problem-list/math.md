@@ -52,7 +52,8 @@ https://www.luogu.com.cn/problem/P10411
 
 [1227. 飞机座位分配概率 - 力扣（LeetCode）](https://leetcode.cn/problems/airplane-seat-assignment-probability/description/)
 
-
+# GCD | LCM
+https://leetcode.cn/problems/replace-non-coprime-numbers-in-array
 
 
 
