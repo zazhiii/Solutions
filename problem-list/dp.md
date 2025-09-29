@@ -172,7 +172,7 @@ https://leetcode.cn/problems/count-partitions-with-max-min-difference-at-most-k/
 
 [D-智乃与长短期主义者博弈_牛客小白月赛110](https://ac.nowcoder.com/acm/contest/101918/D) 
 
-
+https://leetcode.cn/problems/minimum-score-triangulation-of-polygon/	2130；区间dp + 枚举 + 记忆化搜索
 
 # 六. 记忆化搜索
 
